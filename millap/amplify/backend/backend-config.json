@@ -1,0 +1,9 @@
+{
+    "auth": {},
+    "hosting": {
+        "amplifyhosting": {
+            "service": "amplifyhosting",
+            "type": "cicd"
+        }
+    }
+}
