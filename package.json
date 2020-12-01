@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@aws-amplify/ui-react": "^0.2.31",
+    "aws-amplify": "^3.3.11"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/boggzer/milla.git"

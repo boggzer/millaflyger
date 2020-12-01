@@ -6,6 +6,7 @@ frontend:
         - npm install
     build:
       commands:
+        - cd millap
         - npm build
   artifacts:
     baseDirectory: dist
