@@ -1,1 +1,2 @@
-# milla
+# Milla Flyger
+## An interactive web portfolio

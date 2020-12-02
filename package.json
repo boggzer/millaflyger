@@ -2,7 +2,20 @@
   "name": "milla-flyger-portfolio",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "millap/src/index",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "lint-staged": "^10.5.2",
+    "prettier": "^2.2.1",
+    "typescript": "^4.0.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/boggzer/milla.git"

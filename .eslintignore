@@ -1,0 +1,5 @@
+**/**.js
+**/node_modules/**/*
+.eslintrc.js
+src/build/*
+src/public/*
