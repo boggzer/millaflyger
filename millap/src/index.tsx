@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Amplify from "aws-amplify";
 // eslint-disable-next-line
-import awsExports from '../../src/aws-exports.js';
+import awsExports from './aws-exports';
 import App from './App';
 Amplify.configure(awsExports);
 // import reportWebVitals from './reportWebVitals';
