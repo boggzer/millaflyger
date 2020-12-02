@@ -2,7 +2,7 @@ version: 1
 env:
   variables:
     APP_DIR: millap
-    OUTPUT_DIR: dist
+    OUTPUT_DIR: build
 frontend:
   phases:
     preBuild:
@@ -14,7 +14,7 @@ frontend:
       commands:
         - npm run-script build
   artifacts:
-    baseDirectory: /millap/dist
+    baseDirectory: /millap/build
     files:
       - '/*'
   cache:
