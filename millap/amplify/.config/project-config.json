@@ -8,8 +8,8 @@
   "javascript": {
     "framework": "react",
     "config": {
-      "SourceDir": "millap/src",
-      "DistributionDir": "millap/dist",
+      "SourceDir": "src",
+      "DistributionDir": "build",
       "BuildCommand": "npm run-script build",
       "StartCommand": "npm run-script start"
     }
