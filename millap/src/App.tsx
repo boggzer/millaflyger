@@ -1,11 +1,11 @@
 import React from 'react';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+// import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <AmplifySignOut />
+      {/* <AmplifySignOut /> */}
       <header className="App-header">
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -23,4 +23,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default App;
