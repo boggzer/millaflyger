@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Amplify from "aws-amplify";
+import awsExports from '../../src/aws-exports.js';
 import App from './App';
+Amplify.configure(awsExports);
 // import reportWebVitals from './reportWebVitals';
 
 // Amplify.configure(awsconfig);
