@@ -1,27 +1,29 @@
 version: 1
-env:
-  variables:
-    OUTPUT_DIR: build
-backend:
-  phases:
-    build:
-      commands:
-        - amplifyPush --simple
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - echo 'Pre-building...'
-        - mkdir ./${OUTPUT_DIR}
-        - npm install
-    build:
-      commands:
-        - echo 'Building...'
-        - npm run-script build
-  artifacts:
-    baseDirectory: /millap/build
-    files:
-      - '/*'
-  cache:
-    paths:
-      - node_modules/**/*
+applications:
+  - appRoot: /millap
+    env:
+      variables:
+        OUTPUT_DIR: build
+    backend:
+      phases:
+        build:
+          commands:
+            - amplifyPush --simple
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - echo 'Pre-building...'
+            - mkdir ./${OUTPUT_DIR}
+            - npm install
+        build:
+          commands:
+            - echo 'Building...'
+            - npm run-script build
+      artifacts:
+        baseDirectory: /millap/build
+        files:
+          - '/*'
+      cache:
+        paths:
+          - node_modules/**/*
