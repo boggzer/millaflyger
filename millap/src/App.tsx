@@ -1,11 +1,9 @@
 import React from 'react';
-// import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      {/* <AmplifySignOut /> */}
       <header className="App-header">
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
