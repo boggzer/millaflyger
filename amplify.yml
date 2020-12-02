@@ -1,17 +1,22 @@
 version: 1
+env:
+  variables:
+    APP_DIR: millap
+    OUTPUT_DIR: dist
 frontend:
   phases:
     preBuild:
       commands:
+        - cd ${APP_DIR}
+        - mkdir ./${OUTPUT_DIR}
         - npm install
     build:
       commands:
-        - cd millap
-        - npm build
+        - npm run-script build
   artifacts:
-    baseDirectory: dist
+    baseDirectory: /${APP_DIR}/${OUTPUT_DIR}
     files:
-      - '**/*'
+      - '/*'
   cache:
     paths:
       - node_modules/**/*
