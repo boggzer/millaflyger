@@ -14,7 +14,7 @@ frontend:
       commands:
         - npm run-script build
   artifacts:
-    baseDirectory: /${APP_DIR}/${OUTPUT_DIR}
+    baseDirectory: /millap/dist
     files:
       - '/*'
   cache:
