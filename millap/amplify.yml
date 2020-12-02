@@ -11,7 +11,6 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd millap
         - echo 'Pre-building...'
         - mkdir ./${OUTPUT_DIR}
         - npm install
