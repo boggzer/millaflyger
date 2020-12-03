@@ -1,5 +1,4 @@
 {
-    "auth": {},
     "hosting": {
         "amplifyhosting": {
             "service": "amplifyhosting",

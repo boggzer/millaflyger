@@ -1,5 +1,8 @@
 import React from 'react';
 import './assets/fontface/didot/didot.css';
+import Amplify from 'aws-amplify';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 // import { useSpring, animated } from 'react-spring';
 
 const Root = (): React.ReactElement => (
