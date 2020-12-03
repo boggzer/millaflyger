@@ -7,5 +7,9 @@
     "amplify/#current-cloud-backend": true,
     "amplify/backend/amplify-meta.json": true,
     "amplify/backend/awscloudformation": true
-  }
+  },
+  "eslint.run": "onSave",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "eslint.workingDirectories": ["millap"]
 }

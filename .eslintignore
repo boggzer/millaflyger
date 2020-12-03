@@ -1,6 +1,8 @@
-**/**.js
+**/*.js
 node_modules
+node_modules/
+*/node_modules/**/*
 **/node_modules/**/*
 .eslintrc.js
-src/build/*
-src/public/*
+*/src/build/*
+*/src/public/*

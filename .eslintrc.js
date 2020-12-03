@@ -5,21 +5,26 @@ module.exports = {
 		es6: true,
 		node: true
 	},
+	files: ['**/*.ts?(x)'],
+	parser: '@typescript-eslint/parser',
 	extends: [
 		'eslint:recommended',
 		'plugin:react/recommended',
-		'plugin:@typescript-eslint/recommended'
+		'plugin:@typescript-eslint/recommended',
+		'plugin:react-hooks/recommended',
+		'prettier',
+		'prettier/react'
 	],
-	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaFeatures: {
 			'jsx': true
 		},
-		ecmaVersion: 12,
+		ecmaVersion: 2018,
 		sourceType: 'module'
 	},
 	plugins: [
 		'react',
+		'eslint-plugin-react',
 		'@typescript-eslint'
 	],
 	rules: {
