@@ -1,8 +1,5 @@
 **/*.js
-node_modules
-node_modules/
-*/node_modules/**/*
+millap/build
+millap/public
 **/node_modules/**/*
 .eslintrc.js
-*/src/build/*
-*/src/public/*
