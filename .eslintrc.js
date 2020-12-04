@@ -18,15 +18,12 @@ module.exports = {
     'react-hooks',
     'eslint-plugin-react',
     '@typescript-eslint',
-    'prettier',
   ],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'prettier',
-    'prettier/react',
   ],
 
   rules: {
