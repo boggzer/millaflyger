@@ -18,6 +18,7 @@ module.exports = {
     'react-hooks',
     'eslint-plugin-react',
     '@typescript-eslint',
+    'prettier',
   ],
   extends: [
     'eslint:recommended',
