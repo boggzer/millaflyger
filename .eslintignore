@@ -1,4 +1,3 @@
-**/*.js
 millap/build
 millap/public
 **/node_modules/**/*
