@@ -35,8 +35,12 @@ typings/
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
+# aws auto-generated file
 src/aws-exports.js
-
 aws-exports.js
 
+# etc docs
+docs
+
+# apple file
 .DS_Store
