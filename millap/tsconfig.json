@@ -8,8 +8,11 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": ["dom", "es2019"],
-    "module": "es6",
+    "lib": [
+      "dom",
+      "es2019"
+    ],
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
@@ -19,9 +22,19 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es6",
-    "types": ["node"],
-    "typeRoots": ["@types", "node_modules/@types"]
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "@types",
+      "node_modules/@types"
+    ]
   },
-  "exclude": ["./node_modules"],
-  "include": ["./src", "./server"]
+  "exclude": [
+    "./node_modules"
+  ],
+  "include": [
+    "./src",
+    "./server"
+  ]
 }
