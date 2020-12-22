@@ -1,5 +1,5 @@
 {
-  "type": "module",
+  "name": "millap",
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.31",
