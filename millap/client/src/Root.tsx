@@ -3,7 +3,6 @@ import './assets/fontface/didot/didot.css';
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
-// import { useSpring, animated } from 'react-spring';
 
 const Root = (): React.ReactElement => (
   <div
@@ -16,7 +15,7 @@ const Root = (): React.ReactElement => (
       marginTop: '-6.5rem',
       letterSpacing: '0.02rem',
       fontWeight: 'bold',
-      color: 'rgb(14, 13, 13)'
+      color: 'rgb(14, 13, 13)',
     }}
   >
     <p style={{ margin: 0, fontSize: '3.2rem' }}>Milla Flyger</p>
