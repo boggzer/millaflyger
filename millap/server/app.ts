@@ -1,19 +1,27 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import express from 'express'
-import cors from 'cors'
-const app = express()
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }))
+dotenv.config({ path: '../.env' });
 
-const port = process.env.PORT || 8080
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000', 'https://www.millaflyger.com/'],
+  }),
+);
+
+const port = process.env.DEV_PORT || process.env.PORT || 8080;
 
 app.use((req, res) => {
-  res.status(404).json({ message: 'Error' })
-})
+  res.status(404).json({ message: 'Error' });
+});
+app.listen(port, () => console.log('Server is listening on port 8080'));
 
-app.listen(port, () => console.log('Server is listening on port 8080'))
-
-export default app
+export default app;
