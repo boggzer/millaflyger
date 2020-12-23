@@ -11,13 +11,6 @@
     "@types/node": "^12.19.9",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
-    "aws-amplify": "^3.3.11",
-    "aws-amplify-react": "^4.2.15",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "react-spring": "^8.0.27",
-    "use-debounce": "^5.2.0",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
@@ -32,7 +25,7 @@
     "typescript": "^4.0.3"
   },
   "scripts": {
-    "build-all": "cd client && npm run build",
+    "build": "cd client && npm run build",
     "dev": "concurrently -n \"client,server\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm:dev-client\" \"npm:dev-server\"",
     "dev-client": "cd client && npm run start",
     "dev-server": "./node_modules/.bin/ts-node-dev --rs --respawn --transpile-only -r dotenv/config server/app.ts"
