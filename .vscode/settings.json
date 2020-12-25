@@ -1,0 +1,12 @@
+{
+  "eslint.nodePath": "/Users/jonathanbogg1/Documents/GitHub/milla/.eslintrc.js",
+  "eslint.validate": ["javascript", "javascriptreact", "typescriptreact"],
+  // "eslint.workingDirectories": ["millap/src"],
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "eslint.run": "onSave",
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
