@@ -5,6 +5,10 @@ npm-debug.log*
 firebase-debug.log*
 firebase-debug.*.log*
 
+# VS settings
+.vscode
+./.vscode
+
 # Firebase cache
 .firebase/
 
