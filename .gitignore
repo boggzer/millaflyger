@@ -5,9 +5,8 @@ npm-debug.log*
 firebase-debug.log*
 firebase-debug.*.log*
 
-# VS settings
+# VS code settings
 .vscode
-./.vscode
 
 # Firebase cache
 .firebase/
@@ -53,3 +52,6 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+
+# Mac OS file
+.DS_Store
