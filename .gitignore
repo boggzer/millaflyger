@@ -16,6 +16,7 @@ millap/server/firebase/functions/config
 millap/server/firebase/functions/typings
 millap/server/firebase/functions/**/*.js
 millap/server/firebase/functions/**/*.js.map
+team-provider-info.json
 .firebaserc
 firestore.rules
 millap/server/firebase/functions/lib
