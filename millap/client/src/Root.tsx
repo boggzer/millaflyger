@@ -1,8 +1,8 @@
 import React from 'react';
 import './assets/fontface/didot/didot.css';
-// import Amplify from 'aws-amplify';
-// import awsExports from './aws-exports';
-// Amplify.configure(awsExports);
+import Amplify from 'aws-amplify';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
 const Root = (): React.ReactElement => (
   <div
