@@ -6,6 +6,15 @@
     "node": "12.18.4"
   },
   "main": "millap/client/src/index",
+  "scripts": {
+    "install:firebase": "cd millap/server/firebase && npm i",
+    "install:server": "cd millap/server && npm i",
+    "install:firebase-functions": "cd millap/server/firebase/functions && npm i",
+    "install:client": "cd millap/client && npm i",
+    "install:main": "cd millap && npm i",
+    "install:root": "npm i",
+    "install-deps": "run-s install:**"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
