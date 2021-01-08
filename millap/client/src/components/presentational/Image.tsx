@@ -1,19 +1,22 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { HTMLAttributes } from 'react';
 import { isObject } from 'lodash';
 import { ImageSizes } from '../../utils/constants';
 import { ImageCardProps } from './ImageCard';
 
 const Image = ({
-  alt,
+  classes,
   imageSource,
   ImageStyleProps,
   onClick,
   title,
   size,
+  style,
   ...props
 }: ImageCardProps): React.ReactElement => {
+  console.log(props);
   return (
-    <picture onClick={onClick}>
+    <picture onClick={onClick} style={{ ...style }}>
       {isObject(imageSource) ? (
         Object.keys(imageSource).map(
           (key: string, i: number, arr: string[]): React.ReactElement =>
@@ -21,20 +24,19 @@ const Image = ({
               <source key={key} srcSet={imageSource[key as keyof ImageSizes]} />
             ) : (
               <img
-                style={{ ...ImageStyleProps }}
-                alt={alt}
                 src={imageSource[key as keyof ImageSizes]}
                 title={title}
+                {...ImageStyleProps}
               />
             ),
         )
       ) : (
         <img
-          style={{ ...ImageStyleProps }}
-          alt={alt}
+          className={classes}
           src={imageSource}
           width={size}
           title={title}
+          {...ImageStyleProps}
         />
       )}
     </picture>

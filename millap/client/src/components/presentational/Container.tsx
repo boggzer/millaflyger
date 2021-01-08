@@ -1,15 +1,16 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, HTMLAttributes } from 'react';
 
-interface ContainerProps {
+interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+  classes?: string;
   type?: 'grid' | 'single' | 'thumbnail' | 'list';
-  ContainerStyleProps?: CSSProperties;
   children?: React.ReactNode;
 }
 
 const Container = ({
+  classes,
   type,
-  ContainerStyleProps,
   children,
+  ...props
 }: ContainerProps): React.ReactElement => {
   const gridStyle: CSSProperties = {
     display: 'flex',
@@ -27,13 +28,21 @@ const Container = ({
   const listStyle: CSSProperties = { display: 'flex', flexDirection: 'column' };
 
   return type === 'grid' ? (
-    <div style={{ ...gridStyle, ...ContainerStyleProps }}>{children}</div>
+    <div className={classes} style={{ ...gridStyle, ...props }}>
+      {children}
+    </div>
   ) : type === 'thumbnail' ? (
-    <div style={{ ...ContainerStyleProps }}>{children}</div>
+    <div className={classes} style={{ ...props }}>
+      {children}
+    </div>
   ) : type === 'list' ? (
-    <div style={{ ...listStyle }}>{children}</div>
+    <div className={classes} style={{ ...props }}>
+      {children}
+    </div>
   ) : (
-    <div style={{ ...ContainerStyleProps }}>{children}</div>
+    <div className={classes} {...props}>
+      {children}
+    </div>
   );
 };
 
