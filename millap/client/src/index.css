@@ -1,10 +1,18 @@
 body {
   margin: 0;
   height: 100vh;
+  font-family: 'Didot';
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: rgb(221, 225, 228);
+}
+
+a,
+a:active,
+a:visited,
+a:hover {
+  color: #000000;
 }
