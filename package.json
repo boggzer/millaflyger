@@ -7,9 +7,6 @@
   },
   "main": "millap/client/src/index",
   "scripts": {
-    "install:firebase": "cd millap/server/firebase && npm i",
-    "install:server": "cd millap/server && npm i",
-    "install:firebase-functions": "cd millap/server/firebase/functions && npm i",
     "install:client": "cd millap/client && npm i",
     "install:main": "cd millap && npm i",
     "install:root": "npm i",
