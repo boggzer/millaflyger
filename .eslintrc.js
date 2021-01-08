@@ -30,7 +30,7 @@ module.exports = {
     quotes: ['error', 'single'],
     indent: ['error', 2],
     'no-trailing-spaces': 'error',
-    'no-console': 'error',
+    'no-console': 'warn',
     'no-unused-vars': 'warn',
   },
   settings: {
@@ -38,4 +38,4 @@ module.exports = {
       version: 'latest',
     },
   },
-}
+};
