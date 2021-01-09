@@ -47,7 +47,7 @@ const Grid = ({
             }}
             classes={`${styles.image} ${innerContainerClasses}`}
             key={i}
-            imageSource={images[i]?.source[0].S}
+            imageSource={images[i]?.source[0]}
           />
         ))}
     </Container>

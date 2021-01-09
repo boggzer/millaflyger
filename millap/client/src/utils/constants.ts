@@ -9,11 +9,11 @@ enum ImageSize {
 }
 
 export type ImageSizes = {
-  XS: 97;
-  S: 323;
-  M: 647;
-  L: 970;
-  XL: 1294;
+  XS: string;
+  S: string;
+  M: string;
+  L: string;
+  XL: string;
 };
 
 export type SizeType = { x: number; y: number };
