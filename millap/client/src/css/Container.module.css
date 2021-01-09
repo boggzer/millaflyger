@@ -1,7 +1,8 @@
 .grid {
   display: flex;
-  flex-direction: row;
   height: 100%;
-  justify-content: space-evenly;
   width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* width: 100%; */
 }

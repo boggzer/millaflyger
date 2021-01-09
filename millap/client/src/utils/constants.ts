@@ -16,6 +16,8 @@ export type ImageSizes = {
   XL: 1294;
 };
 
+export type SizeType = { x: number; y: number };
+
 enum ratio {
   ONE = 1.62,
   TWO = 3.2,

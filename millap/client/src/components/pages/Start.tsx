@@ -36,7 +36,7 @@ const Start = (): React.ReactElement => {
         1,
       ],
       title: 'Portfolio',
-      link: 'home',
+      link: 'all',
       img: imageTwo,
     },
   ];

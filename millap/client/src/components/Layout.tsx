@@ -7,6 +7,8 @@ import Grid from './presentational/Grid';
 import Container from './presentational/Container';
 import { ProjectsContext } from '../contexts/projectsContext';
 import { ProjectDataType } from '../utils/types';
+import Project from './presentational/Project';
+import Navigation from './presentational/Navigation';
 
 const Layout = (): React.ReactElement => {
   // const { projects } = useContext(ProjectsContext);
@@ -127,11 +129,12 @@ const Layout = (): React.ReactElement => {
         <Route exact path='/' render={() => <Start />} />
         <Route path='/about' render={() => <About />} />
         <Route
-          path='/home'
+          path='/all'
           render={() => (
             <>
+              <Navigation />
               {data.map((p, i) => (
-                <Grid key={p.title} content={data[i]} />
+                <Grid key={p.title} {...data[i]} />
               ))}
             </>
           )}
@@ -140,7 +143,12 @@ const Layout = (): React.ReactElement => {
           <Route
             key={`route-${slugify(p?.title)}`}
             path={`/${slugify(p?.title, { lower: true })}`}
-            render={() => <Grid content={data[i]} />}
+            render={() => (
+              <>
+                <Navigation />
+                <Project content={data[i]} />
+              </>
+            )}
           />
         ))}
       </Switch>

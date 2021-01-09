@@ -1,14 +1,13 @@
 .innerContainer {
-  height: 80vh !important;
   max-width: 80vw;
   flex-wrap: wrap;
-  overflow: hidden;
+  overflow-x: hidden;
   align-items: center;
 }
 
 .innerContainer img {
   height: auto;
-  width: 8.1rem;
+  width: 10.1rem;
 }
 
 .outerContainer {
@@ -17,6 +16,14 @@
 
 .image {
   height: auto;
+}
+
+.shrink {
+  animation: flexShrink 500ms ease forwards;
+}
+
+.grow {
+  animation: flexGrow 500ms ease forwards;
 }
 
 @media (max-width: 641px) {
@@ -28,5 +35,17 @@
 @media (max-width: 800px) {
   .innerContainer {
     max-width: 30rem;
+  }
+}
+
+@keyframes flexGrow {
+  to {
+    flex: 1;
+  }
+}
+@keyframes flexShrink {
+  to {
+    flex: 0.01;
+    flex: 0.00001;
   }
 }

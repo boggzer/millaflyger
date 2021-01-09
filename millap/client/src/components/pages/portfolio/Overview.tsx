@@ -1,10 +1,11 @@
 import React from 'react';
+import { ProjectDataType } from '../../../utils/types';
 import Grid from '../../presentational/Grid';
 
 interface ProjectProps {
-  content?: React.ReactElement;
+  content: ProjectDataType;
 }
 
-const Overview = (props: ProjectProps) => {
-  return <Grid />;
+const Overview = ({ content }: ProjectProps) => {
+  return <Grid {...content} />;
 };

@@ -1,3 +1,12 @@
+:root {
+  --RATIO: 1.62;
+  --RATIO_ONE: 0.1rem;
+  --RATIO_TWO: 0.3rem;
+  --RATIO_THREE: 0.5rem;
+  --RATIO_FOUR: 0.7rem;
+  --RATIO_FIVE: 0.9rem;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -8,7 +17,12 @@ body {
   align-items: center;
   justify-content: center;
   background: rgb(221, 225, 228);
-  box-sizing: border-box;
+  box-sizing: content-box !important;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }
 
 a,

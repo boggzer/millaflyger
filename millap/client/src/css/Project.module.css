@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  /* margin: calc(var(--RATIO_FIVE) * (var(--RATIO) * 2)); */
+}
+
+.main {
+  height: 100%;
+  align-items: stretch;
+  justify-content: space-around;
+  overflow: hidden;
+  transition: margin 700ms;
+  flex-wrap: nowrap;
+  max-width: unset;
+  width: 80%;
+}
+
+.imageCard {
+  width: 100%;
+}
+
+.imageCard picture {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.imageCard img {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}
+
+.ett-frammande-motiv {
+}
+
+@media screen and (max-width: 641px) {
+  .imageCard {
+    max-width: 640px;
+    height: auto;
+  }
+}

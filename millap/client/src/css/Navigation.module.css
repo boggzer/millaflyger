@@ -20,7 +20,9 @@
 
 .container {
   overflow: hidden;
-  position: absolute;
   height: 18.75rem;
+  width: 5rem;
+  position: absolute;
+  top: 0;
   left: 0.8vw;
 }

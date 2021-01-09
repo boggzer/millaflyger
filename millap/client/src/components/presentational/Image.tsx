@@ -4,18 +4,23 @@ import { isObject } from 'lodash';
 import { ImageSizes } from '../../utils/constants';
 import { ImageCardProps } from './ImageCard';
 
+interface ImageProps extends ImageCardProps {
+  pictureClasses?: string;
+}
+
 const Image = ({
   classes,
   imageSource,
   ImageProps,
   onClick,
+  pictureClasses,
   title,
   size,
   style,
   ...props
-}: ImageCardProps): React.ReactElement => {
+}: ImageProps): React.ReactElement => {
   return (
-    <picture onClick={onClick} style={{ ...style }}>
+    <picture onClick={onClick} className={pictureClasses}>
       {isObject(imageSource) ? (
         Object.keys(imageSource).map(
           (key: string, i: number, arr: string[]): React.ReactElement =>

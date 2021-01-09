@@ -1,19 +1,23 @@
-import React, { CSSProperties, HTMLAttributes } from 'react';
+import React, {
+  forwardRef,
+  CSSProperties,
+  HTMLAttributes,
+  ForwardedRef,
+} from 'react';
 import { ratio } from '../../utils/constants';
 
-interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
+interface TextProps extends HTMLAttributes<HTMLDivElement> {
   containerClasses?: string;
   textClasses?: string;
   type?: 'link';
   children?: React.ReactNode;
+  ref?: any;
 }
 
-const Text = ({
-  containerClasses,
-  textClasses,
-  type,
-  children,
-}: TextProps): React.ReactElement => {
+const Text = (
+  { containerClasses, textClasses, type, children, ...props }: TextProps,
+  ref: ForwardedRef<any>,
+): React.ReactElement => {
   const containerStyle: CSSProperties = { margin: ratio.TWO };
   const textStyle: CSSProperties = { margin: ratio.ONE };
 
@@ -22,7 +26,12 @@ const Text = ({
       {type === 'link' ? (
         <a>{children}</a>
       ) : (
-        <div className={containerClasses} style={{ ...containerStyle }}>
+        <div
+          ref={ref}
+          className={containerClasses}
+          style={{ ...containerStyle }}
+          {...props}
+        >
           <p className={textClasses} style={{ ...textStyle }}>
             {children}
           </p>
@@ -32,4 +41,4 @@ const Text = ({
   );
 };
 
-export default Text;
+export default forwardRef(Text);
