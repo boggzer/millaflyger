@@ -8,11 +8,7 @@ type ProjectsContextType = {
 };
 
 type GraphqlDataType = {
-  data: {
-    listProjectModels: {
-      items: ProjectDataType[];
-    };
-  };
+  data: ProjectDataType[];
 };
 
 export const ProjectsContext = createContext<ProjectsContextType>({});
@@ -23,11 +19,11 @@ const ProjectsProvider = (props: any): JSX.Element => {
   useEffect(() => {
     const getProjects = async () => {
       const data: GraphqlDataType = await API.get('projectapi', '/project', '');
-      setProjects(data?.data?.listProjectModels?.items);
+      setProjects(data?.data);
     };
     getProjects();
   }, []);
-*/
+  console.log(projects);*/
   return (
     <ProjectsContext.Provider value={{ projects }}>
       {props.children}

@@ -4,9 +4,11 @@ import { ComponentPropsWithRef } from 'react';
 import { animated, UseSpringProps, useSpring } from 'react-spring';
 
 interface AnimatedContainerProps {
-  AnimationProps?: UseSpringProps<any> & {
-    interpolationCalc: (x: number, y: number) => number[];
-  };
+  AnimationProps?:
+    | UseSpringProps<any>
+    | {
+        interpolationCalc: (x: number, y: number) => number[];
+      };
   children?: any;
   classes?: string;
   type?: 'interpolation';
@@ -28,7 +30,12 @@ const AnimatedContainer = ({
 }: AnimatedContainerProps): ComponentPropsWithRef<any> => {
   const [propss, set] = useSpring(() => ({
     xys: [0, 0, 1],
-    config: { mass: 2, tension: 50, friction: 200 },
+    config: {
+      mass: 2,
+      tension: 20,
+      friction: 50,
+      easing: (num: number) => 4,
+    },
   }));
 
   return (
@@ -48,7 +55,6 @@ const AnimatedContainer = ({
           transform:
             propss.xys?.interpolate && propss.xys.interpolate(trans as any),
         }}
-        {...AnimationProps}
       >
         {children}
       </animated.div>

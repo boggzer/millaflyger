@@ -1,8 +1,7 @@
-import React, { MouseEvent, MouseEventHandler, useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '../presentational/Container';
 import styles from '../../css/Start.module.css';
-import { ratio } from '../../utils/constants';
 import Image from '../presentational/Image';
 import Text from '../presentational/Text';
 import FilmNoise from '../effects/FilmNoise';
@@ -27,6 +26,7 @@ const Start = (): React.ReactElement => {
         1,
       ],
       title: 'Story',
+      link: 'story',
       img: imageOne,
     },
     {
@@ -36,19 +36,20 @@ const Start = (): React.ReactElement => {
         1,
       ],
       title: 'Portfolio',
+      link: 'home',
       img: imageTwo,
     },
   ];
 
   return (
     <Container type='grid' classes={styles.container}>
-      {content.map(({ animationCalc: interpolationCalc, title, img }) => (
+      {content.map(({ animationCalc: interpolationCalc, title, link, img }) => (
         <AnimatedContainer
           key={title}
           type='interpolation'
           AnimationProps={{ interpolationCalc }}
         >
-          <Link to={`/${title}`} style={{ width: '50vw' }}>
+          <Link to={`/${link}`} style={{ width: '50vw' }}>
             <Text
               textClasses={styles.text}
               containerClasses={styles.textContainer}

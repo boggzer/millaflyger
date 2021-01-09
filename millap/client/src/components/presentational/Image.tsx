@@ -7,14 +7,13 @@ import { ImageCardProps } from './ImageCard';
 const Image = ({
   classes,
   imageSource,
-  ImageStyleProps,
+  ImageProps,
   onClick,
   title,
   size,
   style,
   ...props
 }: ImageCardProps): React.ReactElement => {
-  console.log(props);
   return (
     <picture onClick={onClick} style={{ ...style }}>
       {isObject(imageSource) ? (
@@ -24,9 +23,10 @@ const Image = ({
               <source key={key} srcSet={imageSource[key as keyof ImageSizes]} />
             ) : (
               <img
+                className={classes}
                 src={imageSource[key as keyof ImageSizes]}
                 title={title}
-                {...ImageStyleProps}
+                {...ImageProps}
               />
             ),
         )
@@ -36,7 +36,7 @@ const Image = ({
           src={imageSource}
           width={size}
           title={title}
-          {...ImageStyleProps}
+          {...ImageProps}
         />
       )}
     </picture>

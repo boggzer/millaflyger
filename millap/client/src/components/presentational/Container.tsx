@@ -1,5 +1,5 @@
 import React, { CSSProperties, HTMLAttributes } from 'react';
-
+import styles from '../../css/Container.module.css';
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   classes?: string;
   type?: 'grid' | 'single' | 'thumbnail' | 'list';
@@ -12,14 +12,6 @@ const Container = ({
   children,
   ...props
 }: ContainerProps): React.ReactElement => {
-  const gridStyle: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '100%',
-    justifyContent: 'space-evenly',
-    width: '100%',
-  };
-
   const thumbnailStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'row',
@@ -28,7 +20,7 @@ const Container = ({
   const listStyle: CSSProperties = { display: 'flex', flexDirection: 'column' };
 
   return type === 'grid' ? (
-    <div className={classes} style={{ ...gridStyle, ...props }}>
+    <div className={`${styles.grid} ${classes}`} style={{ ...props }}>
       {children}
     </div>
   ) : type === 'thumbnail' ? (
