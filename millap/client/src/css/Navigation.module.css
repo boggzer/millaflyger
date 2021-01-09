@@ -1,4 +1,26 @@
-.test {
-  color: 'green';
-  background-color: aqua;
+.nav {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+}
+
+.nav a {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.4rem 0.6rem;
+  margin: 0.2rem;
+  width: 4rem;
+  overflow: hidden;
+  border-radius: 0.1rem;
+  transition: width 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nav a:hover {
+  width: 5.05rem;
+}
+
+.container {
+  overflow: hidden;
+  position: absolute;
+  height: 18.75rem;
+  left: 0.8vw;
 }

@@ -1,0 +1,32 @@
+.innerContainer {
+  height: 80vh !important;
+  max-width: 80vw;
+  flex-wrap: wrap;
+  overflow: hidden;
+  align-items: center;
+}
+
+.innerContainer img {
+  height: auto;
+  width: 8.1rem;
+}
+
+.outerContainer {
+  height: fit-content;
+}
+
+.image {
+  height: auto;
+}
+
+@media (max-width: 641px) {
+  .innerContainer {
+    max-width: 31.25rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .innerContainer {
+    max-width: 30rem;
+  }
+}

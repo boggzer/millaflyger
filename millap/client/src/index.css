@@ -8,6 +8,7 @@ body {
   align-items: center;
   justify-content: center;
   background: rgb(221, 225, 228);
+  box-sizing: border-box;
 }
 
 a,
@@ -15,4 +16,5 @@ a:active,
 a:visited,
 a:hover {
   color: #000000;
+  text-decoration: none;
 }

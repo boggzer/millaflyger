@@ -1,12 +1,12 @@
 export type ProjectDataType = {
   id: string;
   title: string;
-  description?: string;
+  description?: string | null;
   images: ProjectImageData[];
 };
 
 export type ProjectImageDataType = {
-  order?: number;
-  caption?: string;
-  source: Record<'XS' | 'S' | 'M' | 'L' | 'XL', string>;
+  order?: number | null;
+  caption?: string | null;
+  source: Record<'XS' | 'S' | 'M' | 'L' | 'XL', string>[];
 };
