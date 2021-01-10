@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Container from './Container';
 import styles from '../../css/Grid.module.css';
 import ImageCard from './ImageCard';
-import { ratio } from '../../utils/constants';
+import { useLocation } from 'react-router';
 import { ProjectDataType } from '../../utils/types';
 import { CSSProperties } from 'react';
 import useRefChange from '../../utils/useRefChange';
@@ -25,9 +24,21 @@ const Grid = ({
   imageCardStyle,
 }: GridProps): React.ReactElement => {
   const [ref, setRef] = useState<HTMLDivElement | undefined>();
-  const { x, y } = useElementSize(ref, 0);
+  const { pathname } = useLocation();
+  const { x } = useElementSize(ref, 0);
   const refChange = useRefChange(setRef);
-  const { x: wX, y: wY } = useWindowSize();
+
+  const margins: { [key: string]: string } = {
+    '/ett-frammande-motiv': x / 8.8 / 2 + 'px',
+    '/kognition': x / 15.2 / 2 + 'px',
+  };
+
+  const is = {
+    first: (num: number, arr: string[]) => num === 0 || num !== arr.length - 1,
+    middle: (num: number, arr: string[]) => num !== 0 && num !== arr.length - 1,
+    last: (num: number, arr: string[]) =>
+      arr.length !== 1 && num === arr.length - 1,
+  };
 
   return (
     <Container
@@ -35,12 +46,16 @@ const Grid = ({
       type='grid'
     >
       {images &&
-        Object.keys(images).map((p: string, i: number) => (
+        Object.keys(images).map((p: string, i: number, arr: string[]) => (
           <ImageCard
             ref={refChange}
             ContainerProps={{
               style: {
-                margin: x / 8.8 / 2,
+                margin: `0 ${
+                  is.first(i, arr) || is.middle(i, arr) ? margins[pathname] : 0
+                } 0 ${
+                  is.middle(i, arr) || is.last(i, arr) ? margins[pathname] : 0
+                }`,
                 ...imageCardStyle,
               },
               className: imageCardClasses,

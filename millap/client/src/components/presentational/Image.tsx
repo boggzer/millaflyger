@@ -26,8 +26,28 @@ const Image = ({
     XL: '(min-width: 2000px)',
   };
 
+  const Shadow = () => (
+    <div
+      // className={`${styles[`${showShadow}`]} ${styles.etc}`}
+      style={{
+        position: 'absolute',
+        // left: x + 'px',
+        // top: y + 'px',
+        // opacity: showShadow ? 1 : 0,
+        zIndex: -10,
+        height: '2px',
+        width: '2px',
+        borderRadius: '50%',
+        backgroundColor: '#787878',
+        transition: 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)',
+        boxShadow:
+          '0px 0px 3px 2px #787878, 0px 0px 13px 10px #686868, 0px 0px 28px 28px #bebebe',
+      }}
+    />
+  );
   return (
     <picture onClick={onClick} className={pictureClasses}>
+      {/* {<Shadow />} */}
       {isObject(imageSource) ? (
         Object.keys(imageSource).map(
           (key: string, i: number, arr: string[]): React.ReactElement =>
@@ -44,6 +64,8 @@ const Image = ({
               </React.Fragment>
             ) : (
               <img
+                // onPointerEnter={(e) => <Shadow x={e.clientX} y={e.clientY} />}
+                // onMouseLeave={() => {}}
                 key={key}
                 className={classes}
                 src={imageSource.M}

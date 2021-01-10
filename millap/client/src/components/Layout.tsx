@@ -141,7 +141,7 @@ const Layout = (): React.ReactElement => {
         />
         {data.map((p: ProjectDataType, i: number) => (
           <Route
-            key={`route-${slugify(p?.title)}`}
+            key={document.location.href}
             path={`/${slugify(p?.title, { lower: true })}`}
             render={() => (
               <>

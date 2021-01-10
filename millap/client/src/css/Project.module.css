@@ -3,36 +3,29 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 100%;
-  width: 100%;
-  /* margin: calc(var(--RATIO_FIVE) * (var(--RATIO) * 2)); */
+  overflow: hidden;
 }
 
 .main {
-  height: 100%;
   align-items: stretch;
-  justify-content: space-around;
+  justify-content: center;
   overflow: hidden;
   transition: margin 700ms;
   flex-wrap: nowrap;
   max-width: unset;
-  width: 80%;
+  padding: 16px;
+  width: 100%;
 }
 
 .imageCard {
-  width: 100%;
-}
-
-.imageCard picture {
-  display: flex;
   height: 100%;
-  width: 100%;
+  margin: 0 auto;
 }
 
 .imageCard img {
-  object-fit: contain;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
+  box-shadow: 0 0 10px -2px #999;
 }
 
 .ett-frammande-motiv {

@@ -1,0 +1,23 @@
+.true {
+  transition: all 100ms ease 2000ms !important;
+}
+
+.false,
+.fadeOut {
+  transition: 'all 1000ms ease';
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
