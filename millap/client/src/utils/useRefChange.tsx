@@ -4,7 +4,6 @@ const useRefChange = (
   setRef: React.Dispatch<React.SetStateAction<HTMLDivElement | undefined>>,
 ): ((node: any) => void) => {
   const onRefChange = useCallback((node) => {
-    console.log(node);
     setRef(node);
   }, []);
   return onRefChange;
