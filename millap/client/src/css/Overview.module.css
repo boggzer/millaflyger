@@ -1,0 +1,12 @@
+.container {
+  flex-wrap: wrap;
+  padding: 3rem;
+  max-width: 100%;
+  justify-content: space-between !important;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+.container > * {
+  flex: 1;
+}

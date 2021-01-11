@@ -5,6 +5,7 @@ import FilmNoise from '../effects/FilmNoise';
 import { ProjectDataType } from '../../utils/types';
 import Container from './Container';
 import styles from '../../css/Navigation.module.css';
+import Text from '../presentational/Text';
 interface NavigationProps {
   projects?: ProjectDataType[];
 }
@@ -140,9 +141,9 @@ const Navigation = ({ projects }: NavigationProps): React.ReactElement => {
     }));
 
   const content = [
+    { title: 'Start', link: '/' },
     { title: 'About', link: '/about' },
-    { title: 'Projects', link: '/all' },
-    { title: 'Link 3', link: '/nowhere' },
+    { title: 'All projects', link: '/all' },
     ...getProjectLinks(),
   ];
 
@@ -160,16 +161,17 @@ const Navigation = ({ projects }: NavigationProps): React.ReactElement => {
             key={`${title}-${link}`}
             to={link}
           >
-            {showFilmNoise === title && (
-              <FilmNoise
-                height='1.5rem'
-                width='inherit'
-                ContainerProps={{
-                  style: { position: 'absolute' },
-                }}
-              />
-            )}
-            {title}
+            <FilmNoise
+              show={showFilmNoise === title}
+              ContainerProps={{
+                id: title,
+              }}
+              opacity={0.4}
+              outerClasses={styles.filmNoise}
+              innerClasses={styles.innerFilmNoise}
+            >
+              <Text>{title}</Text>
+            </FilmNoise>
           </Link>
         ))}
       </nav>

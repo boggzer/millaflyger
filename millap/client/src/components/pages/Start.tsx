@@ -43,11 +43,11 @@ const Start = (): React.ReactElement => {
 
   return (
     <Container type='grid' classes={styles.container}>
-      {content.map(({ animationCalc: interpolationCalc, title, link, img }) => (
+      {content.map(({ animationCalc: calc, title, link, img }) => (
         <AnimatedContainer
           key={title}
           type='interpolation'
-          AnimationProps={{ interpolationCalc }}
+          interpolationProps={{ calc }}
         >
           <Link to={`/${link}`} style={{ width: '50vw' }}>
             <Text
@@ -67,12 +67,11 @@ const Start = (): React.ReactElement => {
                 position: 'absolute',
               }}
             />
-            {showFilmNoise === title && (
-              <FilmNoise
-                absolute
-                InnerProps={{ width: 'inherit', height: '100vh' }}
-              />
-            )}
+            <FilmNoise
+              absolute
+              show={showFilmNoise === title}
+              InnerProps={{ width: 'inherit', height: '100vh' }}
+            />
 
             <Image classes={styles.image} imageSource={img} />
           </Link>

@@ -4,9 +4,9 @@ import { ProjectDataType } from '../../utils/types';
 import Container from './Container';
 import styles from '../../css/Project.module.css';
 import Text from './Text';
-import Grid from './Grid';
+import ImageGrid from './ImageGrid';
 
-interface ProjectProps {
+export interface ProjectProps {
   content: ProjectDataType;
 }
 
@@ -16,7 +16,7 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
       <Container classes={styles.container}>
         <Text>{content.title}</Text>
         {content?.description && <Text>{content.description}</Text>}
-        <Grid
+        <ImageGrid
           {...content}
           // imageCardStyle={{ margin: x / 8.8 / 2 }}
           imageCardClasses={`${styles.imageCard}`}

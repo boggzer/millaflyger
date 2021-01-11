@@ -3,17 +3,17 @@ import slugify from 'slugify';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Start from './pages/Start';
 import About from './pages/About';
-import Grid from './presentational/Grid';
-import Container from './presentational/Container';
+import ImageGrid from './presentational/ImageGrid';
 import { ProjectsContext } from '../contexts/projectsContext';
-import { ProjectDataType } from '../utils/types';
+import { ProjectDataType, ProjectImageDataType } from '../utils/types';
 import Project from './presentational/Project';
 import Navigation from './presentational/Navigation';
+import Overview from './pages/portfolio/Overview';
 
 const Layout = (): React.ReactElement => {
   // const { projects } = useContext(ProjectsContext);
 
-  const data = useMemo(
+  const data: ProjectDataType[] = useMemo(
     () => [
       {
         id: 'd00b258e-493e-4904-aace-c81485d08af8',
@@ -131,12 +131,11 @@ const Layout = (): React.ReactElement => {
         <Route
           path='/all'
           render={() => (
-            <>
-              <Navigation />
+            <Overview data={data}>
               {data.map((p, i) => (
-                <Grid key={p.title} {...data[i]} />
+                <ImageGrid key={p.title} {...data[i]} />
               ))}
-            </>
+            </Overview>
           )}
         />
         {data.map((p: ProjectDataType, i: number) => (

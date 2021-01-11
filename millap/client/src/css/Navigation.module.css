@@ -1,3 +1,7 @@
+:root {
+  --nav-link-width: 10rem;
+}
+
 .nav {
   display: flex;
   position: fixed;
@@ -5,24 +9,50 @@
 }
 
 .nav a {
-  background: rgba(0, 0, 0, 0.1);
-  padding: 0.4rem 0.6rem;
+  /* background: rgba(0, 0, 0, 0.1); */
+  font-size: 0.875rem;
   margin: 0.2rem;
-  width: 4rem;
+  height: 2rem;
+  width: var(--nav-link-width);
   overflow: hidden;
   border-radius: 0.1rem;
   transition: width 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.nav a:hover {
-  width: 5.05rem;
+.nav a > * {
+  margin: 0 auto;
+}
+
+.nav a:hover,
+.nav a:focus {
+  width: calc(var(--nav-link-width) * 1.016);
 }
 
 .container {
   overflow: hidden;
   height: 18.75rem;
-  width: 5rem;
+  width: 10rem;
   position: absolute;
   top: 0;
   left: 0.8vw;
+}
+
+.filmNoise {
+  width: 100%;
+  display: flex;
+  height: inherit;
+  overflow: hidden;
+  transition: width 0;
+}
+
+.filmNoise p {
+  margin: 0.5rem;
+  width: fit-content;
+  position: fixed;
+  z-index: 1;
+}
+
+.innerFilmNoise {
+  position: relative;
+  z-index: -1;
 }

@@ -8,7 +8,7 @@ const useElementSize = (
 ): SizeType => {
   const [trueSize, setTrueSize] = useState({ x: 0, y: 0 });
   const [size] = useDebounce(trueSize, delay);
-  console.log(el);
+
   useEffect(() => {
     const updateSize = () =>
       el && setTrueSize({ x: el.offsetWidth as number, y: el.offsetHeight });

@@ -5,6 +5,7 @@
   --RATIO_THREE: 0.5rem;
   --RATIO_FOUR: 0.7rem;
   --RATIO_FIVE: 0.9rem;
+  font-size: 16px;
 }
 
 body {
@@ -23,7 +24,7 @@ body {
 #root {
   height: 100%;
   width: 100%;
-  padding: 16.18px;
+  /* padding: 16.18px; */
   box-sizing: border-box !important;
   display: inline-flex;
   justify-content: center;

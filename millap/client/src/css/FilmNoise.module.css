@@ -27,13 +27,13 @@
 }
 
 .dark:after {
-  opacity: 0.9;
+  opacity: 1;
   background-image: url('./broken_noise.png');
   /* Background pattern from Toptal Subtle Patterns */
 }
 
 .light::after {
-  opacity: 0.2;
+  opacity: 1;
   background-image: url('./broken_noise-inv-1.jpg');
   /* Background pattern from Toptal Subtle Patterns */
 }

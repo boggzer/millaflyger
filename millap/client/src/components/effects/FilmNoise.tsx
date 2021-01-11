@@ -1,40 +1,57 @@
 import React, { CSSProperties, HTMLAttributes } from 'react';
-import { useSpring, animated } from 'react-spring';
 import styles from '../../css/FilmNoise.module.css';
 
 interface FilmNoiseProps extends HTMLAttributes<HTMLDivElement> {
   absolute?: boolean;
+  ContainerProps?: Omit<HTMLAttributes<HTMLDivElement>, 'className'>;
   dark?: boolean;
-  ContainerProps?: HTMLAttributes<HTMLDivElement>;
-  InnerProps?: HTMLAttributes<HTMLDivElement> & CSSProperties;
-  light?: boolean;
   height?: string;
+  opacity?: number;
+  innerClasses?: string;
+  InnerProps?: Omit<
+    HTMLAttributes<HTMLDivElement> & CSSProperties,
+    'className'
+  >;
+  light?: boolean;
+  outerClasses?: string;
+  show?: boolean;
   width?: string;
 }
 
 const FilmNoise = ({
   absolute = false,
-  dark = false,
+  children,
   ContainerProps,
-  InnerProps,
+  dark = false,
   height = '100vw',
+  opacity = 0.3,
+  innerClasses,
+  InnerProps,
+  outerClasses,
+  show = false,
   width = '100vw',
-}: FilmNoiseProps): React.ReactElement => {
-  return (
-    <div
-      className={`${styles.container} ${absolute && styles.absolute}`}
-      {...ContainerProps}
-    >
+}: FilmNoiseProps): React.ReactElement => (
+  <div
+    className={`${styles.container} ${
+      absolute && styles.absolute
+    } ${outerClasses}`}
+    {...ContainerProps}
+  >
+    {children}
+    {show && (
       <div
-        className={`${styles.effect} ${dark ? styles.dark : styles.light}`}
         style={{
           width,
           height,
+          opacity,
         }}
+        className={`${styles.effect} ${
+          dark ? styles.dark : styles.light
+        } ${innerClasses}`}
         {...InnerProps}
       />
-    </div>
-  );
-};
+    )}
+  </div>
+);
 
 export default FilmNoise;

@@ -13,6 +13,7 @@
     "@types/react-dom": "^16.9.8",
     "axios": "^0.21.1",
     "lodash": "^4.17.20",
+    "resize-observer-polyfill": "^1.5.1",
     "slugify": "^1.4.6",
     "web-vitals": "^0.2.4"
   },

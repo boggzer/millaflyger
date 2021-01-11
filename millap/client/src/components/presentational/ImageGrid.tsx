@@ -9,20 +9,20 @@ import useRefChange from '../../utils/useRefChange';
 import useElementSize from '../../utils/useElementSize';
 import useWindowSize from '../../utils/useWindowSize';
 
-interface GridProps extends ProjectDataType {
+interface ImageGridProps extends ProjectDataType {
   outerContainerClasses?: string;
   imageCardClasses?: string;
   innerContainerClasses?: string;
   imageCardStyle?: CSSProperties;
 }
 
-const Grid = ({
+const ImageGrid = ({
   outerContainerClasses,
   imageCardClasses,
   innerContainerClasses,
   images,
   imageCardStyle,
-}: GridProps): React.ReactElement => {
+}: ImageGridProps): React.ReactElement => {
   const [ref, setRef] = useState<HTMLDivElement | undefined>();
   const { pathname } = useLocation();
   const { x } = useElementSize(ref, 0);
@@ -69,4 +69,4 @@ const Grid = ({
   );
 };
 
-export default Grid;
+export default ImageGrid;
