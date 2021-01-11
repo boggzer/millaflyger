@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 interface HookProps {
   mediaQueries: string[];
-  values?: Record<string, number>;
+  values?: Record<number, number>;
   defaultValue?: number;
 }
 
