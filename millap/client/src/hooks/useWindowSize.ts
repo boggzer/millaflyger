@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect } from 'react';
-import { SizeType } from './constants';
+import { SizeType } from '../utils/constants';
 
 const useWindowSize = (): SizeType => {
   const [size, setSize] = useState({ x: 0, y: 0 });

@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react';
 
 interface HookProps {
-  mediaQueries: string[];
+  queries: string[];
   values?: Record<number, number>;
   defaultValue?: number;
 }
 
-const useMedia = ({
-  mediaQueries,
-  values,
-  defaultValue,
-}: HookProps): number => {
+const useMedia = ({ queries, values, defaultValue }: HookProps): number => {
   const match = () =>
-    values?.[mediaQueries.findIndex((q) => matchMedia(q).matches)] ||
-    defaultValue;
+    values?.[queries.findIndex((q) => matchMedia(q).matches)] || defaultValue;
   const [value, set] = useState(match);
   useEffect(() => {
     const handler = () => set(match);

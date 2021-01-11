@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
-import { SizeType } from './constants';
+import { SizeType } from '../utils/constants';
 
 const useElementSize = (
   el: HTMLDivElement | undefined,
