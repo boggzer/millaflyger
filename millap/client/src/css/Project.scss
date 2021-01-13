@@ -9,50 +9,23 @@ $portrait-width: $ratio-five * 38;
     justify-content: space-around;
     overflow-x: hidden;
     width: 100%;
-    .svg-title-text {
-      position: absolute;
-      z-index: 5;
-      transform: rotate(-90deg) translateY(50%);
-      left: -50%;
-      top: 30%;
-      height: 16rem;
-      width: 100%;
-      z-index: -10;
-      transform-style: preserve-3d;
-      & * {
-        transform: translateZ(80px);
-        z-index: 6;
-      }
+    svg {
+      position: fixed;
+      left: 0;
     }
-    .title-text {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      position: absolute;
-      height: 100%;
-      margin: 0 !important;
-      padding: 4rem 0;
-      width: 16rem;
-      border-right: 1px solid black;
-      // top: 50%;
-      left: 10%;
-      margin: 0 !important;
-      text-align: left;
-      left: 1px;
-      & > * {
-        width: max-content;
-        left: 0px;
-        position: relative;
-        margin: -9px !important;
-        transform: rotate(-90deg);
-        transform-origin: center;
-        vertical-align: baseline;
-        &::before {
-          display: inline-block;
-          height: 100%;
-          width: 100%;
-          content: '';
-        }
+    .svg-title-text {
+      position: fixed;
+      z-index: 5;
+      transform: rotate(-90deg);
+      transform-origin: left;
+      left: 9rem;
+
+      height: 30rem;
+      width: 60rem;
+      z-index: -1;
+      top: 30%;
+      overflow: hidden;
+      & g {
       }
     }
     .main {
@@ -64,15 +37,17 @@ $portrait-width: $ratio-five * 38;
       padding: 4rem 2vw;
       transition: margin 700ms;
       width: 100%;
+      max-height: 100vh;
     }
     .image-card {
-      height: 100%;
+      height: inherit;
       margin: 0 auto;
       img {
         width: auto;
         height: 100%;
         box-shadow: 0 0 10px -2px #999;
         border-radius: $ratio-one;
+        object-fit: contain;
       }
     }
     .ett-frammande-motiv,

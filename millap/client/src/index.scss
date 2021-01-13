@@ -1,3 +1,5 @@
+@import './css/variables.scss';
+
 :root {
   --RATIO: 1.62;
   --RATIO_ONE: 0.1rem;
@@ -10,20 +12,24 @@
 
 body {
   margin: 0;
-  height: 100vh;
+
+  // margin: $root-margin;
+  height: 100%;
   font-family: 'Libre Baskerville';
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: rgb(221, 225, 228);
-  box-sizing: content-box !important;
+  box-sizing: border-box !important;
 }
 
 #root {
   height: 100%;
   width: 100%;
+  // padding: $root-margin;
+  overflow: auto;
   /* padding: 16.18px; */
   box-sizing: border-box !important;
   display: inline-flex;
