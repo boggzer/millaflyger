@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Container from './Container';
-import styles from '../../css/Grid.module.css';
+import '../../css/ImageGrid.scss';
 import ImageCard from './ImageCard';
-import { useLocation } from 'react-router';
-import { ProjectDataType } from '../../utils/types';
+// import { useLocation } from 'react-router';
+import { ProjectDataType } from '../../utils/global';
 import { CSSProperties } from 'react';
-import useRefChange from '../../utils/useRefChange';
-import useElementSize from '../../utils/useElementSize';
-import useWindowSize from '../../utils/useWindowSize';
+import useRefChange from '../../hooks/useRefChange';
+import useElementSize from '../../hooks/useElementSize';
+import { useLocation } from 'react-router-dom';
 
 interface ImageGridProps extends ProjectDataType {
   outerContainerClasses?: string;
@@ -23,7 +23,7 @@ const ImageGrid = ({
   images,
   imageCardStyle,
 }: ImageGridProps): React.ReactElement => {
-  const [ref, setRef] = useState<HTMLDivElement | undefined>();
+  const [ref, setRef] = useState<HTMLElement | undefined>();
   const { pathname } = useLocation();
   const { x } = useElementSize(ref, 0);
   const refChange = useRefChange(setRef);
@@ -39,16 +39,8 @@ const ImageGrid = ({
     last: (num: number, arr: string[]) =>
       arr.length !== 1 && num === arr.length - 1,
   };
-
-  return (
-    <Container
-      classes={`${styles.innerContainer} ${outerContainerClasses}`}
-      type='grid'
-    >
-      {images &&
-        Object.keys(images).map((p: string, i: number, arr: string[]) => (
-          <ImageCard
-            ref={refChange}
+  /**
+ *
             ContainerProps={{
               style: {
                 margin: `0 ${
@@ -58,9 +50,25 @@ const ImageGrid = ({
                 }`,
                 ...imageCardStyle,
               },
+ */
+
+  return (
+    <Container
+      classes={`image-grid inner-container ${outerContainerClasses}`}
+      type='grid'
+    >
+      {images &&
+        Object.keys(images).map((p: string, i: number, arr: string[]) => (
+          <ImageCard
+            ref={refChange}
+            ContainerProps={{
+              style: {
+                margin: `1rem ${margins[pathname]}`,
+                ...imageCardStyle,
+              },
               className: imageCardClasses,
             }}
-            classes={`${styles.image} ${innerContainerClasses}`}
+            classes={`image-grid image ${innerContainerClasses}`}
             key={i}
             imageSource={images[i]?.source[0]}
           />

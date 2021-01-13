@@ -1,0 +1,74 @@
+@import '_variables.scss';
+
+$padding: $ratio-five * 3;
+$spacing: $ratio * 5rem;
+
+.about.container {
+  width: 100%;
+  margin-top: calc(#{$ratio-five} * 10);
+  box-sizing: border-box;
+  margin: $ratio-five;
+  top: $padding;
+  justify-content: space-between !important;
+  position: relative;
+  padding: $padding;
+  height: 100%;
+  & > .container:not(:first-of-type) {
+    margin: 0.2rem;
+    width: 60%;
+    margin-top: 0;
+  }
+  & > .container:first-of-type {
+    margin-top: 0;
+    position: relative;
+  }
+  .text-block {
+    line-height: calc(#{$ratio-two} * 5);
+  }
+  div + .h6,
+  div > .h6 {
+    & > * {
+      margin-top: $padding !important;
+    }
+  }
+  .email-link-container {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 4rem;
+    justify-content: flex-start;
+    height: fit-content;
+    .film-noise {
+      a {
+        z-index: 1;
+        width: inherit;
+        width: inherit;
+        position: relative;
+        padding: 0.2rem;
+      }
+    }
+    .inner-film-noise {
+      z-index: -1;
+      position: absolute;
+      overflow: hidden;
+      padding: 0.2rem;
+      border-radius: 0.1rem;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .about.container {
+    max-width: 750px;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .about.container {
+    width: 80%;
+    flex-direction: row !important;
+    & > .container:not(:first-of-type) {
+      transform: translate(-$spacing, $spacing * 2);
+    }
+  }
+}

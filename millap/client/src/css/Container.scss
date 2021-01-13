@@ -1,0 +1,45 @@
+@import '_variables.scss';
+
+.container {
+  &.container {
+    flex-direction: column;
+  }
+  &.grid {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    z-index: 1;
+    /* width: 100%; */
+  }
+  &.column {
+    display: flex;
+    flex-direction: column;
+  }
+  &.center-x {
+    justify-content: center;
+  }
+  &.row {
+    flex-direction: row;
+  }
+  &.flex-start {
+    align-items: flex-start !important;
+  }
+  &.center-y {
+    align-items: center;
+  }
+  &.scroll-x {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  &.padding-s {
+    padding: $ratio-one !important;
+  }
+  &.padding-m {
+    padding: $ratio-three !important;
+  }
+  &.padding-l {
+    padding: $ratio-five !important;
+  }
+}

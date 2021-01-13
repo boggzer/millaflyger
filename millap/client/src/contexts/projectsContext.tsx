@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect, createContext } from 'react';
 import { API } from 'aws-amplify';
-import { ProjectDataType } from '../utils/types';
+import { ProjectDataType } from '../utils/global';
 
 type ProjectsContextType = {
   projects?: ProjectDataType[];
@@ -23,7 +23,8 @@ const ProjectsProvider = (props: any): JSX.Element => {
     };
     getProjects();
   }, []);
-  console.log(projects);*/
+  console.log(projects);
+  */
   return (
     <ProjectsContext.Provider value={{ projects }}>
       {props.children}

@@ -1,17 +1,33 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '../presentational/Container';
-import styles from '../../css/Start.module.css';
+import '../../css/Start.scss';
 import Image from '../presentational/Image';
 import Text from '../presentational/Text';
 import FilmNoise from '../effects/FilmNoise';
-import imageOne from './kognition_1_m.jpg';
-import imageTwo from './aska_1_m.jpg';
 import AnimatedContainer from '../effects/AnimatedContainer';
+import { ProjectDataType, ProjectImageDataType } from '../../utils/global';
 
-const Start = (): React.ReactElement => {
+interface StartProps {
+  projects: ProjectDataType[];
+}
+
+const Start = ({ projects }: StartProps): React.ReactElement => {
   const [showFilmNoise, setShowFilmNoise] = useState<string>('');
 
+  const [imageOne, imageTwo] = useMemo(
+    () =>
+      projects.reduce((acc: any, { title, images }: ProjectDataType) => {
+        if (title === 'Aska') {
+          acc[0] = images[0].source[0]['L'];
+        }
+        if (title === 'Syster') {
+          acc[1] = images[0].source[0]['L'];
+        }
+        return acc;
+      }, []),
+    [projects],
+  );
   const onMouseEnter = (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -42,7 +58,7 @@ const Start = (): React.ReactElement => {
   ];
 
   return (
-    <Container type='grid' classes={styles.container}>
+    <Container type='grid' classes='start container'>
       {content.map(({ animationCalc: calc, title, link, img }) => (
         <AnimatedContainer
           key={title}
@@ -50,10 +66,7 @@ const Start = (): React.ReactElement => {
           interpolationProps={{ calc }}
         >
           <Link to={`/${link}`} style={{ width: '50vw' }}>
-            <Text
-              textClasses={styles.text}
-              containerClasses={styles.textContainer}
-            >
+            <Text textClasses='text' containerClasses='text-container'>
               {title}
             </Text>
             <Container
@@ -73,7 +86,7 @@ const Start = (): React.ReactElement => {
               InnerProps={{ width: 'inherit', height: '100vh' }}
             />
 
-            <Image classes={styles.image} imageSource={img} />
+            <Image classes='image' imageSource={img} />
           </Link>
         </AnimatedContainer>
       ))}

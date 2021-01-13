@@ -1,0 +1,106 @@
+@import '_variables.scss';
+
+$portrait-width: $ratio-five * 38;
+
+.container {
+  &.container {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    overflow-x: hidden;
+    width: 100%;
+    .svg-title-text {
+      position: absolute;
+      z-index: 5;
+      transform: rotate(-90deg);
+      left: 0;
+      alignment-baseline: baseline;
+      max-width: 20rem;
+    }
+    .title-text {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: absolute;
+      height: 100%;
+      margin: 0 !important;
+      padding: 4rem 0;
+      width: 16rem;
+      border-right: 1px solid black;
+      // top: 50%;
+      // left: calc(#{$nav-width} - 82px);
+      margin: 0 !important;
+      text-align: left;
+      left: 1px;
+      & > * {
+        width: max-content;
+        left: 0px;
+        position: relative;
+        margin: -9px !important;
+        transform: rotate(-90deg);
+        transform-origin: center;
+        vertical-align: baseline;
+        &::before {
+          display: inline-block;
+          height: 100%;
+          width: 100%;
+          content: '';
+        }
+      }
+    }
+    .main {
+      align-items: stretch;
+      flex-wrap: nowrap;
+      justify-content: center;
+      max-width: unset;
+      overflow-x: hidden;
+      padding: 4rem 2vw;
+      transition: margin 700ms;
+      width: 100%;
+    }
+    .image-card {
+      height: 100%;
+      margin: 0 auto;
+      img {
+        width: auto;
+        height: 100%;
+        box-shadow: 0 0 10px -2px #999;
+        border-radius: $ratio-one;
+      }
+    }
+    .ett-frammande-motiv,
+    .kognition {
+      display: grid !important;
+      max-width: 1000px;
+      flex: 25%;
+      grid-template-columns: repeat(auto-fit, minmax(22.7rem, 36rem));
+      grid-template-rows: auto;
+
+      justify-content: center !important;
+    }
+    .kognition,
+    .syster,
+    .ett-frammande-motiv {
+      max-width: 1200px;
+      display: flex;
+      flex: 1;
+      height: 100%;
+      overflow-x: hidden;
+      justify-content: space-between;
+      & > div {
+        margin: 10px;
+      }
+      img {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 641px) {
+  .image-card {
+    max-width: 640px;
+    height: auto;
+  }
+}

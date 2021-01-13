@@ -1,5 +1,7 @@
-import React, { CSSProperties, HTMLAttributes } from 'react';
-import styles from '../../css/FilmNoise.module.css';
+import React, { CSSProperties, HTMLAttributes, useMemo, useState } from 'react';
+import { useMeasure } from 'react-use';
+import { MutableRefObject } from 'react';
+import '../../css/FilmNoise.scss';
 
 interface FilmNoiseProps extends HTMLAttributes<HTMLDivElement> {
   absolute?: boolean;
@@ -13,8 +15,10 @@ interface FilmNoiseProps extends HTMLAttributes<HTMLDivElement> {
     'className'
   >;
   light?: boolean;
+  elRef?: HTMLElement;
   outerClasses?: string;
   show?: boolean;
+  withPortal?: boolean;
   width?: string;
 }
 
@@ -28,30 +32,34 @@ const FilmNoise = ({
   innerClasses,
   InnerProps,
   outerClasses,
+  elRef,
   show = false,
   width = '100vw',
-}: FilmNoiseProps): React.ReactElement => (
-  <div
-    className={`${styles.container} ${
-      absolute && styles.absolute
-    } ${outerClasses}`}
-    {...ContainerProps}
-  >
-    {children}
-    {show && (
-      <div
-        style={{
-          width,
-          height,
-          opacity,
-        }}
-        className={`${styles.effect} ${
-          dark ? styles.dark : styles.light
-        } ${innerClasses}`}
-        {...InnerProps}
-      />
-    )}
-  </div>
-);
+}: FilmNoiseProps): React.ReactElement => {
+  const [elWidth, elHeight] = useMemo(() => {
+    return [elRef?.offsetWidth || 0, elRef?.offsetHeight || 0];
+  }, [elRef]);
+  return (
+    <div
+      className={`film-noise container ${
+        absolute && 'absolute'
+      } ${outerClasses}`}
+      {...ContainerProps}
+    >
+      {children}
+      {show && (
+        <div
+          style={{
+            width: elWidth || width,
+            height: elHeight || height,
+            opacity,
+          }}
+          className={`${dark ? 'dark' : 'light'} ${innerClasses}`}
+          {...InnerProps}
+        />
+      )}
+    </div>
+  );
+};
 
 export default FilmNoise;

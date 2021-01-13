@@ -1,0 +1,70 @@
+@import '_variables.scss';
+
+:root {
+  --nav-link-width: 14rem;
+}
+
+.navigation {
+  &.container {
+    overflow: hidden;
+    height: 100%;
+    top: 0;
+    margin: 0 $ratio-five;
+    padding: $ratio-five;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    left: 1vw;
+    width: max-content;
+  }
+  .nav {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    flex: 0;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    .film-noise a {
+      /* background: rgba(0, 0, 0, 0.1); */
+      font-size: 1rem;
+      margin: 0.2rem;
+      height: 2rem;
+      width: var(--nav-link-width);
+      overflow: hidden;
+      border-radius: 0.1rem;
+      overflow: hidden;
+      transition: width 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+      & > * {
+        margin: 0 auto;
+      }
+    }
+  }
+  & .film-noise {
+    width: 100%;
+    display: flex;
+    height: inherit;
+    overflow: hidden;
+    transition: width 0;
+    align-items: flex-start;
+    p {
+      margin: 0.5rem;
+      width: fit-content;
+      position: fixed;
+      z-index: 1;
+    }
+  }
+  .film-noise,
+  .inner-film-noise {
+    height: inherit !important;
+    width: inherit !important;
+    position: relative;
+    z-index: -1;
+  }
+  .sublink {
+    display: flex;
+    align-items: center;
+    &::before {
+      content: '-';
+    }
+  }
+}
