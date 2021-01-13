@@ -4,11 +4,11 @@ $portrait-width: $ratio-five * 38;
 
 .container {
   &.container {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     justify-content: space-around;
     overflow-x: hidden;
-    width: 100%;
+    width: calc(100% - 18rem);
     svg {
       position: fixed;
       left: 0;
@@ -18,11 +18,10 @@ $portrait-width: $ratio-five * 38;
       z-index: 5;
       transform: rotate(-90deg);
       transform-origin: left;
-      left: 9rem;
-
+      left: 8.9rem;
       height: 30rem;
       width: 60rem;
-      z-index: -1;
+      z-index: 1;
       top: 30%;
       overflow: hidden;
       & g {
@@ -34,13 +33,11 @@ $portrait-width: $ratio-five * 38;
       justify-content: center;
       max-width: unset;
       overflow-x: hidden;
-      padding: 4rem 2vw;
       transition: margin 700ms;
       width: 100%;
-      max-height: 100vh;
+      height: 100%;
     }
     .image-card {
-      height: inherit;
       margin: 0 auto;
       img {
         width: auto;
@@ -55,15 +52,15 @@ $portrait-width: $ratio-five * 38;
       display: grid !important;
       max-width: 1000px;
       flex: 25%;
-      grid-template-columns: repeat(auto-fit, minmax(22.7rem, 36rem));
-      grid-template-rows: auto;
-
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 32rem));
+      row-gap: 3rem;
       justify-content: center !important;
     }
+    .hjartat-i-halsgropen,
     .kognition,
     .syster,
     .ett-frammande-motiv {
-      max-width: 1200px;
+      max-width: 1000px;
       display: flex;
       flex: 1;
       height: 100%;

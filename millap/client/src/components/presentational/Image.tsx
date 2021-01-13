@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { Suspense } from 'react';
 import { isObject } from 'lodash';
 import { ImageSizes } from '../../utils/constants';
 import { ImageCardProps } from './ImageCard';
@@ -46,44 +46,46 @@ const Image = ({
     />
   );
   return (
-    <picture onClick={onClick} className={pictureClasses}>
-      {/* {<Shadow />} */}
-      {isObject(imageSource) ? (
-        Object.keys(imageSource).map(
-          (key: string, i: number, arr: string[]): React.ReactElement =>
-            i !== arr.length - 1 ? (
-              <React.Fragment key={key}>
-                {mediaQueries[key as keyof ImageSizes] && (
-                  <source
-                    media={`screen and ${
-                      mediaQueries[key as keyof ImageSizes]
-                    }`}
-                    srcSet={imageSource[key as keyof ImageSizes]}
-                  />
-                )}
-              </React.Fragment>
-            ) : (
-              <img
-                // onPointerEnter={(e) => <Shadow x={e.clientX} y={e.clientY} />}
-                // onMouseLeave={() => {}}
-                key={key}
-                className={classes}
-                src={imageSource.M}
-                title={title}
-                {...ImageProps}
-              />
-            ),
-        )
-      ) : (
-        <img
-          className={classes}
-          src={imageSource}
-          width={size}
-          title={title}
-          {...ImageProps}
-        />
-      )}
-    </picture>
+    <Suspense fallback={<div>Hello</div>}>
+      <picture onClick={onClick} className={pictureClasses}>
+        {/* {<Shadow />} */}
+        {isObject(imageSource) ? (
+          Object.keys(imageSource).map(
+            (key: string, i: number, arr: string[]): React.ReactElement =>
+              i !== arr.length - 1 ? (
+                <React.Fragment key={key}>
+                  {mediaQueries[key as keyof ImageSizes] && (
+                    <source
+                      media={`screen and ${
+                        mediaQueries[key as keyof ImageSizes]
+                      }`}
+                      srcSet={imageSource.source[key as keyof ImageSizes]}
+                    />
+                  )}
+                </React.Fragment>
+              ) : (
+                <img
+                  // onPointerEnter={(e) => <Shadow x={e.clientX} y={e.clientY} />}
+                  // onMouseLeave={() => {}}
+                  key={key}
+                  className={classes}
+                  src={imageSource.source.M}
+                  title={title}
+                  {...ImageProps}
+                />
+              ),
+          )
+        ) : (
+          <img
+            className={classes}
+            src={imageSource}
+            width={size}
+            title={title}
+            {...ImageProps}
+          />
+        )}
+      </picture>
+    </Suspense>
   );
 };
 

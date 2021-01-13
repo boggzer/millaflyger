@@ -6,10 +6,13 @@ import { ImageSize, ImageSizes } from '../../utils/constants';
 export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
   ContainerProps?: React.HTMLProps<HTMLDivElement>;
   classes?: string;
-  imageSource: Record<keyof ImageSizes, string> | string;
+  imageSource:
+    | { source: Record<keyof ImageSizes, string>; order?: number }
+    | string;
   ImageProps?: HTMLAttributes<HTMLImageElement>;
   // onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   size?: ImageSize;
+  order?: number;
 }
 
 const ImageCard = (
@@ -18,6 +21,7 @@ const ImageCard = (
 ): React.ReactElement => {
   return (
     <div ref={ref} {...ContainerProps}>
+      {console.log(props)}
       <Image {...ImageProps} {...props} />
     </div>
   );

@@ -8,6 +8,7 @@ import { CSSProperties } from 'react';
 import useRefChange from '../../hooks/useRefChange';
 import useElementSize from '../../hooks/useElementSize';
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 interface ImageGridProps extends ProjectDataType {
   outerContainerClasses?: string;
@@ -25,12 +26,50 @@ const ImageGrid = ({
 }: ImageGridProps): React.ReactElement => {
   const [ref, setRef] = useState<HTMLElement | undefined>();
   const { pathname } = useLocation();
-  const { x } = useElementSize(ref, 0);
+  const { x, y } = useElementSize(ref, 0);
   const refChange = useRefChange(setRef);
 
-  const margins: { [key: string]: string } = {
-    '/ett-frammande-motiv': x / 8.8 / 2 + 'px',
-    '/kognition': x / 15.2 / 2 + 'px',
+  const paddings: { [key: string]: (string | number)[] } = {
+    '/hjartat-i-halsgropen': [
+      x / 16.0526 / 2 + 'px',
+      '22.1%',
+      x / 16.0526 / 2 + 'px',
+    ],
+  };
+
+  const parentGridStyles: {
+    [key: string]: { [key: string]: string } | CSSProperties;
+  } = {
+    '/kognition': {
+      columnGap: `${x / 15.2}px`,
+      padding: `${y * 0.07}px ${x * 0.22}px ${y * 0.18}px ${x * 0.22}px`,
+    },
+    '/hjartat-i-halsgropen': {
+      padding: '1rem 11%',
+      // gridTemplateRows: 'repeat(3, auto-fill',
+      gridTemplateAreas: `
+        "one two"
+        "three three"
+        "four five"`,
+    },
+    '/syster': {
+      columnGap: `${x / 16}px`,
+      padding: '9% 6.25% 21% 6.25%',
+      gridTemplateAreas: `
+        "one two three four"
+        "five six seven eight"`,
+    },
+    '/ett-frammande-motiv': {
+      columnGap: `${x / 10}px`,
+      padding: `${x / 10 / 2}px ${x / 10 / 2}px ${x / 9.2 / 2}px ${
+        x / 10 / 2
+      }px`,
+    },
+  };
+
+  const childGridStyles: { [key: string]: (number | string)[] } = {
+    '/hjartat-i-halsgropen': ['one', 'two', 'three', 'four', 'five'],
+    '/syster': ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
   };
 
   const is = {
@@ -51,26 +90,40 @@ const ImageGrid = ({
                 ...imageCardStyle,
               },
  */
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isLoading && ref) {
+      ref.onload = () => console.log(ref);
+    }
+  }, []);
 
   return (
     <Container
       classes={`image-grid inner-container ${outerContainerClasses}`}
+      style={{ ...parentGridStyles?.[pathname] }}
       type='grid'
     >
+      {console.log(x, y, isLoading)}
       {images &&
         Object.keys(images).map((p: string, i: number, arr: string[]) => (
           <ImageCard
             ref={refChange}
             ContainerProps={{
               style: {
-                margin: `1rem ${margins[pathname]}`,
+                margin: 0,
+                padding: paddings?.[pathname]?.[images[i]?.order - 1] || 0,
+                gridArea: childGridStyles?.[pathname]?.[i],
                 ...imageCardStyle,
               },
               className: imageCardClasses,
             }}
             classes={`image-grid image ${innerContainerClasses}`}
             key={i}
-            imageSource={images[i]?.source[0]}
+            imageSource={{
+              source: images[i]?.source[0],
+              order: images[i]?.order || 0,
+            }}
           />
         ))}
     </Container>

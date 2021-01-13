@@ -7,11 +7,52 @@
   box-sizing: border-box !important;
   padding: $ratio-five;
   align-items: center;
+  display: grid !important;
+  // grid-template-columns: fit-content(50%) fit-content(50%);
+}
+
+$custom-padding: calc(1rem + 6vw);
+
+.project {
+  position: relative;
+  left: 17rem;
+  &.container {
+    & .image-grid {
+      &.ett-frammande-motiv,
+      &.syster,
+      &.hjartat-i-halsgropen {
+        margin: 3rem 0;
+        overflow: hidden;
+        max-width: 950px;
+      }
+      &.syster,
+      &.hjartat-i-halsgropen {
+        background-color: rgb(255, 255, 250);
+      }
+      &.kognition,
+      &.ett-frammande-motiv {
+        width: fit-content;
+        background-color: rgb(255, 255, 250);
+        & .image-card {
+        }
+      }
+    }
+    .hjartat-i-halsgropen {
+      & .image-card:nth-of-type(3) {
+        padding-top: $custom-padding;
+        padding-bottom: $custom-padding;
+      }
+      &.image-grid,
+      &.syster {
+      }
+    }
+  }
 }
 
 .image-grid.inner-container img {
   height: auto;
   width: 10.1rem;
+  overflow: hidden;
 }
 
 .outerContainer {

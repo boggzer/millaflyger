@@ -62,7 +62,7 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
   };
   return (
     content && (
-      <Container classes='container container'>
+      <Container classes='container container project'>
         <ImageGrid
           {...content}
           imageCardClasses='image-card'

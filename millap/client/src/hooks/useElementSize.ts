@@ -8,7 +8,7 @@ const useElementSize = (el: HTMLElement | undefined, delay = 500): SizeType => {
 
   useEffect(() => {
     const updateSize = () =>
-      el && setTrueSize({ x: el.offsetWidth as number, y: el.offsetHeight });
+      el && setTrueSize({ x: el.clientWidth, y: el.clientHeight });
     window.addEventListener('resize', updateSize);
     window.addEventListener('load', updateSize);
     updateSize();
