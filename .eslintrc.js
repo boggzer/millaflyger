@@ -28,7 +28,7 @@ module.exports = {
 
   rules: {
     quotes: ['error', 'single'],
-    indent: ['error', 2],
+    indent: ['warn', 2],
     'no-trailing-spaces': 'error',
     'no-console': 'warn',
     'no-unused-vars': 'warn',
