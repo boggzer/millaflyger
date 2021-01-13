@@ -1,13 +1,15 @@
 import React from 'react';
+import slugify from 'slugify';
 import Container from './Container';
 import ImageGrid from './ImageGrid';
-import slugify from 'slugify';
-import '../../css/Project.scss';
 import Text from './Text';
-import { ProjectDataType } from '../../utils/global';
+import { useWindowSize } from 'react-use';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import textWrap from 'svg-text-wrap';
+import { ProjectDataType } from '../../utils/global';
+import '../../css/Project.scss';
+
 export interface ProjectProps {
   content: ProjectDataType;
 }
@@ -19,19 +21,24 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
       'letter-spacing': '1px',
     });
 
+    const { width, height } = useWindowSize();
+
     return (
       <svg
         xmlns='http://www.w3.org/2000/svg'
-        viewBox='0 0 120 120'
+        viewBox='0 0 120 110'
         className='svg-title-text'
       >
         <g>
-          <text x='20' y='40'>
+          <text fontSize='1.4rem' x='200' y='60' alignmentBaseline='baseline'>
             {
-              (text.map((line: string, i: number) => (
+              (text.map((line: string, i: number, arr: string[]) => (
                 <tspan
+                  y={`${5}rem`}
+                  alignmentBaseline='central'
+                  textAnchor='left'
                   x={`${i * 0.05}rem`}
-                  dy={`${1 * i}rem`}
+                  dy={`${arr.length === 1 ? 4.5 : 1.5 * (i + 2)}rem`}
                   key={i}
                   height='1rem'
                 >
@@ -40,6 +47,9 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
               )) as unknown) as SVGTSpanElement
             }
           </text>
+        </g>
+        <g height='100%'>
+          <line x1={height * 0.7} y1='100%' y2='100%' x2='0' stroke='black' />
         </g>
       </svg>
     );
