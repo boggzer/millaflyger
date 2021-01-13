@@ -4,11 +4,16 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Start from './pages/Start';
 import About from './pages/About';
 import ImageGrid from './presentational/ImageGrid';
+/// <reference path="../utils/global.d.ts" />
+/// <reference path="../utils/declarations.d.ts" />
 import { ProjectsContext } from '../contexts/projectsContext';
-import { ProjectDataType, ProjectImageDataType } from '../utils/types';
+import { ProjectDataType } from '../utils/global';
 import Project from './presentational/Project';
 import Navigation from './presentational/Navigation';
 import Overview from './pages/portfolio/Overview';
+import ErrorBoundary from '../utils/ErrorBoundary';
+import Container from './presentational/Container';
+import Glitch from './effects/Glitch';
 
 const Layout = (): React.ReactElement => {
   // const { projects } = useContext(ProjectsContext);
@@ -57,6 +62,71 @@ const Layout = (): React.ReactElement => {
         ],
       },
       {
+        id: '4a56bbe4-8f01-44e8-b2a5-ba47216e4c4e',
+        description: null,
+        title: 'Hjärtat i halsgropen',
+        images: [
+          {
+            caption: null,
+            source: [
+              {
+                XS: null,
+                S: null,
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_1_1_m.jpg?alt=media&token=968c33cd-42f5-485f-97b1-2922205ad885',
+                L: null,
+                XL: null,
+              },
+            ],
+          },
+          {
+            caption: null,
+            source: [
+              {
+                XS: null,
+                S: null,
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_1_2_m.jpg?alt=media&token=3e853474-e5f8-4759-b113-315484014f91',
+                L: null,
+                XL: null,
+              },
+            ],
+          },
+          {
+            caption: null,
+            source: [
+              {
+                XS:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_2_xs.jpg?alt=media&token=d115e1f6-6e28-4b9c-a21e-dfb2a04e827a',
+                S:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_2_s.jpg?alt=media&token=7721bc04-44f9-4061-b8e9-0485221a31a3',
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_2_m.jpg?alt=media&token=4909a53a-c0b1-4187-9c41-fb67833a48e5',
+                L:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_2_l.jpg?alt=media&token=f4944073-48e0-4aa2-aab9-d40db7f0c504',
+                XL: null,
+              },
+            ],
+          },
+          {
+            caption: null,
+            source: [
+              {
+                XS:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_3_1_xs.jpg?alt=media&token=5abf325a-6813-4c1e-8426-da34963fbd08',
+                S:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_3_1_s.jpg?alt=media&token=c875d67f-3ef1-425c-82f3-964e51004f4e',
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_3_1_m.jpg?alt=media&token=d19d71de-d483-4229-954e-9a67491ba154',
+                L:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/hjartat-i-halsgropen_3_1_l.jpg?alt=media&token=efa12395-14d0-4d32-b001-ff2ec843675b',
+                XL: null,
+              },
+            ],
+          },
+        ],
+      },
+      {
         id: '8a559782-0315-47a6-800e-6f9069f8c670',
         description: null,
         title: 'Kognition',
@@ -96,6 +166,77 @@ const Layout = (): React.ReactElement => {
         ],
       },
       {
+        id: '91f558bb-643a-4b06-9a0b-19a442b8bc98',
+        description: null,
+        title: 'Syster',
+        images: [
+          {
+            caption: null,
+            source: [
+              {
+                XS:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_xs.jpg?alt=media&token=b9ca4801-5281-4d05-9c95-48b15d390a5a',
+                S:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_s.jpg?alt=media&token=f2966d89-a39c-4a90-9d9a-ba9ed372edc3',
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_m.jpg?alt=media&token=ac4534e2-774b-4414-a887-e342befa1716',
+                L:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_l.jpg?alt=media&token=8d5c68e2-2db0-4e67-8eaa-ba144a9895cc',
+                XL: null,
+              },
+            ],
+          },
+          {
+            caption: null,
+            source: [
+              {
+                XS:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_xs.jpg?alt=media&token=6cb9203b-10ed-487f-a3d8-49b45c6563a0',
+                S:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_s.jpg?alt=media&token=c0b4cc62-9c41-4b79-bdc7-6e3daefa8cd3',
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_m.jpg?alt=media&token=b2932260-356e-4a30-a730-72cdf7b3c867',
+                L:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_l.jpg?alt=media&token=fdb41aa5-7aa9-40fe-b39c-b2ae7561a7c9',
+                XL: null,
+              },
+            ],
+          },
+          {
+            caption: null,
+            source: [
+              {
+                XS:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_xs.jpg?alt=media&token=f3025bda-70b7-4008-8ce1-99d34f8670b1',
+                S:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_s.jpg?alt=media&token=c1454b07-466a-4e04-9aff-fbc7845d4cf3',
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_m.jpg?alt=media&token=f9e2a198-0b9d-4230-9ff0-5184ec6a4812',
+                L:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_l.jpg?alt=media&token=81d1af6b-906f-4a60-8ceb-5847608b3add',
+                XL: null,
+              },
+            ],
+          },
+          {
+            caption: null,
+            source: [
+              {
+                XS:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_xs.jpg?alt=media&token=b46105fd-c9b3-4843-92f3-384ac54af642',
+                S:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_s.jpg?alt=media&token=cf9b77b8-dd2b-4c57-ab01-c4e5d336b5d1',
+                M:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_m.jpg?alt=media&token=3c4053e3-d314-40e5-8a98-024b874dd234',
+                L:
+                  'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_l.jpg?alt=media&token=7b4123cc-642f-4c62-87da-8753451effde',
+                XL: null,
+              },
+            ],
+          },
+        ],
+      },
+      {
         id: 'f313c57f-a2f9-479d-aebf-6311f1154e81',
         description: null,
         title: 'Aska',
@@ -124,34 +265,34 @@ const Layout = (): React.ReactElement => {
   );
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' render={() => <Start />} />
-        <Route path='/about' render={() => <About />} />
-        <Route
-          path='/all'
-          render={() => (
-            <Overview data={data}>
-              {data.map((p, i) => (
-                <ImageGrid key={p.title} {...data[i]} />
-              ))}
-            </Overview>
-          )}
-        />
-        {data.map((p: ProjectDataType, i: number) => (
-          <Route
-            key={document.location.href}
-            path={`/${slugify(p?.title, { lower: true })}`}
-            render={() => (
-              <>
-                <Navigation />
-                <Project content={data[i]} />
-              </>
-            )}
-          />
-        ))}
-      </Switch>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Navigation projects={data} />
+        <Container style={{ width: '100%', height: '100%' }}>
+          <Switch>
+            <Route exact path='/' render={() => <Start projects={data} />} />
+            <Route path='/about' render={() => <About />} />
+            <Route
+              path='/all'
+              render={() => (
+                <Overview data={data}>
+                  {data.map((p, i) => (
+                    <ImageGrid key={p.title} {...data[i]} />
+                  ))}
+                </Overview>
+              )}
+            />
+            {data.map((p: ProjectDataType, i: number) => (
+              <Route
+                key={document.location.href}
+                path={`/${slugify(p?.title, { lower: true })}`}
+                render={() => <Project content={data[i]} />}
+              />
+            ))}
+          </Switch>
+        </Container>
+      </Router>
+    </ErrorBoundary>
   );
 };
 

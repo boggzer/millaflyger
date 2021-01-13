@@ -1,17 +1,19 @@
 /* eslint-disable no-console */
 import React from 'react';
-import './assets/fontface/didot/didot.css';
+import './assets/fontface/librebaskerville/librebaskerville.css';
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
+import { PortalProvider } from 'react-portal-hook';
 import Layout from './components/Layout';
-import './assets/fontface/didot/didot.css';
 import ProjectsProvider from './contexts/projectsContext';
 Amplify.configure(awsExports);
 
 const Root = (): React.ReactElement => {
   return (
     <ProjectsProvider>
-      <Layout />
+      <PortalProvider>
+        <Layout />
+      </PortalProvider>
     </ProjectsProvider>
   );
 };
