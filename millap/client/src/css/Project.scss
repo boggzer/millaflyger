@@ -46,23 +46,27 @@ $portrait-width: $ratio-five * 38;
       object-fit: contain;
     }
   }
-  .ett-frammande-motiv,
-  .kognition,
   .max {
     display: grid !important;
-    max-width: 1000px;
     flex: 25%;
     // grid-template-columns: repeat(auto-fit, minmax(10rem, 32rem));
-    height: fit-content;
     // justify-content: center !important;
+  }
+  .kognition,
+  .max,
+  .ett-frammande-motiv {
+    height: fit-content !important;
+  }
+  .kognition,
+  .max,
+  .ett-frammande-motiv {
+    background-color: rgb(255, 255, 250);
   }
   .max {
     flex: 0;
     grid-auto-flow: column;
-    height: fit-content;
     max-height: 100%;
     width: fit-content;
-    background-color: rgb(255, 255, 250);
     grid-template-columns: repeat(4, minmax(auto, 400px));
     .image-card {
       width: 100%;
@@ -83,13 +87,21 @@ $portrait-width: $ratio-five * 38;
       }
     }
   }
-  .hjartat-i-halsgropen,
+  .hjartat-i-halsgropen {
+    display: grid;
+  }
   .kognition,
   .syster,
   .ett-frammande-motiv {
-    transition: padding 200ms ease-out;
-    max-width: 1000px;
     display: flex;
+  }
+
+  .kognition,
+  .syster,
+  .hjartat-i-halsgropen,
+  .ett-frammande-motiv {
+    transition: padding 200ms ease-out;
+    max-width: 800px;
     flex: 1;
     height: 100%;
     overflow-x: hidden;
@@ -106,7 +118,7 @@ $portrait-width: $ratio-five * 38;
 
 @media screen and (max-width: 641px) {
   .inner-container {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     overflow: visible !important;
     padding: 2rem 1rem !important;

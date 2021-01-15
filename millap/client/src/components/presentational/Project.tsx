@@ -3,18 +3,34 @@ import slugify from 'slugify';
 import Container from './Container';
 import ImageGrid from './ImageGrid';
 import Text from './Text';
+import usePortal from 'react-cool-portal';
 import { useWindowSize } from 'react-use';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import textWrap from 'svg-text-wrap';
 import { ProjectDataType } from '../../utils/global';
 import '../../css/Project.scss';
+import { useEffect } from 'react';
 
 export interface ProjectProps {
   content: ProjectDataType;
 }
 
 const Project = ({ content }: ProjectProps): React.ReactElement => {
+  const { pathname } = document.location;
+  const { Portal, show, hide } = usePortal({
+    containerId: 'title-text',
+    internalShowHide: false,
+  });
+
+  useEffect(() => {
+    pathname === `/${slugify(content?.title, { lower: true })}`
+      ? show()
+      : hide();
+    return hide;
+  }, []);
+
   const WrappedSvgText = () => {
     // eslint-disable-next-line react/prop-types
     const text: string[] = textWrap(content.title as string, 100, {
@@ -70,7 +86,9 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
             lower: true,
           })}`}
         />
-        <WrappedSvgText />
+        <Portal>
+          <WrappedSvgText />
+        </Portal>
         {content?.description && <Text>{content.description}</Text>}
       </Container>
     )

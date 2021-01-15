@@ -2,6 +2,7 @@
 import React, { ElementType } from 'react';
 import { ComponentPropsWithRef } from 'react';
 import { useMountedState } from 'react-use';
+import { ProjectDataType } from '../../utils/global';
 import ImageInterpolation, {
   ImageInterpolationProps,
 } from './ImageInterpolation';
@@ -9,6 +10,7 @@ import ResponsiveGrid from './ResponsiveGrid';
 import { ResponsiveGridImageType } from './ResponsiveGrid';
 
 interface AnimatedContainerProps {
+  data?: ProjectDataType[];
   children?: React.ReactNode;
   classes?: string;
   images?: ResponsiveGridImageType[];
@@ -18,6 +20,7 @@ interface AnimatedContainerProps {
 }
 
 const AnimatedContainer = ({
+  data,
   interpolationProps,
   children,
   classes,
@@ -30,6 +33,7 @@ const AnimatedContainer = ({
   return (
     (type === 'responsive grid' && typeof images !== 'undefined' && (
       <ResponsiveGrid
+        data={data}
         images={images}
         loading={loading}
         isMounted={isMounted}

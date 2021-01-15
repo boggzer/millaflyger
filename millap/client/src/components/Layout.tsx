@@ -281,13 +281,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_xs.jpg?alt=media&token=b9ca4801-5281-4d05-9c95-48b15d390a5a',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_xs.jpg?alt=media&token=b9ca4801-5281-4d05-9c95-48b15d390a5a@150x206',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_s.jpg?alt=media&token=f2966d89-a39c-4a90-9d9a-ba9ed372edc3',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_s.jpg?alt=media&token=f2966d89-a39c-4a90-9d9a-ba9ed372edc3@300x412',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_m.jpg?alt=media&token=ac4534e2-774b-4414-a887-e342befa1716',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_m.jpg?alt=media&token=ac4534e2-774b-4414-a887-e342befa1716@640x880',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_l.jpg?alt=media&token=8d5c68e2-2db0-4e67-8eaa-ba144a9895cc',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_1_l.jpg?alt=media&token=8d5c68e2-2db0-4e67-8eaa-ba144a9895cc@1200x1650',
               XL: null,
             },
           ],
@@ -298,13 +298,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_xs.jpg?alt=media&token=6cb9203b-10ed-487f-a3d8-49b45c6563a0',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_xs.jpg?alt=media&token=6cb9203b-10ed-487f-a3d8-49b45c6563a0@150x208',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_s.jpg?alt=media&token=c0b4cc62-9c41-4b79-bdc7-6e3daefa8cd3',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_s.jpg?alt=media&token=c0b4cc62-9c41-4b79-bdc7-6e3daefa8cd3@300x415',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_m.jpg?alt=media&token=b2932260-356e-4a30-a730-72cdf7b3c867',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_m.jpg?alt=media&token=b2932260-356e-4a30-a730-72cdf7b3c867@640x885',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_l.jpg?alt=media&token=fdb41aa5-7aa9-40fe-b39c-b2ae7561a7c9',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_2_l.jpg?alt=media&token=fdb41aa5-7aa9-40fe-b39c-b2ae7561a7c9@1200x1660',
               XL: null,
             },
           ],
@@ -315,13 +315,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_xs.jpg?alt=media&token=f3025bda-70b7-4008-8ce1-99d34f8670b1',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_xs.jpg?alt=media&token=f3025bda-70b7-4008-8ce1-99d34f8670b1@150x207',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_s.jpg?alt=media&token=c1454b07-466a-4e04-9aff-fbc7845d4cf3',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_s.jpg?alt=media&token=c1454b07-466a-4e04-9aff-fbc7845d4cf3@300x415',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_m.jpg?alt=media&token=f9e2a198-0b9d-4230-9ff0-5184ec6a4812',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_m.jpg?alt=media&token=f9e2a198-0b9d-4230-9ff0-5184ec6a4812@640x885',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_l.jpg?alt=media&token=81d1af6b-906f-4a60-8ceb-5847608b3add',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_3_l.jpg?alt=media&token=81d1af6b-906f-4a60-8ceb-5847608b3add@1200x1659',
               XL: null,
             },
           ],
@@ -332,13 +332,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_xs.jpg?alt=media&token=b46105fd-c9b3-4843-92f3-384ac54af642',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_xs.jpg?alt=media&token=b46105fd-c9b3-4843-92f3-384ac54af642@150x207',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_s.jpg?alt=media&token=cf9b77b8-dd2b-4c57-ab01-c4e5d336b5d1',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_s.jpg?alt=media&token=cf9b77b8-dd2b-4c57-ab01-c4e5d336b5d1@300x413',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_m.jpg?alt=media&token=3c4053e3-d314-40e5-8a98-024b874dd234',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_m.jpg?alt=media&token=3c4053e3-d314-40e5-8a98-024b874dd234@640x882',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_l.jpg?alt=media&token=7b4123cc-642f-4c62-87da-8753451effde',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_4_l.jpg?alt=media&token=7b4123cc-642f-4c62-87da-8753451effde@1200x1653',
               XL: null,
             },
           ],
@@ -349,13 +349,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_xs.jpg?alt=media&token=a12ecdbd-beed-4f56-95f1-83bd9d871b74',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_xs.jpg?alt=media&token=a12ecdbd-beed-4f56-95f1-83bd9d871b74@150x191',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_s.jpg?alt=media&token=6049aea5-80ab-45ac-888e-cbe287ad4a22',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_s.jpg?alt=media&token=6049aea5-80ab-45ac-888e-cbe287ad4a22@300x383',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_m.jpg?alt=media&token=d27484f0-0496-4bef-a603-44892865187d',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_m.jpg?alt=media&token=d27484f0-0496-4bef-a603-44892865187d@640x817',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_l.jpg?alt=media&token=4689e7f5-9cf2-489b-b60b-77f4e2a34342',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_5_l.jpg?alt=media&token=4689e7f5-9cf2-489b-b60b-77f4e2a34342@1200x1531',
               XL: null,
             },
           ],
@@ -366,13 +366,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_xs.jpg?alt=media&token=1a65ac97-f1a2-45b0-b752-a2c1c31de31e',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_xs.jpg?alt=media&token=1a65ac97-f1a2-45b0-b752-a2c1c31de31e@150x192',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_s.jpg?alt=media&token=b33b40c5-2f35-4d2e-89b9-28da106d29dc',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_s.jpg?alt=media&token=b33b40c5-2f35-4d2e-89b9-28da106d29dc@300x383',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_m.jpg?alt=media&token=e43aaf62-7fcd-4573-9fdd-808d94a00c6f',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_m.jpg?alt=media&token=e43aaf62-7fcd-4573-9fdd-808d94a00c6f@640x817',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_l.jpg?alt=media&token=899c2912-b26a-4a06-9fee-01d4fbb81265',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_6_l.jpg?alt=media&token=899c2912-b26a-4a06-9fee-01d4fbb81265@1200x1532',
               XL: null,
             },
           ],
@@ -383,13 +383,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_xs.jpg?alt=media&token=57cc6bf0-b9b0-4c5c-b827-e75b8a768813',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_xs.jpg?alt=media&token=57cc6bf0-b9b0-4c5c-b827-e75b8a768813@150x192',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_s.jpg?alt=media&token=5d9d0a20-e73e-4a5b-9c8c-03581bb59ba4',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_s.jpg?alt=media&token=5d9d0a20-e73e-4a5b-9c8c-03581bb59ba4@300x383',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_m.jpg?alt=media&token=ccccd30f-4e8b-457a-a571-6252be433fbb',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_m.jpg?alt=media&token=ccccd30f-4e8b-457a-a571-6252be433fbb@640x817',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_l.jpg?alt=media&token=b392eeea-1634-4fdf-927d-7d81cfa23510',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_7_l.jpg?alt=media&token=b392eeea-1634-4fdf-927d-7d81cfa23510@1200x1531',
               XL: null,
             },
           ],
@@ -400,13 +400,13 @@ const Layout = (): React.ReactElement => {
           source: [
             {
               XS:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_xs.jpg?alt=media&token=952c7aa4-8721-461c-b457-b3749b7d878e',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_xs.jpg?alt=media&token=952c7aa4-8721-461c-b457-b3749b7d878e@150x192',
               S:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_s.jpg?alt=media&token=e32ff504-940b-48f1-bcca-0e57a3bc7064',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_s.jpg?alt=media&token=e32ff504-940b-48f1-bcca-0e57a3bc7064@300x383',
               M:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_m.jpg?alt=media&token=575f4ad5-3464-4439-9041-fa6cf008e22f',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_m.jpg?alt=media&token=575f4ad5-3464-4439-9041-fa6cf008e22f@640x817',
               L:
-                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_l.jpg?alt=media&token=e96cd173-1ea8-4cd1-9fa5-03c9f87ac69f',
+                'https://firebasestorage.googleapis.com/v0/b/milla-portfolio.appspot.com/o/syster_8_l.jpg?alt=media&token=e96cd173-1ea8-4cd1-9fa5-03c9f87ac69f1200x1531',
               XL: null,
             },
           ],

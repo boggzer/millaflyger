@@ -1,14 +1,19 @@
-import React, { memo, Suspense, useCallback } from 'react';
+import React, {
+  memo,
+  useState,
+  useLayoutEffect,
+  useCallback,
+  useMemo,
+} from 'react';
 import '../../css/ResponsiveGrid.scss';
 import Lottie, { Options } from 'react-lottie';
 import aniData from '../../assets/lottie/white-noise.json';
 import ImageComponent from '../presentational/ImageComponent';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
-import { useWindowSize } from 'react-use';
+import { useWindowSize, useFirstMountState } from 'react-use';
 import useImageSize from '../../hooks/useImageSize';
-import { useState } from 'react';
-import { useLayoutEffect } from 'react';
-import { isNaN } from 'lodash';
+import { isUndefined } from 'lodash';
+import { ProjectDataType } from '../../utils/global';
 
 export type ResponsiveGridImageType = {
   id?: string;
@@ -18,13 +23,18 @@ export type ResponsiveGridImageType = {
 };
 
 interface ResponsiveGridProps {
+  data?: ProjectDataType[];
   classes?: string;
   images: ResponsiveGridImageType[];
   loading?: boolean;
   isMounted?: () => boolean;
 }
 
-const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
+const ResponsiveGrid = ({
+  data,
+  images,
+  classes,
+}: ResponsiveGridProps): any => {
   const { width = 1 } = useWindowSize();
 
   const GridImage = ({
@@ -35,6 +45,8 @@ const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
     top,
     left,
   }: RenderImageProps): any => {
+    // const startLeft = customNanTypeCheck(left, NaN, 'left1');
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     return (
       <div
         key={image.key}
@@ -42,13 +54,17 @@ const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
           position: 'absolute',
           height,
           width,
-          top: isNaN(top) ? '1px' : top,
-          left: isNaN(left) ? '1px' : left,
+          top,
+          left,
         }}
       >
         <ImageComponent
           imageSource={src}
-          ImageProps={{ height, width, ...image }}
+          ImageProps={{
+            height,
+            width,
+            ...image,
+          }}
         />
       </div>
     );
@@ -64,17 +80,7 @@ const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
   };
 
   const imageRenderer = useCallback(
-    ({
-      index,
-      key,
-      photo: { height = 250, width = 250, src, ...rest },
-      direction,
-      ...props
-    }: any) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { width: originalWidth, height: originalHeight } = useImageSize(
-        src,
-      );
+    ({ index, key, photo: { src, ...rest }, direction, ...props }: any) => {
       return (
         <GridImage
           key={key}
@@ -82,8 +88,6 @@ const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
           direction={direction}
           index={index}
           photo={{
-            width: isNaN(width) ? originalWidth : width,
-            height: isNaN(height) ? originalHeight : height,
             src,
             ...rest,
           }}
@@ -94,22 +98,23 @@ const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
     [],
   );
 
-  const getColumnSize = (w: number): number | undefined => {
-    if (w > 0 && w < 600) {
+  const getColumnSize = useMemo(() => {
+    if (width > 0 && width < 600) {
       return 1;
-    } else if (w > 600 && w < 850) {
+    } else if (width > 600 && width < 850) {
       return 2;
-    } else if (w > 850) {
+    } else if (width > 850) {
       return 3;
     }
     return undefined;
-  };
+  }, [width]);
 
   return (
     <div className={`responsive-grid ${classes}`}>
       <Gallery
+        margin={10}
         photos={images}
-        columns={getColumnSize(width)}
+        columns={getColumnSize}
         direction='column'
         renderImage={imageRenderer}
       />

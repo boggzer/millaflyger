@@ -1,84 +1,61 @@
-import React, { useMemo, useState } from 'react';
-import Container from '../../presentational/Container';
+import React, { memo, useMemo } from 'react';
 import '../../../css/Overview.scss';
 import AnimatedContainer from '../../effects/AnimatedContainer';
-import { ProjectDataType, ProjectImageDataType } from '../../../utils/global';
+import { ProjectDataType } from '../../../utils/global';
 import { ResponsiveGridImageType } from '../../effects/ResponsiveGrid';
-
+import useImageSize from '../../../hooks/useImageSize';
 interface OverviewProps {
-  all?: boolean;
   children?: React.ReactNode;
   data: ProjectDataType[];
 }
 
-interface Yo extends ResponsiveGridImageType {
-  height: number;
-  width: number;
-}
-
-interface Hej {
-  height: number;
-  width: number;
-  src: string;
-}
-
-const Overview = ({ data, all }: OverviewProps): React.ReactElement => {
-  const [isLoading, setIsLoading] = useState(true);
-  const getImageValues = ({
-    source,
-    id,
-  }: Pick<ProjectImageDataType, 'source'> & Pick<ProjectDataType, 'id'>) => {
-    const orgImage = { src: source[0]['S'] || source[0]['M'], height: 0 };
-    const img = new Image();
-    const size = (img.onload = () => ({
-      height: img.height || 0,
-      width: img.width || 0,
-    }));
-    console.log(size());
-    img.src = orgImage['src'];
-    return { id, src: orgImage['src'], ...size() };
-  };
-
-  const imageSources = useMemo(
+const Overview = ({ data }: OverviewProps): React.ReactElement => {
+  const imagesWithDimensions = useMemo(
     () =>
-      data.reduce((acc: Yo[], { id, images }) => {
-        if (all) {
-          images.forEach(
-            ({ source }: Pick<ProjectImageDataType, 'source'>, i) => {
-              const imageData = getImageValues({ source, id });
-              acc.push({
-                ...imageData,
-              });
-              acc.length - 1 === i && setIsLoading(false);
-            },
+      data.reduce(
+        (acc: ResponsiveGridImageType[], { images: [{ source }] }) => {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const { width, height } = useImageSize(
+            source[0]['S'] || source[0]['M'],
           );
-        } else {
-          const imageData = getImageValues({
-            source: images[0].source,
-            id,
-          });
           acc.push({
-            ...imageData,
+            src: source[0]['S'] || source[0]['M'],
+            height: height || 200,
+            width: width || 200,
           });
-          acc.length === data.length && setIsLoading(false);
-        }
-        return acc;
-      }, []),
+          return acc;
+          /*
+          images.map(({ source }: any, i) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const { width, height } = useImageSize(
+              source[0]['S'] || source[0]['M'],
+            );
+            acc.push({
+              src: source[0]['S'] || source[0]['M'],
+              height: height || 200,
+              width: width || 200,
+            });
+          });
+          */
+        },
+        [],
+      ),
     [data],
   );
 
   return (
     <>
-      <Container type='grid' classes='overview container'>
-        <AnimatedContainer
-          type='responsive grid'
-          images={imageSources}
-          loading={isLoading}
-        />
-        {/* {children} */}
-      </Container>
+      {/* <Container type='grid' classes='overview container'> */}
+      <AnimatedContainer
+        data={data}
+        classes='overview-container'
+        type='responsive grid'
+        images={imagesWithDimensions}
+      />
+      {/* {children} */}
+      {/* </Container> */}
     </>
   );
 };
 
-export default Overview;
+export default memo(Overview);

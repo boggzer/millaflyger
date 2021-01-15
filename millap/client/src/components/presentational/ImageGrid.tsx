@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import Container from './Container';
 import '../../css/ImageGrid.scss';
 import ImageCard from './ImageCard';
@@ -9,6 +9,8 @@ import useRefChange from '../../hooks/useRefChange';
 import useElementSize from '../../hooks/useElementSize';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import useMeasure from '../../hooks/useMeasure';
+import useImageSize from '../../hooks/useImageSize';
 
 interface ImageGridProps extends ProjectDataType {
   outerContainerClasses?: string;
@@ -24,10 +26,11 @@ const ImageGrid = ({
   images,
   imageCardStyle,
 }: ImageGridProps): React.ReactElement => {
-  const [ref, setRef] = useState<HTMLElement | undefined>();
+  const [ref, setRef] = useState<any>();
   const { pathname } = useLocation();
-  const { x, y } = useElementSize(ref, 0);
+  const { x = 0, y = 0 } = useElementSize(ref, 10);
   const refChange = useRefChange(setRef);
+  const [l, isL] = useState(true);
 
   const paddings: { [key: string]: (string | number)[] } = {
     '/hjartat-i-halsgropen': [
@@ -36,16 +39,20 @@ const ImageGrid = ({
       x / 16.0526 / 2 + 'px',
     ],
   };
-
   const parentGridStyles: {
     [key: string]: { [key: string]: string } | CSSProperties;
   } = {
     '/kognition': {
       columnGap: `${x / 15.2}px`,
-      padding: `${y * 0.07}px ${x * 0.22}px ${y * 0.18}px ${x * 0.22}px`,
+      padding:
+        (x || y) !== 0
+          ? `${y * 0.07}px ${x * 0.22}px ${y * 0.18}px ${x * 0.22}px`
+          : '0px',
     },
     '/hjartat-i-halsgropen': {
-      padding: '1rem 11%',
+      padding: `${~~(y / 7.6)}px ${~~(y / 3.4)}px ${~~(y / 3.4)}px ${~~(
+        y / 3.8
+      )}px`,
       // gridTemplateRows: 'repeat(3, auto-fill',
       gridTemplateAreas: `
         "one two"
@@ -55,56 +62,49 @@ const ImageGrid = ({
     '/syster': {
       columnGap: `${x / 16}px`,
       padding: '9% 6.25% 21% 6.25%',
-      gridTemplateAreas: `
-        "one two three four"
-        "five six seven eight"`,
+      //   gridTemplateAreas: `
+      //     "one two three four"
+      //     "five six seven eight"`,
+      // }
     },
     '/ett-frammande-motiv': {
       columnGap: `${x / 10}px`,
-      padding: `${x / 10 / 2}px ${x / 10 / 2}px ${x / 9.2 / 2}px ${
-        x / 10 / 2
-      }px`,
+      padding: `${~~(x / 10 / 2)}px ${~~(x / 10 / 2)}px ${~~(
+        x /
+        9.2 /
+        2
+      )}px ${~~(x / 10 / 2)}px`,
+    },
+    '/max': {
+      padding: `${~~(y / 1.9)}px ${~~(y / 7.7)}px ${~~(y / 1.8)}px ${~~(
+        y / 7.7
+      )}px`,
+      columnGap: `${1.9}%`,
+      // gridTemplateAreas: `
+      //   "one two three four"`,
+    },
+    '/nattmara': {
+      padding: `${~~(y / 4)}px ${~~(x / 3.75)}px ${~~(y / 2.5)}px ${~~(
+        x / 3.75
+      )}px`,
     },
   };
-
   const childGridStyles: { [key: string]: (number | string)[] } = {
     '/hjartat-i-halsgropen': ['one', 'two', 'three', 'four', 'five'],
-    '/syster': ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
+    // '/syster': ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
   };
 
-  const is = {
-    first: (num: number, arr: string[]) => num === 0 || num !== arr.length - 1,
-    middle: (num: number, arr: string[]) => num !== 0 && num !== arr.length - 1,
-    last: (num: number, arr: string[]) =>
-      arr.length !== 1 && num === arr.length - 1,
+  const mediaQueryClasses: { [key: string]: string } = {
+    '/syster': 'br',
+    '/max': 'br',
   };
-  /**
- *
-            ContainerProps={{
-              style: {
-                margin: `0 ${
-                  is.first(i, arr) || is.middle(i, arr) ? margins[pathname] : 0
-                } 0 ${
-                  is.middle(i, arr) || is.last(i, arr) ? margins[pathname] : 0
-                }`,
-                ...imageCardStyle,
-              },
- */
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (!isLoading && ref) {
-      ref.onload = () => console.log(ref);
-    }
-  }, []);
 
   return (
     <Container
-      classes={`image-grid inner-container ${outerContainerClasses}`}
+      classes={`image-grid inner-container ${mediaQueryClasses?.[pathname]} ${outerContainerClasses}`}
       style={{ ...parentGridStyles?.[pathname] }}
       type='grid'
     >
-      {console.log(x, y, isLoading)}
       {images &&
         Object.keys(images).map((p: string, i: number, arr: string[]) => (
           <ImageCard
@@ -116,7 +116,7 @@ const ImageGrid = ({
                 gridArea: childGridStyles?.[pathname]?.[i],
                 ...imageCardStyle,
               },
-              className: imageCardClasses,
+              className: `${imageCardClasses}`,
             }}
             classes={`image-grid image ${innerContainerClasses}`}
             key={i}

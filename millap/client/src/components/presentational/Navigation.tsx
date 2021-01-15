@@ -1,6 +1,6 @@
 import React, { useState, memo, useMemo } from 'react';
 import slugify from 'slugify';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import FilmNoise from '../effects/FilmNoise';
 import { ProjectDataType } from '../../utils/global';
 import Container from './Container';
@@ -13,7 +13,7 @@ interface NavigationProps {
 const Navigation = ({
   projects,
 }: NavigationProps): React.ReactElement | any => {
-  const { pathname } = document.location;
+  const { pathname } = useLocation();
   const [showFilmNoise, setShowFilmNoise] = useState('');
 
   const getProjectLinks = useMemo(
@@ -25,7 +25,6 @@ const Navigation = ({
       })),
     [projects],
   );
-
   const content = [
     { title: 'Start', link: '/' },
     { title: 'About', link: '/about' },
@@ -34,36 +33,38 @@ const Navigation = ({
   ];
 
   return (
-    <Container classes='navigation-container' type='list'>
-      <nav className='nav'>
-        {content.map(({ title, link, classes }) => (
-          <FilmNoise
-            key={`nav-link-${title}-${link}`}
-            show={showFilmNoise === title}
-            ContainerProps={{
-              id: title,
-            }}
-            opacity={0.4}
-            outerClasses='film-noise'
-            innerClasses='inner-film-noise'
-          >
-            <Text onlyContainer>
-              <Link
-                className={classes}
-                id={title}
-                onMouseEnter={({ target }) =>
-                  setShowFilmNoise((target as Element)?.id)
-                }
-                onMouseLeave={() => setShowFilmNoise('')}
-                to={link}
-              >
-                {title}
-              </Link>
-            </Text>
-          </FilmNoise>
-        ))}
-      </nav>
-    </Container>
+    pathname !== '/' && (
+      <Container classes='navigation-container' type='list'>
+        <nav className='nav'>
+          {content.map(({ title, link, classes }) => (
+            <FilmNoise
+              key={`nav-link-${title}-${link}`}
+              show={showFilmNoise === title}
+              ContainerProps={{
+                id: title,
+              }}
+              opacity={0.4}
+              outerClasses='film-noise'
+              innerClasses='inner-film-noise'
+            >
+              <Text onlyContainer>
+                <Link
+                  className={classes}
+                  id={title}
+                  onMouseEnter={({ target }) =>
+                    setShowFilmNoise((target as Element)?.id)
+                  }
+                  onMouseLeave={() => setShowFilmNoise('')}
+                  to={link}
+                >
+                  {title}
+                </Link>
+              </Text>
+            </FilmNoise>
+          ))}
+        </nav>
+      </Container>
+    )
   );
 };
 

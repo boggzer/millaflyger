@@ -7,7 +7,7 @@
   box-sizing: border-box !important;
   padding: $ratio-five;
   align-items: center;
-  display: grid !important;
+  display: grid;
   transition: all 1s ease;
   // grid-template-columns: fit-content(50%) fit-content(50%);
 }
@@ -21,15 +21,16 @@ $custom-padding: calc(1rem + 6vw);
   box-sizing: border-box;
   &.container {
     .hjartat-i-halsgropen {
+      display: grid !important;
       & .image-card:nth-of-type(3) {
         padding-top: $custom-padding;
         padding-bottom: $custom-padding;
       }
       &.image-grid {
-        transform: translateX(-50px);
+        height: fit-content;
         margin: 3rem 0;
-        overflow: hidden;
-        max-width: 950px;
+        overflow: visible;
+        max-width: 800px;
       }
     }
   }
