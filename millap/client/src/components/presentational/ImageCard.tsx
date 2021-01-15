@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { HTMLAttributes, forwardRef } from 'react';
+import React, { ImgHTMLAttributes, forwardRef } from 'react';
 import Image from './ImageComponent';
 import { ImageSize, ImageSizes } from '../../utils/constants';
-
 export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
   ContainerProps?: React.HTMLProps<HTMLDivElement>;
   classes?: string;
   imageSource:
     | { source: Record<keyof ImageSizes, string>; order?: number }
     | string;
-  ImageProps?: HTMLAttributes<HTMLImageElement>;
+  ImageProps?: ImgHTMLAttributes<HTMLImageElement>;
   // onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   size?: ImageSize;
   order?: number;

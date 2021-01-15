@@ -2,10 +2,16 @@ import React, { memo, Suspense, useCallback } from 'react';
 import '../../css/ResponsiveGrid.scss';
 import Lottie, { Options } from 'react-lottie';
 import aniData from '../../assets/lottie/white-noise.json';
-import Gallery from 'react-photo-gallery';
+import ImageComponent from '../presentational/ImageComponent';
+import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import { useWindowSize } from 'react-use';
+import useImageSize from '../../hooks/useImageSize';
+import { useState } from 'react';
+import { useLayoutEffect } from 'react';
+import { isNaN } from 'lodash';
+
 export type ResponsiveGridImageType = {
-  id: string;
+  id?: string;
   src: string;
   height: number | any;
   width: number;
@@ -14,36 +20,35 @@ export type ResponsiveGridImageType = {
 interface ResponsiveGridProps {
   classes?: string;
   images: ResponsiveGridImageType[];
-  mediaQueries?: string[];
-  queriesCount?: number[];
   loading?: boolean;
-  queriesDefaultCount?: number;
   isMounted?: () => boolean;
 }
 
-const ResponsiveGrid = ({ images }: ResponsiveGridProps): any => {
-  const { width, height } = useWindowSize();
+const ResponsiveGrid = ({ images, classes }: ResponsiveGridProps): any => {
+  const { width = 1 } = useWindowSize();
 
-  const GridImage = ({ photo, top, left, direction: d, margin }: any) => {
+  const GridImage = ({
+    photo: { src, srcSet, sizes, height, width, ...image },
+    onClick,
+    index,
+    direction,
+    top,
+    left,
+  }: RenderImageProps): any => {
     return (
       <div
+        key={image.key}
         style={{
-          margin: '1rem',
-          height: photo.height,
-          width: photo.width,
-          cursor: 'pointer',
-          overflow: 'hidden',
-          position: d === 'column' ? 'absolute' : 'relative',
-          left: d === 'column' ? left : 'initial',
-          top: d === 'column' ? top : 'initial',
+          position: 'absolute',
+          height,
+          width,
+          top: isNaN(top) ? '1px' : top,
+          left: isNaN(left) ? '1px' : left,
         }}
       >
-        <img
-          {...photo}
-          style={{
-            boxSizing: 'border-box',
-            padding: '1rem',
-          }}
+        <ImageComponent
+          imageSource={src}
+          ImageProps={{ height, width, ...image }}
         />
       </div>
     );
@@ -57,25 +62,35 @@ const ResponsiveGrid = ({ images }: ResponsiveGridProps): any => {
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
+
   const imageRenderer = useCallback(
-    ({ index, left, top, key, photo, direction }: any) => (
-      <Suspense
-        key={key}
-        fallback={
-          <Lottie options={animationOptions} height={100} width={100} />
-        }
-      >
+    ({
+      index,
+      key,
+      photo: { height = 250, width = 250, src, ...rest },
+      direction,
+      ...props
+    }: any) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { width: originalWidth, height: originalHeight } = useImageSize(
+        src,
+      );
+      return (
         <GridImage
           key={key}
           margin={'2px'}
           direction={direction}
           index={index}
-          photo={photo}
-          left={left}
-          top={top}
+          photo={{
+            width: isNaN(width) ? originalWidth : width,
+            height: isNaN(height) ? originalHeight : height,
+            src,
+            ...rest,
+          }}
+          {...props}
         />
-      </Suspense>
-    ),
+      );
+    },
     [],
   );
 
