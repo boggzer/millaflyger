@@ -3,16 +3,22 @@
 $padding: $ratio-five * 3;
 $spacing: $ratio * 5rem;
 
-.about.container {
+.about-container {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
   width: 100%;
+  padding: 4rem;
   margin-top: calc(#{$ratio-five} * 10);
   box-sizing: border-box;
-  margin: $ratio-five;
+  margin: $ratio-five auto;
   top: $padding;
   justify-content: space-between !important;
-  position: relative;
+  // position: relative;
   padding: $padding;
-  height: 100%;
+  overflow: hidden;
+  height: 100vh;
+  width: fit-content;
   & > .container:not(:first-of-type) {
     margin: 0.2rem;
     width: 60%;

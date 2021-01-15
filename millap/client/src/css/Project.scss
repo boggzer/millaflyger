@@ -2,82 +2,115 @@
 
 $portrait-width: $ratio-five * 38;
 
-.container {
-  &.container {
-    align-items: flex-start;
-    display: flex;
-    justify-content: space-around;
+.content.container {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-around;
+  overflow-x: hidden;
+  // width: calc(100% - 18rem);
+  svg {
+    position: fixed;
+    left: 0;
+  }
+  .svg-title-text {
+    position: fixed;
+    z-index: 5;
+    transform: rotate(-90deg);
+    transform-origin: left;
+    left: 8.9rem;
+    height: 30rem;
+    width: 60rem;
+    z-index: 1;
+    top: 30%;
+    overflow: hidden;
+    & g {
+    }
+  }
+  .main {
+    align-items: stretch;
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-width: unset;
     overflow-x: hidden;
-    width: calc(100% - 18rem);
-    svg {
-      position: fixed;
-      left: 0;
-    }
-    .svg-title-text {
-      position: fixed;
-      z-index: 5;
-      transform: rotate(-90deg);
-      transform-origin: left;
-      left: 8.9rem;
-      height: 30rem;
-      width: 60rem;
-      z-index: 1;
-      top: 30%;
-      overflow: hidden;
-      & g {
-      }
-    }
-    .main {
-      align-items: stretch;
-      flex-wrap: nowrap;
-      justify-content: center;
-      max-width: unset;
-      overflow-x: hidden;
-      transition: margin 700ms;
-      width: 100%;
+    transition: margin 700ms;
+    width: 100%;
+    height: 100%;
+  }
+  .image-card {
+    margin: 0 auto;
+    img {
+      width: auto;
       height: 100%;
+      box-shadow: 0 0 10px -2px #999;
+      border-radius: $ratio-one;
+      object-fit: contain;
     }
+  }
+  .ett-frammande-motiv,
+  .kognition,
+  .max {
+    display: grid !important;
+    max-width: 1000px;
+    flex: 25%;
+    // grid-template-columns: repeat(auto-fit, minmax(10rem, 32rem));
+    height: fit-content;
+    // justify-content: center !important;
+  }
+  .max {
+    flex: 0;
+    grid-auto-flow: column;
+    height: fit-content;
+    max-height: 100%;
+    width: fit-content;
+    background-color: rgb(255, 255, 250);
+    grid-template-columns: repeat(4, minmax(auto, 400px));
     .image-card {
-      margin: 0 auto;
-      img {
-        width: auto;
-        height: 100%;
-        box-shadow: 0 0 10px -2px #999;
-        border-radius: $ratio-one;
-        object-fit: contain;
-      }
-    }
-    .ett-frammande-motiv,
-    .kognition {
-      display: grid !important;
-      max-width: 1000px;
-      flex: 25%;
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 32rem));
-      row-gap: 3rem;
-      justify-content: center !important;
-    }
-    .hjartat-i-halsgropen,
-    .kognition,
-    .syster,
-    .ett-frammande-motiv {
-      max-width: 1000px;
-      display: flex;
-      flex: 1;
+      width: 100%;
+      flex: 0;
       height: 100%;
-      overflow-x: hidden;
-      justify-content: space-between;
-      & > div {
-        margin: 10px;
+      display: inline-flex;
+      max-height: 40vmin;
+      picture {
+        max-height: inherit;
+        min-height: inherit;
+        img {
+          flex: 0;
+          max-height: inherit;
+          min-height: inherit;
+          width: auto;
+          height: inherit;
+        }
       }
-      img {
-        width: 100% !important;
-        height: auto !important;
-      }
+    }
+  }
+  .hjartat-i-halsgropen,
+  .kognition,
+  .syster,
+  .ett-frammande-motiv {
+    transition: padding 200ms ease-out;
+    max-width: 1000px;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    overflow-x: hidden;
+    justify-content: space-between;
+    & > div {
+      margin: 10px;
+    }
+    img {
+      width: 100% !important;
+      height: auto !important;
     }
   }
 }
 
 @media screen and (max-width: 641px) {
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+    overflow: visible !important;
+    padding: 2rem 1rem !important;
+  }
   .image-card {
     max-width: 640px;
     height: auto;
