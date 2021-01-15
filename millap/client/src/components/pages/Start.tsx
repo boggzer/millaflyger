@@ -2,7 +2,7 @@ import React, { MouseEvent, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '../presentational/Container';
 import '../../css/Start.scss';
-import Image from '../presentational/Image';
+import Image from '../presentational/ImageComponent';
 import Text from '../presentational/Text';
 import FilmNoise from '../effects/FilmNoise';
 import AnimatedContainer from '../effects/AnimatedContainer';

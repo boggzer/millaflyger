@@ -7,7 +7,7 @@ import useRefChange from '../../hooks/useRefChange';
 
 const About = (): React.ReactElement => {
   const [showFilmNoise, setShowFilmNoise] = useState<boolean>(false);
-  const [ref, setRef] = useState<HTMLElement | undefined>();
+  const [ref, setRef] = useState<any>();
   const refChange = useRefChange(setRef);
 
   const onMouseEnter = (
@@ -19,7 +19,7 @@ const About = (): React.ReactElement => {
   };
 
   return (
-    <Container flexStart classes='about container'>
+    <Container flexStart classes='container about-container'>
       <Container flexStart>
         <Text bold type='h6'>
           Exhibitions
@@ -53,9 +53,28 @@ const About = (): React.ReactElement => {
       </Container>
       <Container flexStart>
         <Text bold type='h6'>
+          Education
+        </Text>
+        <Container column flexStart classes='text-block'>
+          <Text>
+            2016 Filmarbetare Tärna Folkhögskola
+            <br />
+            2018 Högre Fotografisk utbildning Kulturama
+            <br />
+            2019 Dokumentärfotografi Fotoskolan Kungälv
+            <br />
+            2020 Konstnärligt Kandidatprogram i Fotografi HDK-Valan
+          </Text>
+        </Container>
+      </Container>
+      <Container flexStart>
+        <Text bold type='h6'>
           About
         </Text>
-        <Text>Milla Flyger is a photographer based in Gothenburg.</Text>
+        <Text>
+          Milla Flyger is a Gothenburg based artist working with photography and
+          film.
+        </Text>
         <Text bold type='h6'>
           Contact
         </Text>

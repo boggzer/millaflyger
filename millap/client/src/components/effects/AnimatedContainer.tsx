@@ -29,7 +29,12 @@ const AnimatedContainer = ({
 
   return (
     (type === 'responsive grid' && typeof images !== 'undefined' && (
-      <ResponsiveGrid images={images} loading={loading} isMounted={isMounted} />
+      <ResponsiveGrid
+        images={images}
+        loading={loading}
+        isMounted={isMounted}
+        classes={classes}
+      />
     )) ||
     (type === 'interpolation' && (
       <ImageInterpolation classes={classes} {...interpolationProps}>

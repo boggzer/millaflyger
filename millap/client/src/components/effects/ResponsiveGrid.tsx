@@ -12,6 +12,7 @@ export type ResponsiveGridImageType = {
 };
 
 interface ResponsiveGridProps {
+  classes?: string;
   images: ResponsiveGridImageType[];
   mediaQueries?: string[];
   queriesCount?: number[];
@@ -90,7 +91,7 @@ const ResponsiveGrid = ({ images }: ResponsiveGridProps): any => {
   };
 
   return (
-    <div className='responsive-grid'>
+    <div className={`responsive-grid ${classes}`}>
       <Gallery
         photos={images}
         columns={getColumnSize(width)}

@@ -10,7 +10,10 @@ interface NavigationProps {
   projects?: ProjectDataType[];
 }
 
-const Navigation = ({ projects }: NavigationProps): React.ReactElement => {
+const Navigation = ({
+  projects,
+}: NavigationProps): React.ReactElement | any => {
+  const { pathname } = document.location;
   const [showFilmNoise, setShowFilmNoise] = useState('');
 
   const getProjectLinks = useMemo(
@@ -31,7 +34,7 @@ const Navigation = ({ projects }: NavigationProps): React.ReactElement => {
   ];
 
   return (
-    <Container classes='navigation' type='list'>
+    <Container classes='navigation-container' type='list'>
       <nav className='nav'>
         {content.map(({ title, link, classes }) => (
           <FilmNoise

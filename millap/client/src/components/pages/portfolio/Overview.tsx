@@ -16,6 +16,12 @@ interface Yo extends ResponsiveGridImageType {
   width: number;
 }
 
+interface Hej {
+  height: number;
+  width: number;
+  src: string;
+}
+
 const Overview = ({ data, all }: OverviewProps): React.ReactElement => {
   const [isLoading, setIsLoading] = useState(true);
   const getImageValues = ({

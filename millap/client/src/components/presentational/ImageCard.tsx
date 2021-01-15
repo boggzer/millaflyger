@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { HTMLAttributes, forwardRef } from 'react';
-import Image from './Image';
+import Image from './ImageComponent';
 import { ImageSize, ImageSizes } from '../../utils/constants';
 
 export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -21,7 +21,6 @@ const ImageCard = (
 ): React.ReactElement => {
   return (
     <div ref={ref} {...ContainerProps}>
-      {console.log(props)}
       <Image {...ImageProps} {...props} />
     </div>
   );
