@@ -1,9 +1,9 @@
 import React from 'react';
-import Lottie, { Options } from 'react-lottie';
+import Lottie, { LottieOptions } from 'lottie-react';
 import animationData from '../../assets/lottie/line-animation-loading-line.json';
 
 const Spinner = (): React.ReactElement => {
-  const animationOptions: Options = {
+  const animationOptions: LottieOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
@@ -13,7 +13,7 @@ const Spinner = (): React.ReactElement => {
   };
   return (
     <div style={{ height: '100vh', width: '100vw', margin: '10%' }}>
-      <Lottie options={animationOptions} height={100} width={100} />
+      <Lottie {...animationOptions} height={100} width={100} />
     </div>
   );
 };

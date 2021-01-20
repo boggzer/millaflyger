@@ -3,11 +3,21 @@
 $portrait-width: $ratio-five * 38;
 
 .content.container {
+  & .project {
+    & > * {
+      max-width: 1200px;
+      margin: 5vmin 0;
+    }
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+  }
   align-items: flex-start;
   display: flex;
   justify-content: space-around;
   overflow-x: hidden;
-  // width: calc(100% - 18rem);
+  padding-bottom: 5rem;
+
   svg {
     position: fixed;
     left: 0;
@@ -25,106 +35,5 @@ $portrait-width: $ratio-five * 38;
     overflow: hidden;
     & g {
     }
-  }
-  .main {
-    align-items: stretch;
-    flex-wrap: nowrap;
-    justify-content: center;
-    max-width: unset;
-    overflow-x: hidden;
-    transition: margin 700ms;
-    width: 100%;
-    height: 100%;
-  }
-  .image-card {
-    margin: 0 auto;
-    img {
-      width: auto;
-      height: 100%;
-      box-shadow: 0 0 10px -2px #999;
-      border-radius: $ratio-one;
-      object-fit: contain;
-    }
-  }
-  .max {
-    display: grid !important;
-    flex: 25%;
-    // grid-template-columns: repeat(auto-fit, minmax(10rem, 32rem));
-    // justify-content: center !important;
-  }
-  .kognition,
-  .max,
-  .ett-frammande-motiv {
-    height: fit-content !important;
-  }
-  .kognition,
-  .max,
-  .ett-frammande-motiv {
-    background-color: rgb(255, 255, 250);
-  }
-  .max {
-    flex: 0;
-    grid-auto-flow: column;
-    max-height: 100%;
-    width: fit-content;
-    grid-template-columns: repeat(4, minmax(auto, 400px));
-    .image-card {
-      width: 100%;
-      flex: 0;
-      height: 100%;
-      display: inline-flex;
-      max-height: 40vmin;
-      picture {
-        max-height: inherit;
-        min-height: inherit;
-        img {
-          flex: 0;
-          max-height: inherit;
-          min-height: inherit;
-          width: auto;
-          height: inherit;
-        }
-      }
-    }
-  }
-  .hjartat-i-halsgropen {
-    display: grid;
-  }
-  .kognition,
-  .syster,
-  .ett-frammande-motiv {
-    display: flex;
-  }
-
-  .kognition,
-  .syster,
-  .hjartat-i-halsgropen,
-  .ett-frammande-motiv {
-    transition: padding 200ms ease-out;
-    max-width: 800px;
-    flex: 1;
-    height: 100%;
-    overflow-x: hidden;
-    justify-content: space-between;
-    & > div {
-      margin: 10px;
-    }
-    img {
-      width: 100% !important;
-      height: auto !important;
-    }
-  }
-}
-
-@media screen and (max-width: 641px) {
-  .inner-container {
-    display: flex !important;
-    flex-direction: column;
-    overflow: visible !important;
-    padding: 2rem 1rem !important;
-  }
-  .image-card {
-    max-width: 640px;
-    height: auto;
   }
 }

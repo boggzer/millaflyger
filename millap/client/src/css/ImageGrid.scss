@@ -1,20 +1,9 @@
 @import '_variables.scss';
 
-.image-grid.inner-container {
-  max-width: 80vw;
-  flex-wrap: wrap;
-  overflow-x: hidden;
-  box-sizing: border-box !important;
-  padding: $ratio-five;
-  align-items: center;
-  display: grid;
-  transition: all 1s ease;
-  // grid-template-columns: fit-content(50%) fit-content(50%);
-}
-
 $custom-padding: calc(1rem + 6vw);
 
 .project {
+  display: flex;
   position: relative;
   padding-left: 17rem;
   transition: padding 200ms ease-out;
@@ -36,18 +25,8 @@ $custom-padding: calc(1rem + 6vw);
   }
 }
 
-.image-grid.inner-container img {
-  height: auto;
-  width: 10.1rem;
-  overflow: hidden;
-}
-
 .outerContainer {
   height: fit-content;
-}
-
-.image-grid.image {
-  height: auto;
 }
 
 .shrink {
@@ -58,39 +37,10 @@ $custom-padding: calc(1rem + 6vw);
   animation: flexGrow 500ms ease forwards;
 }
 
-.syster {
-}
-
 $maxImages: 12;
 @media screen and (max-width: 641px) {
   .innerContainer {
     max-width: 31.25rem;
-  }
-  .br {
-    grid-template-columns: repeat(1, minmax(auto, 400px)) !important;
-    grid-auto-flow: unset !important;
-    justify-content: center;
-    grid-template-areas: unset !important;
-
-    .image-card {
-      &:not(:first-child) {
-        margin: 1rem 0 !important;
-      }
-      width: 100% !important;
-      min-width: 250px;
-      max-width: 300px;
-      height: fit-content !important;
-      max-height: unset !important;
-      picture {
-        min-width: inherit;
-        max-width: inherit;
-        img {
-          height: inherit !important;
-          max-width: inherit;
-          width: auto !important;
-        }
-      }
-    }
   }
 }
 
@@ -98,36 +48,7 @@ $maxImages: 12;
   .innerContainer {
     max-width: 30rem;
   }
-  .br {
-    &.max {
-      height: fit-content !important;
-    }
-    grid-template-columns: repeat(2, minmax(auto, 400px)) !important;
-    grid-auto-flow: unset !important;
-    justify-content: center;
-    grid-template-areas: unset !important;
-    .image-card {
-      justify-content: center !important;
-    }
-  }
   @for $i from 3 through 12 {
-    .br .image-card:nth-child(#{$i}) {
-      margin: 1rem 0 !important;
-    }
-  }
-}
-
-@mixin width {
-}
-
-@media screen and (max-width: 1100px) and (min-width: 900px) {
-  .br {
-    grid-template-columns: repeat(3, minmax(auto, 400px)) !important;
-    grid-auto-flow: unset !important;
-    justify-content: center;
-    grid-template-areas: unset !important;
-  }
-  @for $i from 4 through 12 {
     .br .image-card:nth-child(#{$i}) {
       margin: 1rem 0 !important;
     }

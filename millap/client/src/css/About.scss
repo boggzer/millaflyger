@@ -3,33 +3,41 @@
 $padding: $ratio-five * 3;
 $spacing: $ratio * 5rem;
 
-.about-container {
-  display: flex;
-  flex-direction: row !important;
-  justify-content: center;
-  width: 100%;
-  padding: 4rem;
-  margin-top: calc(#{$ratio-five} * 10);
+.about-wrapper {
   box-sizing: border-box;
-  margin: $ratio-five auto;
-  top: $padding;
-  justify-content: space-between !important;
+  justify-content: flex-start;
+  position: relative;
+  top: 5vh;
   // position: relative;
-  padding: $padding;
-  overflow: hidden;
-  height: 100vh;
-  width: fit-content;
-  & > .container:not(:first-of-type) {
-    margin: 0.2rem;
-    width: 60%;
-    margin-top: 0;
+  // padding: $padding;
+  // & > .container:not(:first-of-type) {
+  //   margin: 0.2rem;
+  //   width: 60%;
+  //   margin-top: 0;
+  // }
+  // & > .container:first-of-type {
+  //   margin-top: 0;
+  //   position: relative;
+  // }
+  & > div {
+    height: min-content;
+    justify-content: center;
   }
-  & > .container:first-of-type {
-    margin-top: 0;
-    position: relative;
+  & > div > div {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    min-width: 20rem;
+    width: 100%;
+    max-width: 35rem;
+    box-sizing: border-box;
   }
-  .text-block {
+  .text {
+    display: flex;
+    flex-direction: column;
     line-height: calc(#{$ratio-two} * 5);
+    align-items: flex-start;
+    height: fit-content;
   }
   div + .h6,
   div > .h6 {
@@ -37,13 +45,10 @@ $spacing: $ratio * 5rem;
       margin-top: $padding !important;
     }
   }
-  .email-link-container {
-    display: flex;
+  .email-container {
     align-items: center;
-    width: fit-content;
     height: 4rem;
     justify-content: flex-start;
-    height: fit-content;
     .film-noise {
       a {
         z-index: 1;
@@ -56,7 +61,6 @@ $spacing: $ratio * 5rem;
     .inner-film-noise {
       z-index: -1;
       position: absolute;
-      overflow: hidden;
       padding: 0.2rem;
       border-radius: 0.1rem;
     }

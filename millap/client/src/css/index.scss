@@ -1,0 +1,133 @@
+@import './variables.scss';
+@import './shared.scss';
+
+:root {
+  --RATIO: 1.62;
+  --RATIO_ONE: 0.1rem;
+  --RATIO_TWO: 0.3rem;
+  --RATIO_THREE: 0.5rem;
+  --RATIO_FOUR: 0.7rem;
+  --RATIO_FIVE: 0.9rem;
+  font-size: 12px;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 300ms, transform 300ms;
+}
+
+svg {
+  .first {
+    stroke: rgb(0, 0, 0);
+    fill: none;
+    stroke-dasharray: 420;
+    stroke-dashoffset: -420px;
+    animation: 10s test steps(40, end) infinite reverse forwards 10s;
+    // animation: 2s ease-in steps(2, end) infinite reverse forwards test;
+  }
+  .second {
+    stroke: rgb(0, 0, 0);
+    fill: none;
+    stroke-linejoin: round;
+    stroke-dasharray: 348;
+    stroke-dashoffset: -172px;
+    animation: 10s test steps(40, end) infinite reverse forwards 10s;
+  }
+}
+
+.force-gpu {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: rotateZ(360deg);
+  -webkit-transform: rotateZ(360deg);
+  backface-visibility: hidden;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+@keyframes test {
+  0% {
+    stroke-dashoffset: -420px;
+  }
+  10%,
+  80% {
+    stroke-dashoffset: 0px;
+  }
+  100% {
+    stroke-dashoffset: 420px;
+  }
+}
+body {
+  margin: 0;
+
+  // margin: $root-margin;
+  height: 100%;
+  font-family: 'Libre Baskerville';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  background: rgb(245, 245, 245);
+  box-sizing: border-box !important;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  // padding: $root-margin;
+  overflow: auto;
+  /* padding: 16.18px; */
+  box-sizing: border-box !important;
+  justify-content: center;
+}
+
+a,
+a:active,
+a:visited,
+a:hover {
+  color: #000000;
+  text-decoration: none;
+}
+
+.title-text svg,
+.title-text {
+  position: fixed;
+  left: 0;
+  z-index: -2;
+}
+.svg-title-text {
+  position: fixed;
+  z-index: 5;
+  transform: rotate(-90deg);
+  transform-origin: left;
+  left: 8.9rem;
+  height: 30rem;
+  width: 60rem;
+  z-index: 1;
+  top: 30%;
+  overflow: hidden;
+  & g {
+  }
+}

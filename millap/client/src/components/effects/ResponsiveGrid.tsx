@@ -1,18 +1,10 @@
-import React, {
-  memo,
-  useState,
-  useLayoutEffect,
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import '../../css/ResponsiveGrid.scss';
-import Lottie, { Options } from 'react-lottie';
+import Lottie, { LottieOptions } from 'lottie-react';
 import aniData from '../../assets/lottie/white-noise.json';
-import ImageComponent from '../presentational/ImageComponent';
+import ImageCard from '../presentational/ImageCard';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
-import { useWindowSize, useFirstMountState } from 'react-use';
-import useImageSize from '../../hooks/useImageSize';
-import { isUndefined } from 'lodash';
+import { useWindowSize } from 'react-use';
 import { ProjectDataType } from '../../utils/global';
 
 export type ResponsiveGridImageType = {
@@ -58,7 +50,7 @@ const ResponsiveGrid = ({
           left,
         }}
       >
-        <ImageComponent
+        <ImageCard
           imageSource={src}
           ImageProps={{
             height,
@@ -70,7 +62,7 @@ const ResponsiveGrid = ({
     );
   };
 
-  const animationOptions: Options = {
+  const animationOptions: LottieOptions = {
     loop: true,
     autoplay: true,
     animationData: aniData,

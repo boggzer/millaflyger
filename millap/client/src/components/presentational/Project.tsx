@@ -1,7 +1,7 @@
 import React from 'react';
 import slugify from 'slugify';
 import Container from './Container';
-import ImageGrid from './ImageGrid';
+import Grid from './ImageGrid';
 import Text from './Text';
 import usePortal from 'react-cool-portal';
 import { useWindowSize } from 'react-use';
@@ -50,7 +50,7 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
         </svg>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 500 110'
+          viewBox='0 0 500 130'
           className='svg-title-text'
         >
           <g>
@@ -78,13 +78,24 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
   };
   return (
     content && (
-      <Container classes='container container project'>
-        <ImageGrid
+      <Container
+        classes={`container container project-wrapper project-${slugify(
+          content?.['title'],
+          {
+            lower: true,
+          },
+        )}`}
+      >
+        <Grid
           {...content}
           imageCardClasses='image-card'
-          outerContainerClasses={`main ${slugify(content?.['title'], {
+          containerClasses={`${slugify(content?.['title'], {
             lower: true,
-          })}`}
+          })} project-image-card`}
+          // })}`}
+          // outerContainerClasses={`main ${slugify(content?.['title'], {
+          //   lower: true,
+          // })}`}
         />
         <Portal>
           <WrappedSvgText />
