@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 enum ImageSize {
-  XS,
   S,
   M,
   L,
@@ -9,7 +8,6 @@ enum ImageSize {
 }
 
 export type ImageSizes = {
-  XS: string;
   S: string;
   M: string;
   L: string;

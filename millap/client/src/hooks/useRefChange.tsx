@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react';
+import React, { MutableRefObject, useCallback } from 'react';
 
 const useRefChange = (
   setRef: React.Dispatch<
@@ -7,7 +7,7 @@ const useRefChange = (
       HTMLElement | Element | HTMLImageElement | HTMLDivElement | undefined
     >
   >,
-): ((node: any) => void) => {
+): ((node: any | MutableRefObject<any>) => void) => {
   const onRefChange = useCallback((node) => {
     setRef(node);
   }, []);
