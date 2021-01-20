@@ -54,6 +54,7 @@ const StyledMenuIcon = styled.div`
 const StyledNavigation = styled.div`
   position: absolute;
   top: unset;
+  z-index: 2;
   @media screen and (min-width: 701px) {
     top: min(30%, 15rem);
   }
