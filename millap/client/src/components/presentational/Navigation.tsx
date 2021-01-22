@@ -3,7 +3,6 @@ import slugify from 'slugify';
 import { Link, useLocation } from 'react-router-dom';
 import FilmNoise from '../effects/FilmNoise';
 import { ProjectDataType } from '../../utils/global';
-import '../../css/Navigation.scss';
 import Text from '../presentational/Text';
 import styled from 'styled-components';
 import menuIcon from '../../assets/lottie/menu.json';
