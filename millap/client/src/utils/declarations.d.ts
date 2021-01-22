@@ -4,3 +4,4 @@ declare module 'react-image-magnifiers';
 declare module 'react-cursor-zoom';
 declare module 'svg-text-wrap';
 declare module 'react-grid-gallery';
+declare module 'react-app-polyfill/ie9';
