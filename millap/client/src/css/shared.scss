@@ -25,6 +25,10 @@ $spacing-xxl: 16rem;
   flex-wrap: nowrap;
 }
 
+.align-center {
+  align-items: center;
+}
+
 .align-start {
   align-items: flex-start;
 }
@@ -81,6 +85,10 @@ $spacing-xxl: 16rem;
 
 .relative {
   position: relative;
+}
+
+.fixed {
+  position: fixed;
 }
 
 // ---------- SPACING ----------

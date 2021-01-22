@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { ImgHTMLAttributes, useState, memo } from 'react';
+import React, { ImgHTMLAttributes, useState } from 'react';
 import { ImageSize, ImageSizes } from '../../utils/constants';
 import { keys, isObject } from 'lodash';
 import useRefChange from '../../hooks/useRefChange';
@@ -14,10 +14,15 @@ export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
   // onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   size?: ImageSize;
   order?: number;
-  outerRef?: any;
+  outerRef?:
+    | RefObject<HTMLDivElement | HTMLElement>
+    | HTMLElement
+    | HTMLDivElement;
+  alt?: string;
   pictureClasses?: string;
 }
 import styled from 'styled-components';
+import { RefObject } from 'react';
 
 const StyledImageCardWrapper = styled.div<any>`
   &.project-image-card {
@@ -65,6 +70,8 @@ const cache: {
 };
 
 const ImageCard = ({
+  alt,
+  children,
   ContainerProps,
   containerClasses,
   classes,
@@ -84,7 +91,7 @@ const ImageCard = ({
   };
   const [ref, setRef] = useState<Element>();
   const refChange = useRefChange(setRef);
-
+  console.log(imageSource, props);
   cache.read(
     typeof imageSource === 'string'
       ? imageSource
@@ -92,6 +99,7 @@ const ImageCard = ({
   );
   return (
     <StyledImageCardWrapper className={containerClasses} ref={outerRef}>
+      {children}
       <picture>
         {isObject(imageSource) ? (
           Object.keys(imageSource.source).map(
@@ -109,6 +117,7 @@ const ImageCard = ({
                 </React.Fragment>
               ) : (
                 <img
+                  alt={alt}
                   ref={refChange}
                   key={key}
                   className={`${classes} image`}
@@ -120,6 +129,7 @@ const ImageCard = ({
           )
         ) : (
           <img
+            alt={alt}
             ref={refChange}
             className={`${classes} image`}
             src={imageSource}
@@ -133,6 +143,7 @@ const ImageCard = ({
       </picture>
     </StyledImageCardWrapper>
   );
+  // {/* </Suspense> */}
 };
 
 export default ImageCard;

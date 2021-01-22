@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, lazy } from 'react';
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
 import '../../css/About.scss';
-import FilmNoise from '../effects/FilmNoise';
+const FilmNoise = lazy(() => import('../effects/FilmNoise'));
 import useRefChange from '../../hooks/useRefChange';
 
 const About = (): React.ReactElement => {
@@ -19,7 +19,7 @@ const About = (): React.ReactElement => {
   };
 
   return (
-    <Container classes='about-wrapper w-full h-fit flow-hide fl-col align-start wrap'>
+    <Container classes='about-wrapper w-full h-fit flow-hide fl-col align-start wrap p-m'>
       <Container classes='fl-row w-full wrap p-s'>
         <Container classes='p-s'>
           <Text bold type='h6'>

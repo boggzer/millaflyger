@@ -1,8 +1,8 @@
 /* eslint-disable react/no-find-dom-node */
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState, lazy } from 'react';
 import Container from './Container';
 import '../../css/ImageGrid.scss';
-import ImageCard from './ImageCard';
+const ImageCard = lazy(() => import('./ImageCard'));
 import styled from 'styled-components';
 // import { useLocation } from 'react-router';
 import { ProjectDataType } from '../../utils/global';
@@ -63,6 +63,7 @@ const Grid = ({
               source: images[i]?.source[0],
               order: images[i]?.order || 0,
             }}
+            alt={images[i]?.alt}
           />
         ))}
     </Container>

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import slugify from 'slugify';
-import Container from './Container';
-import Grid from './ImageGrid';
+const Container = lazy(() => import('./Container'));
+const Grid = lazy(() => import('./ImageGrid'));
 import Text from './Text';
 import usePortal from 'react-cool-portal';
-import { useWindowSize } from 'react-use';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -36,7 +35,6 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
     const text: string[] = textWrap(content.title as string, 100, {
       'letter-spacing': '1px',
     });
-
     return (
       <>
         <svg

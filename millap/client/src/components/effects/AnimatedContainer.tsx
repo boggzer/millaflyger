@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { ElementType } from 'react';
+import React, { ElementType, lazy } from 'react';
 import { ComponentPropsWithRef } from 'react';
 import { useMountedState } from 'react-use';
 import { ProjectDataType } from '../../utils/global';
 import ImageInterpolation, {
   ImageInterpolationProps,
 } from './ImageInterpolation';
-import ResponsiveGrid from './ResponsiveGrid';
+const ResponsiveGrid = lazy(() => import('./ResponsiveGrid'));
 import { ResponsiveGridImageType } from './ResponsiveGrid';
 
 interface AnimatedContainerProps {
@@ -17,6 +17,7 @@ interface AnimatedContainerProps {
   loading?: boolean;
   type?: 'interpolation' | 'responsive grid';
   interpolationProps?: Pick<ImageInterpolationProps, 'calc'>;
+  withLink?: boolean;
 }
 
 const AnimatedContainer = ({
@@ -27,25 +28,15 @@ const AnimatedContainer = ({
   loading = false,
   images,
   type,
-}: AnimatedContainerProps): ComponentPropsWithRef<ElementType<any>> => {
-  const isMounted = useMountedState();
-
-  return (
-    (type === 'responsive grid' && typeof images !== 'undefined' && (
-      <ResponsiveGrid
-        data={data}
-        images={images}
-        loading={loading}
-        isMounted={isMounted}
-        classes={classes}
-      />
-    )) ||
-    (type === 'interpolation' && (
-      <ImageInterpolation classes={classes} {...interpolationProps}>
-        {children}
-      </ImageInterpolation>
-    ))
-  );
-};
+  ...props
+}: AnimatedContainerProps): ComponentPropsWithRef<ElementType<any>> =>
+  (type === 'responsive grid' && typeof images !== 'undefined' && (
+    <ResponsiveGrid images={images} classes={classes} {...props} />
+  )) ||
+  (type === 'interpolation' && (
+    <ImageInterpolation classes={classes} {...interpolationProps}>
+      {children}
+    </ImageInterpolation>
+  ));
 
 export default AnimatedContainer;

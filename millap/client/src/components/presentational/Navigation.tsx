@@ -52,11 +52,13 @@ const StyledMenuIcon = styled.div`
 `;
 
 const StyledNavigation = styled.div`
-  position: absolute;
+  position: relative;
   top: unset;
-  z-index: 2;
+  z-index: 3;
   @media screen and (min-width: 701px) {
     top: min(30%, 15rem);
+    position: relative;
+    height: fit-content;
   }
   nav {
     display: none;
@@ -65,11 +67,12 @@ const StyledNavigation = styled.div`
     }
     @media screen and (min-width: 701px) {
       display: block;
+      position: relative;
     }
   }
   nav,
   .nav-modal {
-    width: 20rem;
+    width: 10rem;
     left: 0;
     z-index: 3;
     height: 100%;
@@ -97,10 +100,8 @@ const StyledNavigation = styled.div`
 const Navigation = ({
   classes,
   projects,
-  horizontal,
 }: NavigationProps): React.ReactElement | any => {
   const iconRef: LottieRef = useRef<any>();
-  const { pathname } = useLocation();
   const [showFilmNoise, setShowFilmNoise] = useState('');
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
@@ -176,7 +177,7 @@ const Navigation = ({
           ))}
         </StyledNavigationModal>
       )}
-      <nav className='fl-col p-m'>
+      <nav className='fl-col p-m fixed'>
         {content.map(({ title, link }) => (
           <FilmNoise
             key={`nav-link-${title}-${link}`}
@@ -208,43 +209,8 @@ const Navigation = ({
           </FilmNoise>
         ))}
       </nav>
-      )
     </StyledNavigation>
   );
 };
 
 export default memo(Navigation);
-
-/**
- *    pathname !== '/' && (
-      <Container classes={`${classes} navigation-container`}>
-        <nav className='nav'>
-          {content.map(({ title, link }) => (
-            <FilmNoise
-              key={`nav-link-${title}-${link}`}
-              show={showFilmNoise === title}
-              ContainerProps={{
-                id: title,
-              }}
-              opacity={0.4}
-              outerClasses='film-noise'
-              innerClasses='inner-film-noise'
-            >
-              <Text onlyContainer>
-                <Link
-                  className={classes}
-                  id={title}
-                  onMouseEnter={({ target }) =>
-                    setShowFilmNoise((target as Element)?.id)
-                  }
-                  // onMouseLeave={() => setShowFilmNoise('')}
-                  to={link}
-                >
-                  {title}
-                </Link>
-              </Text>
-            </FilmNoise>
-          ))}
-        </nav>
-      </Container>
- */

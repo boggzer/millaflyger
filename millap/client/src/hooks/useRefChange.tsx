@@ -1,15 +1,23 @@
-/* eslint-disable no-unused-vars */
-import React, { MutableRefObject, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
-const useRefChange = (
-  setRef: React.Dispatch<
-    React.SetStateAction<
-      HTMLElement | Element | HTMLImageElement | HTMLDivElement | undefined
-    >
-  >,
-): ((node: any | MutableRefObject<any>) => void) => {
-  const onRefChange = useCallback((node) => {
-    setRef(node);
+type RefNode =
+  | HTMLElement
+  | HTMLImageElement
+  | HTMLDivElement
+  | undefined
+  | null;
+
+type HookReturn = (refNode: RefNode) => void;
+
+type HookProps = React.Dispatch<
+  React.SetStateAction<
+    HTMLElement | Element | HTMLImageElement | HTMLDivElement | undefined
+  >
+>;
+
+const useRefChange = (setRef: HookProps): HookReturn => {
+  const onRefChange = useCallback((refNode) => {
+    setRef(refNode);
   }, []);
   return onRefChange;
 };

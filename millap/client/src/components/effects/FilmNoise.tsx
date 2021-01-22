@@ -1,6 +1,4 @@
-import React, { CSSProperties, HTMLAttributes, useMemo, useState } from 'react';
-import { useMeasure } from 'react-use';
-import { MutableRefObject } from 'react';
+import React, { CSSProperties, HTMLAttributes, useMemo } from 'react';
 import '../../css/FilmNoise.scss';
 
 interface FilmNoiseProps extends HTMLAttributes<HTMLDivElement> {

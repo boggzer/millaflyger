@@ -5,6 +5,7 @@
   width: 100%;
   justify-content: center !important;
   overflow-x: hidden;
+  box-sizing: border-box;
   & > * {
     flex: 1;
   }
