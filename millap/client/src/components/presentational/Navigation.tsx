@@ -1,6 +1,6 @@
 import React, { useState, memo, useMemo, useRef } from 'react';
 import slugify from 'slugify';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FilmNoise from '../effects/FilmNoise';
 import { ProjectDataType } from '../../utils/global';
 import Text from '../presentational/Text';
@@ -51,7 +51,7 @@ const StyledMenuIcon = styled.div`
 `;
 
 const StyledNavigation = styled.div`
-  position: relative;
+  position: sticky;
   top: unset;
   z-index: 3;
   @media screen and (min-width: 701px) {

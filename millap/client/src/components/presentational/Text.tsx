@@ -6,7 +6,30 @@ import React, {
   DetailedHTMLProps,
 } from 'react';
 import { ratio } from '../../utils/constants';
-import '../../css/Text.scss';
+import styled from 'styled-components';
+
+const StyledTextContainer = styled.div`
+  h1 {
+    font-size: 4rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+  h4 {
+    font-size: 1.7rem;
+  }
+  h6 {
+    font-size: 1.2rem;
+  }
+  p {
+  }
+  &.bold {
+    font-weight: bold;
+  }
+  a {
+    border-bottom: 1px solid black;
+  }
+`;
 
 interface TextProps
   extends DetailedHTMLProps<
@@ -40,6 +63,13 @@ const Text = (
 ): React.ReactElement => {
   const containerStyle: CSSProperties = { margin: ratio.TWO };
   const textStyle: CSSProperties = { margin: ratio.ONE };
+
+  const defaultProps = {
+    ref: innerRef,
+    className: textClasses,
+    style: { ...textStyle },
+  };
+
   return (
     <>
       {type === 'link' ? (
@@ -47,34 +77,20 @@ const Text = (
           {children}
         </a>
       ) : (
-        <div
+        <StyledTextContainer
           ref={ref}
           className={`text ${type} ${containerClasses} ${bold && 'bold'}`}
           style={{ ...containerStyle }}
           {...props}
         >
           {onlyContainer && children}
-          {type === 'h6' && (
-            <h6 ref={innerRef} className={textClasses} style={{ ...textStyle }}>
-              {children}
-            </h6>
-          )}
-          {type === 'h2' && (
-            <h2 ref={innerRef} className={textClasses} style={{ ...textStyle }}>
-              {children}
-            </h2>
-          )}
-          {type === 'h4' && (
-            <h4 ref={innerRef} className={textClasses} style={{ ...textStyle }}>
-              {children}
-            </h4>
-          )}
+          {type === 'h6' && <h6 {...defaultProps}>{children}</h6>}
+          {type === 'h2' && <h2 {...defaultProps}>{children}</h2>}
+          {type === 'h4' && <h4 {...defaultProps}>{children}</h4>}
           {type === 'p' && onlyContainer === false && (
-            <p ref={innerRef} className={textClasses} style={{ ...textStyle }}>
-              {children}
-            </p>
+            <p {...defaultProps}>{children}</p>
           )}
-        </div>
+        </StyledTextContainer>
       )}
     </>
   );

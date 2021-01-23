@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { ImgHTMLAttributes, useState } from 'react';
+import React, { ImgHTMLAttributes, useState, memo } from 'react';
 import { ImageSize, ImageSizes } from '../../utils/constants';
 import { keys, isObject } from 'lodash';
 import useRefChange from '../../hooks/useRefChange';
@@ -69,6 +69,10 @@ const cache: {
   clear: (src) => delete this._cache[src],
 };
 
+const StyledImage = styled.img`
+  box-shadow: 0 2rem 4rem -5rem rgb(0 0 0);
+`;
+
 const ImageCard = ({
   alt,
   children,
@@ -82,16 +86,16 @@ const ImageCard = ({
   style,
   outerRef,
   ...props
-}: ImageCardProps): any => {
+}: ImageCardProps): React.ReactElement => {
   const mediaQueries: ImageSizes = {
     S: '(min-width: 0px) and (max-width: 399px)',
     M: '(min-width: 400px) and (max-width: 699px)',
     L: '(min-width: 700px) and (max-width: 999px)',
     XL: '(min-width: 1000px)',
   };
-  const [ref, setRef] = useState<Element>();
-  const refChange = useRefChange(setRef);
-  console.log(imageSource, props);
+  // const [ref, setRef] = useState<Element>();
+  // const refChange = useRefChange(setRef);
+
   cache.read(
     typeof imageSource === 'string'
       ? imageSource
@@ -116,9 +120,9 @@ const ImageCard = ({
                   )}
                 </React.Fragment>
               ) : (
-                <img
+                <StyledImage
                   alt={alt}
-                  ref={refChange}
+                  // ref={refChange}
                   key={key}
                   className={`${classes} image`}
                   src={imageSource.source.XL}
@@ -128,9 +132,9 @@ const ImageCard = ({
               ),
           )
         ) : (
-          <img
+          <StyledImage
             alt={alt}
-            ref={refChange}
+            // ref={refChange}
             className={`${classes} image`}
             src={imageSource}
             width={size}
@@ -146,4 +150,4 @@ const ImageCard = ({
   // {/* </Suspense> */}
 };
 
-export default ImageCard;
+export default memo(ImageCard);

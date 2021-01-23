@@ -1,13 +1,5 @@
-import React, {
-  lazy,
-  memo,
-  Suspense,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
+import React, { lazy, memo, Suspense, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import '../../css/ResponsiveGrid.scss';
 import Text from '../presentational/Text';
 /*
 function fakeDelay(ms: number) {
@@ -29,7 +21,6 @@ const ImageCard = lazy(
 const ImageCard = lazy(() => import('../presentational/ImageCard'));
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import { useWindowSize } from 'react-use';
-import { ProjectDataType } from '../../utils/global';
 import slugify from 'slugify';
 import styled from 'styled-components';
 import Spinner from '../presentational/Spinner';
@@ -42,27 +33,43 @@ export type ResponsiveGridImageType = {
   title?: string;
 };
 
-const StyledLinkHover = styled.div<{ show: boolean }>`
-  position: absolute;
-  z-index: 2;
-  transition: all 600ms ease;
-  opacity: 0;
-  background-color: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.2);
+const StyledLinkHover = styled.div`
   height: 100%;
   width: 100%;
-  will-change: opacity;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: all 500ms;
+  border-radius: inherit;
+  &:hover {
+    opacity: 0;
+  }
   .text {
     position: absolute;
     padding-bottom: 25%;
     color: rgb(255, 255, 255);
-    opacity: 1;
-    z-index: 5;
   }
+`;
+
+const StyledGridImage = styled.div<{ readonly style?: Record<string, any> }>`
+  z-index: 6;
+  position: absolute;
+  overflow: hidden;
+  transition: 300ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 70ms;
+  transition-property: top, left, width, height;
+  a {
+    overflow: hidden;
+    & * {
+      border-radius: 0.3rem;
+    }
+  }
+`;
+
+const StyledGrid = styled.div`
+  max-width: 1200px;
 `;
 
 interface ResponsiveGridProps {
@@ -77,8 +84,6 @@ const ResponsiveGrid = ({
   withLink,
 }: ResponsiveGridProps): any => {
   const { width } = useWindowSize(1, 1);
-
-  const [darkHover, setDarkHover] = useState('');
 
   const ConditionalLink = ({ children, to, ...rest }: any) =>
     withLink ? (
@@ -95,12 +100,9 @@ const ResponsiveGrid = ({
     top,
     left,
     ...props
-  }: RenderImageProps & { id: any }): any => (
-    <div
+  }: RenderImageProps & { id: string | undefined }): any => (
+    <StyledGridImage
       style={{
-        overflow: 'hidden',
-        zIndex: 6,
-        position: 'absolute',
         top,
         left,
         width,
@@ -123,14 +125,11 @@ const ResponsiveGrid = ({
       >
         <ConditionalLink
           id={id}
-          onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
-            setDarkHover(e.currentTarget?.id)
-          }
-          onMouseLeave={() => setDarkHover('')}
           to={`/${id}`}
           title={(image as any)?.['title']}
         >
           <ImageCard
+            className='responsive-image-card'
             imageSource={src}
             ImageProps={{
               width,
@@ -139,17 +138,14 @@ const ResponsiveGrid = ({
             }}
           >
             {withLink && (
-              <StyledLinkHover
-                className='responsive-image-hover'
-                show={darkHover === id}
-              >
+              <StyledLinkHover className='responsive-image-hover'>
                 <Text type='h6'>{(props as any)?.title}</Text>
               </StyledLinkHover>
             )}
           </ImageCard>
         </ConditionalLink>
       </Suspense>
-    </div>
+    </StyledGridImage>
   );
 
   const imageRenderer = useCallback(
@@ -164,7 +160,6 @@ const ResponsiveGrid = ({
         title={title}
         id={slugify(title, { lower: true })}
         key={key}
-        margin={'2px'}
         direction={direction}
         index={index}
         photo={{
@@ -174,26 +169,29 @@ const ResponsiveGrid = ({
         {...props}
       />
     ),
-    [darkHover],
+    [],
   );
 
-  const getColumnSize: 1 | 2 = useMemo(() => {
-    if (width > 0 && width < 600) {
+  const getColumnSize: 1 | 2 | 3 = useMemo(() => {
+    if (width > 0 && width < 700) {
       return 1;
     }
-    return 2;
+    if (width > 700 && width < 1100) {
+      return 2;
+    }
+    return 3;
   }, [width]);
 
   return (
-    <div className={`responsive-grid ${classes}`}>
+    <StyledGrid className={`responsive-grid ${classes}`}>
       <Gallery
-        margin={10}
+        margin={~~(width / 100)}
         photos={images}
         columns={getColumnSize}
         direction='column'
         renderImage={imageRenderer}
       />
-    </div>
+    </StyledGrid>
   );
 };
 

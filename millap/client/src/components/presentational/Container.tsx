@@ -1,6 +1,11 @@
 import React, { ForwardedRef, forwardRef, HTMLAttributes } from 'react';
-import '../../css/Container.scss';
+import styled from 'styled-components';
 
+const StyledContainer = styled.div`
+  & > .container {
+    flex-direction: column;
+  }
+`;
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   classes?: string;
@@ -10,9 +15,9 @@ const Container = (
   { children, classes, ...props }: ContainerProps,
   ref: ForwardedRef<any>,
 ): React.ReactElement => (
-  <div ref={ref} className={`container ${classes}`} {...props}>
+  <StyledContainer ref={ref} className={`container ${classes}`} {...props}>
     {children}
-  </div>
+  </StyledContainer>
 );
 
 export default forwardRef(Container);

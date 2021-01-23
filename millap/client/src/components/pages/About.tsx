@@ -1,4 +1,4 @@
-import React, { useState, lazy } from 'react';
+import React, { useState, lazy, MutableRefObject } from 'react';
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
 import '../../css/About.scss';
@@ -7,7 +7,7 @@ import useRefChange from '../../hooks/useRefChange';
 
 const About = (): React.ReactElement => {
   const [showFilmNoise, setShowFilmNoise] = useState<boolean>(false);
-  const [ref, setRef] = useState<any>();
+  const [ref, setRef] = useState<HTMLElement | undefined>();
   const refChange = useRefChange(setRef);
 
   const onMouseEnter = (

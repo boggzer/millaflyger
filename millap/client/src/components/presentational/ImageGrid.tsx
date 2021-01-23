@@ -1,10 +1,8 @@
 /* eslint-disable react/no-find-dom-node */
-import React, { useCallback, useMemo, useRef, useState, lazy } from 'react';
+import React, { useMemo, useState, lazy, memo } from 'react';
 import Container from './Container';
 import '../../css/ImageGrid.scss';
 const ImageCard = lazy(() => import('./ImageCard'));
-import styled from 'styled-components';
-// import { useLocation } from 'react-router';
 import { ProjectDataType } from '../../utils/global';
 import { CSSProperties } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -18,20 +16,12 @@ interface ImageGridProps extends ProjectDataType {
   imageCardStyle?: CSSProperties;
 }
 
-const GridImage = styled.div<CSSProperties>`
-  padding: ${(props) => props.padding};
-  column-gap: ${(props) => props.columnGap};
-`;
-
 const Grid = ({
   containerClasses,
   imageCardClasses,
   innerContainerClasses,
   images,
-  title,
-  imageCardStyle,
 }: ImageGridProps): React.ReactElement => {
-  const { pathname } = useLocation();
   const [ref, { width, height }] = useMeasure();
   const hasDimensions = useMemo(() => (width && height) !== 0, [width, height]);
 
@@ -70,4 +60,4 @@ const Grid = ({
   );
 };
 
-export default Grid;
+export default memo(Grid);
