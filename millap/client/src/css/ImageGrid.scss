@@ -8,21 +8,6 @@ $custom-padding: calc(1rem + 6vw);
   padding-left: 17rem;
   transition: padding 200ms ease-out;
   box-sizing: border-box;
-  &.container {
-    .hjartat-i-halsgropen {
-      display: grid !important;
-      & .image-card:nth-of-type(3) {
-        padding-top: $custom-padding;
-        padding-bottom: $custom-padding;
-      }
-      &.image-grid {
-        height: fit-content;
-        margin: 3rem 0;
-        overflow: visible;
-        max-width: 800px;
-      }
-    }
-  }
 }
 
 .outerContainer {
