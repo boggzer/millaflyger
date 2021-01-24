@@ -4,6 +4,11 @@ import styled from 'styled-components';
 const StyledContainer = styled.div`
   & > .container {
     flex-direction: column;
+    &.image-grid {
+      display: flex;
+      align-items: center;
+      padding: 5vmin;
+    }
   }
 `;
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {

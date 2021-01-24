@@ -19,21 +19,33 @@ export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
     | HTMLElement
     | HTMLDivElement;
   alt?: string;
-  pictureClasses?: string;
 }
 import styled from 'styled-components';
 import { RefObject } from 'react';
 
 const StyledImageCardWrapper = styled.div<any>`
   &.project-image-card {
-    width: clamp(300px, 60vw, 1200px);
+    width: fit-content;
+    max-width: 1200px;
+    max-height: 1200px;
+    img {
+      min-width: 300px;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+    @media screen and (max-width: 700px) {
+      width: 100% !important;
+    }
     & + div {
-      margin-top: 5vmin;
+      margin-top: 2vmin;
     }
   }
   img {
-    width: 100%;
     height: auto;
+    width: 100%;
   }
 `;
 
@@ -102,7 +114,11 @@ const ImageCard = ({
       : imageSource?.source['M'] || imageSource?.source['S'],
   );
   return (
-    <StyledImageCardWrapper className={containerClasses} ref={outerRef}>
+    <StyledImageCardWrapper
+      className={containerClasses}
+      ref={outerRef}
+      {...props}
+    >
       {children}
       <picture>
         {isObject(imageSource) ? (
@@ -140,7 +156,7 @@ const ImageCard = ({
             width={size}
             title={title}
             style={style}
-            {...props}
+            // {...props}
             {...ImageProps}
           />
         )}

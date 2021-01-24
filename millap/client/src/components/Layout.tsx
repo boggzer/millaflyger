@@ -911,7 +911,7 @@ const Layout = (): React.ReactElement => {
               render={() => (
                 <Overview data={data}>
                   {data.map((p, i) => (
-                    <ImageGrid key={p.title} {...data[i]} />
+                    <Grid key={p.title} {...data[i]} />
                   ))}
                 </Overview>
               )}

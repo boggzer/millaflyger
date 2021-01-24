@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useMemo } from 'react';
 import slugify from 'slugify';
 const Container = lazy(() => import('./Container'));
-const Grid = lazy(() => import('./ImageGrid'));
+const Grid = lazy(() => import('./Grid'));
 import Text from './Text';
 import WrappedSvgText from './WrappedSvgText';
 
@@ -32,6 +32,7 @@ const Project = ({ content }: ProjectProps): React.ReactElement => {
       >
         <Grid
           {...content}
+          withLightbox
           imageCardClasses='image-card'
           containerClasses={`${slugify(content?.['title'], {
             lower: true,
