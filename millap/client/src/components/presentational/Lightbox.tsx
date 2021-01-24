@@ -18,6 +18,7 @@ const StyledLightbox = styled.div`
   height: 100vh;
   width: 100vw;
   z-index: 20;
+  overflow: hidden;
   .lightbox-buttons {
     display: flex;
     flex-direction: column;

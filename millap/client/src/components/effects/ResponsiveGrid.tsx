@@ -68,7 +68,9 @@ const StyledGridImage = styled.div<{ readonly style?: Record<string, any> }>`
   }
 `;
 
-const StyledGrid = styled.div`
+const StyledGrid = styled.div.attrs((props) => ({
+  role: 'grid',
+}))`
   max-width: 1200px;
 `;
 
@@ -98,6 +100,7 @@ const ResponsiveGrid = ({
     photo: { src, width, height, sizes, srcSet, ...image },
     id,
     top,
+    index,
     left,
     ...props
   }: RenderImageProps & { id: string | undefined }): any => (
@@ -129,6 +132,8 @@ const ResponsiveGrid = ({
           title={(image as any)?.['title']}
         >
           <ImageCard
+            aria-labelledby={id}
+            role='img'
             className='responsive-image-card'
             imageSource={src}
             ImageProps={{
@@ -139,7 +144,7 @@ const ResponsiveGrid = ({
           >
             {withLink && (
               <StyledLinkHover className='responsive-image-hover'>
-                <Text type='h6'>{(props as any)?.title}</Text>
+                <Text onlyContainer>{(props as any)?.title}</Text>
               </StyledLinkHover>
             )}
           </ImageCard>

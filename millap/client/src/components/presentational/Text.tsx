@@ -36,6 +36,7 @@ interface TextProps
     HTMLAttributes<HTMLDivElement | HTMLAnchorElement>,
     HTMLDivElement | HTMLAnchorElement
   > {
+  ariaId?: string;
   containerClasses?: string;
   textClasses?: string;
   type?: 'link' | 'h6' | 'h4' | 'h2' | 'p';
@@ -49,6 +50,7 @@ interface TextProps
 
 const Text = (
   {
+    ariaId,
     containerClasses,
     textClasses,
     bold = false,
@@ -68,12 +70,19 @@ const Text = (
     ref: innerRef,
     className: textClasses,
     style: { ...textStyle },
+    id: ariaId,
   };
 
   return (
     <>
       {type === 'link' ? (
-        <a ref={ref} rel='noopener noreferrer' href={href}>
+        <a
+          className={`text link ${textClasses}`}
+          id={ariaId}
+          ref={ref}
+          rel='noopener noreferrer'
+          href={href}
+        >
           {children}
         </a>
       ) : (

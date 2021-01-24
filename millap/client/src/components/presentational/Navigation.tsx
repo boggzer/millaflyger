@@ -7,6 +7,8 @@ import Text from '../presentational/Text';
 import styled from 'styled-components';
 import menuIcon from '../../assets/lottie/menu.json';
 import Lottie, { LottieOptions, LottieRef } from 'lottie-react';
+import { useWindowSize } from 'react-use';
+import { useEffect } from 'react';
 
 interface NavigationProps {
   classes?: string;
@@ -14,7 +16,10 @@ interface NavigationProps {
   horizontal?: boolean;
 }
 
-const StyledNavigationModal = styled.div`
+const StyledNavigationModal = styled.div.attrs<{ show: boolean }>((props) => ({
+  role: 'modal',
+}))<{ show: boolean }>`
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   width: 100vw !important;
   height: 100vh !important;
   box-sizing: border-box;
@@ -33,10 +38,17 @@ const StyledNavigationModal = styled.div`
 `;
 
 const StyledMenuIcon = styled.div`
+  & > *:hover {
+    cursor: pointer;
+  }
+  button {
+    border: unset;
+    color: unset;
+    background: unset;
+  }
   position: absolute;
   height: calc(5rem + 1vw);
   width: calc(5rem + 1vw);
-  cursor: pointer;
   z-index: 6;
   top: 0;
   left: 0;
@@ -50,7 +62,9 @@ const StyledMenuIcon = styled.div`
   }
 `;
 
-const StyledNavigation = styled.div`
+const StyledNavigation = styled.div.attrs((props) => ({
+  role: 'navigation',
+}))`
   position: sticky;
   top: unset;
   z-index: 3;
@@ -101,16 +115,21 @@ const Navigation = ({
   projects,
 }: NavigationProps): React.ReactElement | any => {
   const iconRef: LottieRef = useRef<any>();
+  const { width } = useWindowSize();
   const [showFilmNoise, setShowFilmNoise] = useState('');
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    width > 700 && setShowMenuModal(false);
+  }, [width]);
 
   const handleClick = () => {
-    if (!showMenu) {
-      setShowMenu(true);
+    if (!showMenuModal) {
+      setShowMenuModal(true);
       iconRef?.current?.playSegments([0, 25], true);
       return;
     }
-    setShowMenu(false);
+    setShowMenuModal(false);
     iconRef?.current?.playSegments([40, 75], false);
   };
 
@@ -148,12 +167,57 @@ const Navigation = ({
   ];
 
   return (
-    <StyledNavigation className={classes}>
-      <StyledMenuIcon className='p-s'>
-        <Lottie {...animationOptions} />
-      </StyledMenuIcon>
-      {showMenu && (
-        <StyledNavigationModal className='nav-modal fl-col p-m'>
+    <StyledNavigation role='navigation' className={classes}>
+      {width > 700 ? (
+        <nav className='fl-col p-m fixed'>
+          {content.map(({ title, link }) => (
+            <FilmNoise
+              key={`nav-link-${title}-${link}`}
+              show={showFilmNoise === title}
+              ContainerProps={{
+                id: title,
+              }}
+              opacity={0.4}
+              outerClasses='film-noise'
+              innerClasses='inner-film-noise'
+            >
+              <Text
+                aria-labelledby={title}
+                key={`nav-${link}`}
+                containerClasses='w-fit'
+                onlyContainer
+              >
+                <Link
+                  to={link}
+                  id={title}
+                  onMouseEnter={({ target }) =>
+                    setShowFilmNoise((target as Element)?.id)
+                  }
+                  onMouseLeave={() => setShowFilmNoise('')}
+                  style={{
+                    display: 'absolute',
+                    zIndex: 5,
+                    width: '100%',
+                  }}
+                >
+                  {title}
+                </Link>
+              </Text>
+            </FilmNoise>
+          ))}
+        </nav>
+      ) : (
+        <StyledMenuIcon aria-labelledby='menuButton' className='p-s'>
+          <button id='menuButton' aria-label='Menu'>
+            <Lottie aria-hidden='true' {...animationOptions} />
+          </button>
+        </StyledMenuIcon>
+      )}
+      {
+        <StyledNavigationModal
+          className='nav-modal fl-col p-m'
+          show={showMenuModal}
+        >
           {content.map(({ title, link }) => (
             <Text key={`nav-${link}`} containerClasses='w-fit' onlyContainer>
               <Link
@@ -175,39 +239,7 @@ const Navigation = ({
             </Text>
           ))}
         </StyledNavigationModal>
-      )}
-      <nav className='fl-col p-m fixed'>
-        {content.map(({ title, link }) => (
-          <FilmNoise
-            key={`nav-link-${title}-${link}`}
-            show={showFilmNoise === title}
-            ContainerProps={{
-              id: title,
-            }}
-            opacity={0.4}
-            outerClasses='film-noise'
-            innerClasses='inner-film-noise'
-          >
-            <Text key={`nav-${link}`} containerClasses='w-fit' onlyContainer>
-              <Link
-                to={link}
-                id={title}
-                onMouseEnter={({ target }) =>
-                  setShowFilmNoise((target as Element)?.id)
-                }
-                onMouseLeave={() => setShowFilmNoise('')}
-                style={{
-                  display: 'absolute',
-                  zIndex: 5,
-                  width: '100%',
-                }}
-              >
-                {title}
-              </Link>
-            </Text>
-          </FilmNoise>
-        ))}
-      </nav>
+      }
     </StyledNavigation>
   );
 };

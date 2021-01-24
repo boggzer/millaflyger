@@ -1,9 +1,68 @@
-import React, { useState, lazy, MutableRefObject } from 'react';
+import React, { useState, lazy } from 'react';
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
-import '../../css/About.scss';
 const FilmNoise = lazy(() => import('../effects/FilmNoise'));
 import useRefChange from '../../hooks/useRefChange';
+import styled from 'styled-components';
+
+const StyledAboutWrapper = styled.div`
+  box-sizing: border-box;
+  justify-content: flex-start;
+  position: relative;
+  top: 5vh;
+  color: rgb(10, 20, 10);
+  & > div {
+    height: min-content;
+    justify-content: center;
+  }
+  & > div > div {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    min-width: 20rem;
+    width: 100%;
+    max-width: 35rem;
+    box-sizing: border-box;
+  }
+  .text {
+    &.h2 {
+      text-transform: lowercase;
+      transform: translateX(-5%);
+      align-items: center;
+      width: 50%;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: fit-content;
+  }
+  div + .h6,
+  div > .h6 {
+    & > * {
+      // margin-top: $padding !important;
+    }
+  }
+  .email-container {
+    align-items: center;
+    height: 4rem;
+    justify-content: flex-start;
+    .film-noise {
+      a {
+        z-index: 1;
+        width: inherit;
+        width: inherit;
+        position: relative;
+        padding: 0.2rem;
+      }
+    }
+    .inner-film-noise {
+      z-index: -1;
+      position: absolute;
+      padding: 0.2rem;
+      border-radius: 0.1rem;
+    }
+  }
+`;
 
 const About = (): React.ReactElement => {
   const [showFilmNoise, setShowFilmNoise] = useState<boolean>(false);
@@ -19,7 +78,10 @@ const About = (): React.ReactElement => {
   };
 
   return (
-    <Container classes='about-wrapper w-full h-fit flow-hide fl-col align-start wrap p-m'>
+    <StyledAboutWrapper className='about-wrapper w-full h-fit flow-hide fl-row align-start wrap p-m'>
+      <Text tabIndex={0} textClasses='p-m' type='h2'>
+        About
+      </Text>
       <Container classes='fl-row w-full wrap p-s'>
         <Container classes='p-s'>
           <Text bold type='h6'>
@@ -111,7 +173,7 @@ const About = (): React.ReactElement => {
           </Container>
         </Container>
       </Container>
-    </Container>
+    </StyledAboutWrapper>
   );
 };
 
