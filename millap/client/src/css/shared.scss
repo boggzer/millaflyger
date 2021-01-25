@@ -17,6 +17,10 @@ $spacing-xxl: 16rem;
   flex-direction: column !important;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .wrap {
   flex-wrap: wrap;
 }
@@ -61,6 +65,14 @@ $spacing-xxl: 16rem;
   height: fit-content !important;
 }
 
+.vw-full {
+  width: 100vw;
+}
+
+.vh-full {
+  height: 100vh;
+}
+
 .w-fit {
   width: fit-content;
 }
@@ -69,7 +81,7 @@ $spacing-xxl: 16rem;
   width: 100%;
 }
 
-.h-hundred {
+.h-full {
   height: 100%;
 }
 

@@ -12,6 +12,7 @@ interface OverviewProps {
 const Overview = ({ data }: OverviewProps): React.ReactElement => {
   const imagesWithDimensions = useMemo(
     () =>
+      data &&
       data.reduce(
         (acc: ResponsiveGridImageType[], { title, images: [{ source }] }) => {
           // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -44,7 +45,7 @@ const Overview = ({ data }: OverviewProps): React.ReactElement => {
     [data],
   );
 
-  return (
+  return imagesWithDimensions ? (
     <>
       <AnimatedContainer
         withLink
@@ -53,7 +54,9 @@ const Overview = ({ data }: OverviewProps): React.ReactElement => {
         images={imagesWithDimensions}
       />
     </>
+  ) : (
+    <div>No data found</div>
   );
 };
 
-export default memo(Overview);
+export default Overview;

@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense, lazy } from 'react';
+import React, { useRef, useState, Suspense, lazy, forwardRef } from 'react';
 const ImageCard = lazy(() => import('../presentational/ImageCard'));
 const Text = lazy(() => import('../presentational/Text'));
 import { ProjectDataType } from '../../utils/global';
@@ -8,6 +8,8 @@ import Lottie, { LottieOptions, LottieRef } from 'lottie-react';
 import bg from '../../assets/images/kvinna-i-hav_bg@1500x997.jpg';
 import styled from 'styled-components';
 import { useEffect } from 'react';
+import Container from '../presentational/Container';
+import { useLocation } from 'react-router-dom';
 /**
  *   &::before {
     content: '';
@@ -35,21 +37,26 @@ const StyledBackground = styled.div<{
   width: 100%;
   overflow: hidden !important;
   transition: transform 200ms ease-in 500ms;
-  .text {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
+  & > .container:first-of-type {
     position: absolute;
-    width: fit-content;
-    color: rgb(255, 255, 255);
-    right: 10vw;
+    width: 100%;
+    height: auto;
     top: 70vh;
+    right: 10vw;
+    z-index: 2;
+    align-items: flex-end;
     mix-blend-mode: difference;
-    border-bottom: 0.5rem solid red;
-    & > h2 {
-      font-weight: 200 !important;
-      font-size: 6rem !important;
+    color: rgb(255, 255, 255);
+    .text {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
       text-transform: lowercase;
+      & > h1 {
+        font-weight: 200 !important;
+        font-size: 6rem;
+        border-bottom: 0.5rem solid red;
+      }
     }
   }
   .start-image-container {
@@ -82,13 +89,25 @@ const StyledBackground = styled.div<{
       width: auto;
     }
   }
+  @media screen and (max-width: 530px) {
+    .container:first-of-type {
+      .text {
+        & > h1 {
+          font-size: calc(1rem + 10vmin) !important;
+        }
+        right: unset;
+        text-align: center;
+      }
+    }
+    justify-content: center;
+  }
 `;
 
 interface StartProps {
   projects: ProjectDataType[];
 }
 
-const Start = (props: StartProps): React.ReactElement => {
+const Start = (props: StartProps, forwardedRef: any): React.ReactElement => {
   const lottieRef = useRef<any>();
   const ref = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -120,8 +139,11 @@ const Start = (props: StartProps): React.ReactElement => {
   };
 
   return (
-    <StyledBackground className='start container fl-row'>
-      <Text type='h2'>Milla Flyger</Text>
+    <StyledBackground ref={forwardedRef} className='start container fl-row'>
+      <Container classes='fl-col align-center'>
+        <Text type='h1'>Milla Flyger</Text>
+        <Text type='h4'>Portfolio</Text>
+      </Container>
       <Suspense fallback={<div>Loading</div>}>
         <Lottie
           className='start-lottie'
@@ -139,4 +161,4 @@ const Start = (props: StartProps): React.ReactElement => {
   );
 };
 
-export default Start;
+export default forwardRef(Start);

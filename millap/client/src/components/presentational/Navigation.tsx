@@ -1,5 +1,5 @@
-import React, { useState, memo, useMemo, useRef } from 'react';
-import slugify from 'slugify';
+import React, { useState, memo, useRef } from 'react';
+// import slugify from 'slugify';
 import { Link } from 'react-router-dom';
 import FilmNoise from '../effects/FilmNoise';
 import { ProjectDataType } from '../../utils/global';
@@ -62,7 +62,7 @@ const StyledMenuIcon = styled.div`
   }
 `;
 
-const StyledNavigation = styled.div.attrs((props) => ({
+const StyledNavigation = styled.div.attrs(() => ({
   role: 'navigation',
 }))`
   position: sticky;
@@ -110,10 +110,7 @@ const StyledNavigation = styled.div.attrs((props) => ({
   }
 `;
 
-const Navigation = ({
-  classes,
-  projects,
-}: NavigationProps): React.ReactElement | any => {
+const Navigation = ({ classes }: NavigationProps): React.ReactElement | any => {
   const iconRef: LottieRef = useRef<any>();
   const { width } = useWindowSize();
   const [showFilmNoise, setShowFilmNoise] = useState('');
@@ -149,7 +146,7 @@ const Navigation = ({
     },
     onClick: handleClick,
   };
-
+  /*
   const getProjectLinks = useMemo(
     () =>
       (projects as any).map(({ title }: ProjectDataType) => ({
@@ -159,6 +156,7 @@ const Navigation = ({
       })),
     [projects],
   );
+  */
   const content = [
     { title: 'Home', link: '/' },
     { title: 'About', link: '/about' },

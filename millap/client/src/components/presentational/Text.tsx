@@ -39,7 +39,7 @@ interface TextProps
   ariaId?: string;
   containerClasses?: string;
   textClasses?: string;
-  type?: 'link' | 'h6' | 'h4' | 'h2' | 'p';
+  type?: 'link' | 'h6' | 'h4' | 'h2' | 'h1' | 'p';
   children?: React.ReactNode;
   onlyContainer?: boolean;
   ref?: any;
@@ -93,9 +93,10 @@ const Text = (
           {...props}
         >
           {onlyContainer && children}
-          {type === 'h6' && <h6 {...defaultProps}>{children}</h6>}
+          {type === 'h1' && <h1 {...defaultProps}>{children}</h1>}
           {type === 'h2' && <h2 {...defaultProps}>{children}</h2>}
           {type === 'h4' && <h4 {...defaultProps}>{children}</h4>}
+          {type === 'h6' && <h6 {...defaultProps}>{children}</h6>}
           {type === 'p' && onlyContainer === false && (
             <p {...defaultProps}>{children}</p>
           )}
