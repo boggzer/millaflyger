@@ -40,18 +40,10 @@ const StyledLinkHover = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.25);
   opacity: 1;
-  transition: all 500ms;
+  transition: opacity 202ms ease-out;
   border-radius: inherit;
-  &:hover {
-    opacity: 0;
-  }
-  .text {
-    position: absolute;
-    padding-bottom: 25%;
-    color: rgb(255, 255, 255);
-  }
 `;
 
 const StyledGridImage = styled.div<{ readonly style?: Record<string, any> }>`
@@ -60,10 +52,38 @@ const StyledGridImage = styled.div<{ readonly style?: Record<string, any> }>`
   overflow: hidden;
   transition: 300ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 70ms;
   transition-property: top, left, width, height;
+  border-radius: 0.3rem;
+  .text {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: unset !important;
+  }
   a {
     overflow: hidden;
-    & * {
-      border-radius: 0.3rem;
+    height: inherit;
+    width: inherit;
+    display: inline-flex;
+    position: relative;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 202ms ease-out;
+    span {
+      color: rgb(255, 255, 255);
+      padding-bottom: 25%;
+    }
+    & + .responsive-image-hover {
+      z-index: 4;
+      position: absolute;
+      display: inline-flex;
+      transform: translateX(-100%);
+    }
+    &:hover {
+      opacity: 0;
+      & + .responsive-image-hover {
+        opacity: 0;
+      }
     }
   }
 `;
@@ -90,7 +110,7 @@ const ResponsiveGrid = ({
   const ConditionalLink = ({ children, to, ...rest }: any) =>
     withLink ? (
       <Link to={to} {...rest}>
-        {children}
+        <span>{children}</span>
       </Link>
     ) : (
       <div {...rest}>{children}</div>
@@ -126,29 +146,32 @@ const ResponsiveGrid = ({
           />
         }
       >
-        <ConditionalLink
-          id={id}
-          to={`/${id}`}
-          title={(image as any)?.['title']}
+        <ImageCard
+          aria-labelledby={id}
+          role='img'
+          className='responsive-image-card'
+          imageSource={src}
+          ImageProps={{
+            width,
+            height,
+            ...image,
+          }}
         >
-          <ImageCard
-            aria-labelledby={id}
-            role='img'
-            className='responsive-image-card'
-            imageSource={src}
-            ImageProps={{
-              width,
-              height,
-              ...image,
-            }}
-          >
-            {withLink && (
-              <StyledLinkHover className='responsive-image-hover'>
-                <Text onlyContainer>{(props as any)?.title}</Text>
-              </StyledLinkHover>
-            )}
-          </ImageCard>
-        </ConditionalLink>
+          {withLink && (
+            <>
+              <Text onlyContainer>
+                <ConditionalLink
+                  id={id}
+                  to={`/${id}`}
+                  title={(image as any)?.['title']}
+                >
+                  <h6 className='h6'>{(props as any)?.title}</h6>
+                </ConditionalLink>
+                <StyledLinkHover className='responsive-image-hover' />{' '}
+              </Text>
+            </>
+          )}
+        </ImageCard>
       </Suspense>
     </StyledGridImage>
   );

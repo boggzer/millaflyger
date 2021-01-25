@@ -15,11 +15,6 @@ interface GridProps extends ProjectDataType {
   withLightbox?: boolean;
 }
 
-const WithLightbox = (props: LightboxProps) => {
-  // const [initialIndex, setinitialIndex] = useState(0);
-  return <Lightbox {...props} />;
-};
-
 const Grid = ({
   withLightbox = false,
   containerClasses,
@@ -68,10 +63,12 @@ const Grid = ({
         Object.keys(images).map((p: string, i: number) =>
           withLightbox ? (
             <ImageCard
+              data-index={`${i}`}
               key={i}
-              id={`${i}`}
               onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                setActiveIndex(parseInt(e?.currentTarget?.id))
+                setActiveIndex(
+                  parseInt(e?.currentTarget?.dataset?.['index'] || '-1'),
+                )
               }
               imageSource={{
                 source: images[i]?.source[0],
