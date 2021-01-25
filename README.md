@@ -22,10 +22,10 @@ Made with a complete AWS Amplify backend.
 ### How to run
 1. Fork/download project
 2. Open in your favorite IDE
-3. Fill in credentials in .env *or* add custom data that follows the [type definition](#projectmodel)
 3. Run `npm run dev` and the project will open in your browser
-4. (Optional) If integrating your own AWS Amplify backend, make sure to check out the [docs](https://docs.amplify.aws/cli/teams/shared#sharing-projects-within-the-team)
-5. (Optional) If integrating your own API, put your API call in `projectsContext.tsx`. Make sure the return object follows the [ProjectDataType](#api), or else the project may fail to run
+4. (Optional) If using your own image data, make sure it follows the [type definition](#projectmodel)
+5. (Optional) If integrating your own AWS Amplify backend, make sure to check out the [docs](https://docs.amplify.aws/cli/teams/shared#sharing-projects-within-the-team)
+6. (Optional) If integrating your own API, put your API call in `projectsContext.tsx`. Make sure the return object follows the [ProjectDataType](#api), or else the project may fail to run
 
 ## API
 /GET returns an array of all projects in ProjectModelTable in the database (type equals to `ProjectDataType[]` in frontend).
