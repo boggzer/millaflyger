@@ -2,7 +2,7 @@
 A web portfolio for a Gothenburg based photographer and a dear friend, Milla Flyger. The website is available at <https://www.millaflyger.com/>.
 Made with a complete AWS Amplify backend.
 
-Frontend features
+#### Frontend features
 - React and CRA bootstrap
 - Smooth responsive layout
 - Dynamic and interactive elements
@@ -12,8 +12,8 @@ Frontend features
 - SCSS stylesheets
 - Type checking with Typescript
 
-Backend features
-- CI workflow and hosting with Amplify (AWS)s
+#### Backend features
+- CI workflow and hosting with Amplify (AWS)
 - Database with DynamoDB (AWS)
 - REST API with AppSync and API Gateway using Lambda (AWS)
 - SSL and domain with Route 53 (AWS)
