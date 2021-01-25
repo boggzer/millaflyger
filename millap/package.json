@@ -51,9 +51,7 @@
   },
   "scripts": {
     "build": "cd client && npm run build",
-    "dev": "concurrently -n \"client,server\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm:dev-client\" \"npm:dev-server\"",
-    "dev-client": "cd client && npm run start",
-    "dev-server": "./node_modules/.bin/ts-node-dev --rs --respawn --transpile-only -r dotenv/config server/app.ts"
+    "dev": "cd client && npm run start"
   },
   "browserslist": {
     "production": [
