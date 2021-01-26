@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, lazy } from 'react';
 const ImageCard = lazy(() => import('../presentational/ImageCard'));
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import usePortal from 'react-cool-portal';
 import { ProjectDataType } from '../../utils/global';
 import leftArrowIcon from '../../assets/icons/arrow_left.svg';
@@ -18,7 +18,7 @@ const StyledLightbox = styled.div`
   z-index: 20;
   overflow: hidden;
   padding: 5rem;
-  background: rgba(10, 10, 0, 0.7);
+  background: rgba(10, 10, 0, 0.8);
   box-sizing: border-box;
   .container > div:first-of-type {
     height: 100%;
@@ -61,10 +61,6 @@ const StyledLightbox = styled.div`
       position: absolute;
       height: ;
     }
-    & > .close {
-      align-self: flex-end;
-      margin: unset;
-    }
   }
 `;
 
@@ -72,9 +68,12 @@ const StyledButton = styled.button<{
   readonly icon: string;
   readonly iconType: LightboxReducerType;
 }>`
-  height: ${({ iconType }) => (iconType === 'close' ? 2 : 3)}rem;
-  width: ${({ iconType }) => (iconType === 'close' ? 2 : 3)}rem;
-  background: #fff;
+  padding: unset;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  height: ${({ iconType }) => (iconType === 'close' ? 2 : 2)}rem;
+  width: ${({ iconType }) => (iconType === 'close' ? 2 : 2)}rem;
+  background: rgba(255, 255, 255, 0);
   background-size: ${({ iconType }) =>
     iconType === 'close' ? 'contain' : '2rem 3rem'};
   background-position: center;
@@ -83,13 +82,39 @@ const StyledButton = styled.button<{
   box-sizing: content-box;
   color: rgb(240, 240, 220);
   border: unset;
-  border-radius: ;
+  border-radius: 1rem;
+  ${({ iconType }) =>
+    iconType === 'close' &&
+    css`
+      align-self: flex-end;
+      margin: unset;
+      position: relative;
+      top: -3rem;
+      right: -3rem;
+    `}
   &:hover {
+    &::after {
+      content: '';
+      width: 4rem;
+      height: 4rem;
+      transform: ${({ iconType }) =>
+        `translate(${iconType === 'close' ? '-1rem, -1rem' : '-2rem, -2rem'})`};
+      position: absolute;
+      display: inline-block;
+      border-radius: 50%;
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0;
+    }
     cursor: pointer;
   }
   &:focus {
-    outline: 2px solid rgb(200, 200, 200);
-    border-radius: 1rem;
+    &::after {
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 0.05rem rgba(255, 255, 255, 0.3);
+    }
+    outline: unset;
   }
 `;
 
@@ -102,6 +127,7 @@ export interface LightboxProps {
   activeIndex?: number;
   handleHide: () => void;
   setActive?: any;
+  imageCount: number;
 }
 
 const Lightbox = ({
@@ -109,6 +135,7 @@ const Lightbox = ({
   classes,
   setActive,
   handleHide,
+  imageCount,
   content,
   portalId = 'lightbox-portal',
 }: LightboxProps): React.ReactElement => {
@@ -151,29 +178,34 @@ const Lightbox = ({
       <StyledLightbox className={classes}>
         <Container classes='lightbox-buttons fl-col'>
           <StyledButton
+            aria-label='Close'
             className='close'
             onClick={() => reducer({ actionType: 'close' })}
             iconType='close'
             icon={closeIcon}
           />
           <Container>
-            <StyledButton
-              aria-label='Previous'
-              onClick={() => reducer({ actionType: 'previous' })}
-              iconType='previous'
-              icon={leftArrowIcon}
-            />
+            {imageCount > 1 && (
+              <StyledButton
+                aria-label='Previous'
+                onClick={() => reducer({ actionType: 'previous' })}
+                iconType='previous'
+                icon={leftArrowIcon}
+              />
+            )}
             <ImageCard
               imageSource={
                 content.images[activeIndex]?.source[0]?.['XL' || 'L' || 'M']
               }
             />
-            <StyledButton
-              aria-label='Next'
-              onClick={() => reducer({ actionType: 'next' })}
-              iconType='next'
-              icon={rightArrowIcon}
-            />
+            {imageCount > 1 && (
+              <StyledButton
+                aria-label='Next'
+                onClick={() => reducer({ actionType: 'next' })}
+                iconType='next'
+                icon={rightArrowIcon}
+              />
+            )}
           </Container>
           <Text>{`${activeIndex + 1}/${content.images.length}`}</Text>
         </Container>

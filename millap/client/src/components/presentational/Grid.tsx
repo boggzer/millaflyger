@@ -56,6 +56,7 @@ const Grid = ({
           content={{ images, ...props }}
           setActive={(index: number) => setActiveIndex(index)}
           activeIndex={activeIndex}
+          imageCount={images.length}
           {...props}
         />
       )}
