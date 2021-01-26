@@ -33,29 +33,55 @@ const StyledBackground = styled.div<{
   readonly x?: number;
   readonly y?: number;
 }>`
-  height: 100%;
-  width: 100%;
+  justify-content: center;
+  background-size: cover;
+  background-image: url('${bg}');
+  position: relative;
+  background-position: center;
   overflow: hidden !important;
   transition: transform 200ms ease-in 500ms;
-  & > .container:first-of-type {
+  & > .container.start-text-wrapper {
+    max-width: 900px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column-reverse;
     position: absolute;
-    width: 100%;
-    height: auto;
-    top: 70vh;
-    right: 10vw;
-    z-index: 2;
+    width: fit-content;
+    height: inherit;
     align-items: flex-end;
-    mix-blend-mode: difference;
     color: rgb(255, 255, 255);
-    .text {
+    transition: padding 300ms ease;
+    @supports (mix-blend-mode: difference) {
+      &::before {
+        content: '';
+        display: block;
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 0;
+        height: 0;
+        background: rgb(0, 0, 0);
+        mix-blend-mode: difference;
+      }
+    }
+    & > .text {
       display: flex;
       flex-direction: column;
       width: fit-content;
       text-transform: lowercase;
-      & > h1 {
-        font-weight: 200 !important;
-        font-size: 6rem;
-        border-bottom: 0.5rem solid red;
+      z-index: 2;
+      &.h1 {
+        @supports not (mix-blend-mode: difference) {
+          background: rgb(0, 0, 0);
+        }
+        position: relative;
+        mix-blend-mode: difference;
+        & > h1 {
+          white-space: nowrap;
+          font-weight: 200 !important;
+          font-size: 6rem;
+          border-bottom: 0.5rem solid red;
+        }
       }
     }
   }
@@ -87,6 +113,12 @@ const StyledBackground = styled.div<{
       z-index: 2;
       height: 100%;
       width: auto;
+    }
+  }
+  @media screen and (max-width: 950px) {
+    .container.start-text-wrapper {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
   @media screen and (max-width: 530px) {
@@ -139,22 +171,19 @@ const Start = (props: StartProps, forwardedRef: any): React.ReactElement => {
   };
 
   return (
-    <StyledBackground ref={forwardedRef} className='start container fl-row'>
-      <Container classes='fl-col align-center'>
-        <Text type='h1'>Milla Flyger</Text>
+    <StyledBackground
+      ref={forwardedRef}
+      className='start container fl-row w-full h-full'
+    >
+      <Container classes='start-text-wrapper align-center p-xl'>
         <Text type='h4'>Portfolio</Text>
+        <Text type='h1'>Milla Flyger</Text>
       </Container>
       <Suspense fallback={<div>Loading</div>}>
         <Lottie
           className='start-lottie'
           lottieRef={lottieRef}
           {...animationProps}
-        />
-        <ImageCard
-          outerRef={ref}
-          imageSource={bg}
-          containerClasses='start-image-container'
-          alt=''
         />
       </Suspense>
     </StyledBackground>
