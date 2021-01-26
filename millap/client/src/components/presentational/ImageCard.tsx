@@ -113,7 +113,7 @@ const ImageCard = ({
       ? imageSource
       : imageSource?.source['M'] || imageSource?.source['S'],
   );
-  console.log(imageSource);
+
   return (
     <StyledImageCardWrapper
       className={containerClasses}

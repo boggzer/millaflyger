@@ -131,7 +131,7 @@ const Layout = (): React.ReactElement => {
     children: React.ReactNode;
   }) => {
     const nodeRef = React.useRef();
-    setPageTitle(pageTitle);
+    show && setPageTitle(pageTitle);
     return (
       <CSSTransition
         className='tr-w'
