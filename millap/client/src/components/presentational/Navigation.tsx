@@ -1,6 +1,6 @@
 import React, { useState, memo, useRef } from 'react';
 // import slugify from 'slugify';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import FilmNoise from '../effects/FilmNoise';
 import { ProjectDataType } from '../../utils/global';
 import Text from '../presentational/Text';
@@ -64,7 +64,7 @@ const StyledMenuIcon = styled.div`
 
 const StyledNavigation = styled.div.attrs(() => ({
   role: 'navigation',
-}))`
+}))<{ readonly pathname: string }>`
   position: sticky;
   top: unset;
   z-index: 3;
@@ -72,7 +72,7 @@ const StyledNavigation = styled.div.attrs(() => ({
     top: min(30%, 15rem);
     width: 10rem;
     padding: 2rem;
-    position: relative;
+    position: ${({ pathname }) => (pathname === '/' ? 'absolute' : 'relative')};
     height: fit-content;
   }
   nav {
@@ -115,6 +115,7 @@ const StyledNavigation = styled.div.attrs(() => ({
 const Navigation = ({ classes }: NavigationProps): React.ReactElement | any => {
   const iconRef: LottieRef = useRef<any>();
   const { width } = useWindowSize();
+  const { pathname } = useLocation();
   const [showFilmNoise, setShowFilmNoise] = useState('');
   const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
 
@@ -167,7 +168,7 @@ const Navigation = ({ classes }: NavigationProps): React.ReactElement | any => {
   ];
 
   return (
-    <StyledNavigation role='navigation' className={classes}>
+    <StyledNavigation role='navigation' pathname={pathname} className={classes}>
       {width > 700 ? (
         <nav className='fl-col p-m fixed'>
           {content.map(({ title, link }) => (
