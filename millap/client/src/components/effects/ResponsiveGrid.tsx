@@ -212,13 +212,15 @@ const ResponsiveGrid = ({
 
   return (
     <StyledGrid className={`responsive-grid ${classes}`}>
-      <Gallery
-        margin={~~(width / 100)}
-        photos={images}
-        columns={getColumnSize}
-        direction='column'
-        renderImage={imageRenderer}
-      />
+      {typeof images !== 'undefined' && images.length && (
+        <Gallery
+          margin={~~(width / 100)}
+          photos={images}
+          columns={getColumnSize}
+          direction='column'
+          renderImage={imageRenderer}
+        />
+      )}
     </StyledGrid>
   );
 };

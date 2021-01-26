@@ -101,7 +101,7 @@ const ImageCard = ({
 }: ImageCardProps): React.ReactElement => {
   const mediaQueries: ImageSizes = {
     S: '(min-width: 0px) and (max-width: 399px)',
-    M: '(min-width: 400px) and (max-width: 699px)',
+    M: '(min-width: 400px) and (max-width: 599px)',
     L: '(min-width: 700px) and (max-width: 999px)',
     XL: '(min-width: 1000px)',
   };
@@ -113,6 +113,7 @@ const ImageCard = ({
       ? imageSource
       : imageSource?.source['M'] || imageSource?.source['S'],
   );
+  console.log(imageSource);
   return (
     <StyledImageCardWrapper
       className={containerClasses}

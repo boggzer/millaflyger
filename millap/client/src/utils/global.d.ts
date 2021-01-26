@@ -7,6 +7,11 @@ export type ProjectDataType = {
   images: ProjectImageData[];
 };
 
+export type ProjectsType = {
+  full: ProjectDataType[];
+  singles: ProjectDataType[];
+};
+
 export type ProjectImageDataType = {
   alt?: string;
   sizes?: Record<any, any>[];

@@ -1,21 +1,21 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect, createContext } from 'react';
 import { API } from 'aws-amplify';
-import { ProjectDataType } from '../utils/global';
+import { ProjectDataType, ProjectsType } from '../utils/global';
 
 type ProjectsContextType = {
-  projects?: ProjectDataType[];
+  projects?: ProjectsType;
 };
 
 type GraphqlDataType = {
-  data: ProjectDataType[];
+  data: ProjectsType;
 };
 
 export const ProjectsContext = createContext<ProjectsContextType>({});
 
 const ProjectsProvider = (props: any): JSX.Element => {
-  const [projects, setProjects] = useState<ProjectDataType[]>();
-  /*
+  const [projects, setProjects] = useState<ProjectsType>();
+
   useEffect(() => {
     const getProjects = async () => {
       const data: GraphqlDataType = await API.get('projectapi', '/project', '');
@@ -23,8 +23,7 @@ const ProjectsProvider = (props: any): JSX.Element => {
     };
     getProjects();
   }, []);
-  console.log(projects);
-*/
+
   return (
     <ProjectsContext.Provider value={{ projects }}>
       {props.children}

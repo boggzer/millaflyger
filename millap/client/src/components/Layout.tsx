@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useContext } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -11,7 +11,7 @@ import {
 import Navigation from './presentational/Navigation';
 // const Overview = lazy(() => import('./pages/portfolio/Overview'));
 import ErrorBoundary from '../utils/ErrorBoundary';
-import { full, singles } from './data';
+// import { full, singles } from './data';
 import Container from './presentational/Container';
 import { CSSTransition } from 'react-transition-group';
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -20,7 +20,8 @@ import About from './pages/About';
 import Start from './pages/Start';
 const Project = lazy(() => import('./presentational/Project'));
 import slugify from 'slugify';
-import { ProjectDataType } from '../utils/global';
+import { ProjectDataType, ProjectsType } from '../utils/global';
+import { ProjectsContext } from '../contexts/projectsContext';
 
 type RouteType = {
   path: string;
@@ -32,8 +33,11 @@ type RouteType = {
 };
 
 const Layout = (): React.ReactElement => {
-  // const { projects } = useContext(ProjectsContext);
-
+  const { projects } = useContext(ProjectsContext);
+  const { full, singles } = React.useMemo(
+    () => ({ full: projects?.full || [], singles: projects?.singles || [] }),
+    [projects],
+  );
   /*
   const fetched = data.reduce((acc: any, { images }, ind: number) => {
     const d = data;

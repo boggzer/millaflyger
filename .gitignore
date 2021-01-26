@@ -10,7 +10,7 @@ firebase-debug.*.log*
 
 # Firebase cache
 .firebase/
-
+amplify
 # Firebase config
 millap/server/firebase/functions/config
 millap/server/firebase/functions/typings
