@@ -70,17 +70,19 @@ const StyledNavigation = styled.div.attrs(() => ({
   z-index: 3;
   @media screen and (min-width: 701px) {
     top: min(30%, 15rem);
+    width: 10rem;
+    padding: 2rem;
     position: relative;
     height: fit-content;
   }
   nav {
+    position: fixed;
     display: none;
     .text {
       font-size: 2rem;
     }
     @media screen and (min-width: 701px) {
       display: block;
-      position: relative;
     }
   }
   nav,

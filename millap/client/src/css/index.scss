@@ -11,13 +11,6 @@
   font-size: 12px;
 }
 
-body,
-#root {
-  position: relative;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
 .tr-w {
   // min-height: 100%;
   max-width: 100vw;
@@ -129,9 +122,25 @@ svg {
 
 html,
 body {
-  height: 100%;
   width: 100%;
 }
+
+body {
+  height: 100vh;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  font-family: 'Libre Baskerville';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(233, 231, 230);
+  box-sizing: border-box !important;
+}
+
 @keyframes test {
   0% {
     stroke-dashoffset: -420px;
@@ -143,19 +152,6 @@ body {
   100% {
     stroke-dashoffset: 420px;
   }
-}
-body {
-  margin: 0;
-
-  // margin: $root-margin;
-  height: 100%;
-  font-family: 'Libre Baskerville';
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgb(233, 231, 230);
-  box-sizing: border-box !important;
 }
 
 #root {
@@ -169,6 +165,7 @@ body {
 
 .content {
   // height: 100%;
+  position: relative;
   width: 100%;
 }
 
