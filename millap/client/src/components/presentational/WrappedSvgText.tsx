@@ -53,7 +53,7 @@ const WrappedSvgText = ({
         viewBox='0 0 500 110'
       >
         <g height='100%'>
-          <line x1='50vh' y1='100%' y2='100%' x2='0' stroke='black' />
+          <line x1='50%' y1='100%' y2='100%' x2='0' stroke='black' />
         </g>
       </svg>
       <svg
