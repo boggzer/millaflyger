@@ -168,7 +168,6 @@ const Layout = (): React.ReactElement => {
         <Suspense fallback={<div>loading</div>}>
           <Navigation projects={full} />
           <Container classes='content'>
-            {/* <Switch> */}
             {routes.map(({ path, Component, props, ...rest }) => (
               <Route key={path} exact path={path}>
                 {({ match }) => (
@@ -186,7 +185,6 @@ const Layout = (): React.ReactElement => {
                 }
               }}
             />
-            {/* </Switch> */}
           </Container>
         </Suspense>
       </Router>
