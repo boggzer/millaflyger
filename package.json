@@ -10,8 +10,7 @@
     "dev": "cd millap/client && npm start",
     "install:client": "cd millap/client && npm i",
     "install:main": "cd millap && npm i",
-    "install:root": "npm i",
-    "install-deps": "run-s install:**"
+    "install-deps": "npm i && run-s install:**"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.4.0",
