@@ -26,8 +26,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "lint-staged": "^10.5.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "typescript": "^4.0.2"
+    "prettier": "^2.2.1"
   },
   "repository": {
     "type": "git",
@@ -39,5 +38,8 @@
   "bugs": {
     "url": "https://github.com/boggzer/milla/issues"
   },
-  "homepage": "https://github.com/boggzer/milla#readme"
+  "homepage": "https://github.com/boggzer/milla#readme",
+  "dependencies": {
+    "typescript": "^4.1.3"
+  }
 }

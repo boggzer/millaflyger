@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, HTMLAttributes } from 'react';
+import React, { forwardRef, HTMLAttributes, MutableRefObject } from 'react';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
@@ -18,7 +18,7 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 const Container = (
   { children, classes, ...props }: ContainerProps,
-  ref: ForwardedRef<any>,
+  ref: MutableRefObject<any> | ((instance: any) => void) | null,
 ): React.ReactElement => (
   <StyledContainer ref={ref} className={`container ${classes}`} {...props}>
     {children}

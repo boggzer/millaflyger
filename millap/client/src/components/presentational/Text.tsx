@@ -2,7 +2,7 @@ import React, {
   forwardRef,
   CSSProperties,
   HTMLAttributes,
-  ForwardedRef,
+  MutableRefObject,
   DetailedHTMLProps,
 } from 'react';
 import { ratio } from '../../utils/constants';
@@ -61,7 +61,7 @@ const Text = (
     href,
     ...props
   }: TextProps,
-  ref: ForwardedRef<any>,
+  ref: MutableRefObject<any> | ((instance: any) => void) | null,
 ): React.ReactElement => {
   const containerStyle: CSSProperties = { margin: ratio.TWO };
   const textStyle: CSSProperties = { margin: ratio.ONE };
