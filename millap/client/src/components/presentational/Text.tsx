@@ -29,6 +29,9 @@ const StyledTextContainer = styled.div`
   a {
     border-bottom: 1px solid black;
   }
+  &.sans {
+    font-family: 'Roboto', Helvetica !important;
+  }
 `;
 
 interface TextProps
@@ -38,6 +41,7 @@ interface TextProps
   > {
   ariaId?: string;
   containerClasses?: string;
+  font?: 'sans' | 'serif';
   textClasses?: string;
   type?: 'link' | 'h6' | 'h4' | 'h2' | 'h1' | 'p';
   children?: React.ReactNode;
@@ -52,6 +56,7 @@ const Text = (
   {
     ariaId,
     containerClasses,
+    font = 'serif',
     textClasses,
     bold = false,
     onlyContainer = false,
@@ -88,7 +93,9 @@ const Text = (
       ) : (
         <StyledTextContainer
           ref={ref}
-          className={`text ${type} ${containerClasses} ${bold && 'bold'}`}
+          className={`text ${type} ${containerClasses} ${font}${
+            bold ? ' bold' : ''
+          }`}
           style={{ ...containerStyle }}
           {...props}
         >
