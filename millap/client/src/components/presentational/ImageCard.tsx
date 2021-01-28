@@ -11,7 +11,6 @@ export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
     | { source: Record<keyof ImageSizes, string>; order?: number }
     | string;
   ImageProps?: ImgHTMLAttributes<HTMLImageElement>;
-  // onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   size?: ImageSize;
   order?: number;
   outerRef?: RefObject<HTMLDivElement> | ((_instance: HTMLDivElement) => void);
@@ -103,8 +102,6 @@ const ImageCard = ({
     L: '(min-width: 700px) and (max-width: 999px)',
     XL: '(min-width: 1000px)',
   };
-  // const [ref, setRef] = useState<Element>();
-  // const refChange = useRefChange(setRef);
 
   cache.read(
     typeof imageSource === 'string'
@@ -138,7 +135,6 @@ const ImageCard = ({
               ) : typeof imageSource !== 'undefined' ? (
                 <StyledImage
                   alt={alt}
-                  // ref={refChange}
                   key={key}
                   className={`${classes} image`}
                   src={imageSource.source.XL}
@@ -152,13 +148,11 @@ const ImageCard = ({
         ) : typeof imageSource !== 'undefined' ? (
           <StyledImage
             alt={alt}
-            // ref={refChange}
             className={`${classes} image`}
             src={imageSource}
             width={size}
             title={title}
             style={style}
-            // {...props}
             {...ImageProps}
           />
         ) : (
@@ -167,7 +161,6 @@ const ImageCard = ({
       </picture>
     </StyledImageCardWrapper>
   );
-  // {/* </Suspense> */}
 };
 
 export default memo(ImageCard);
