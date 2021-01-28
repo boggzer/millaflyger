@@ -79,7 +79,7 @@ const WrappedSvgText = ({
       <svg
         className='svg-title-text'
         xmlns='http://www.w3.org/2000/svg'
-        viewBox='0 0 500 110'
+        viewBox='0 0 500 115'
         {...svgAttrs}
       >
         <g height='100%'>
@@ -92,7 +92,7 @@ const WrappedSvgText = ({
         className='svg-title-text'
       >
         <g>
-          <text fontSize='1.4rem' x='200' y='60' alignmentBaseline='baseline'>
+          <text fontSize='2rem' x='200' y='60' alignmentBaseline='baseline'>
             {
               (text.map((line: string, i: number, arr: string[]) => (
                 <tspan

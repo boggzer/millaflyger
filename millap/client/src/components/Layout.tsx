@@ -15,7 +15,7 @@ import About from './pages/About';
 import Container from './presentational/Container';
 import ErrorBoundary from '../utils/ErrorBoundary';
 import Navigation from './presentational/Navigation';
-import Start from './pages/Start';
+const Start = lazy(() => import('./pages/Start'));
 
 import { ProjectDataType } from '../utils/global';
 import { ProjectsContext } from '../contexts/projectsContext';
