@@ -31,7 +31,6 @@ Made with a complete AWS Amplify backend.
 5. (Optional) If using your own image data, make sure it follows the [type definition](#projectmodel)
 6. (Optional) If integrating your own AWS Amplify backend, make sure to check out the [docs](https://docs.amplify.aws/cli/teams/shared#sharing-projects-within-the-team)
 7. (Optional) If integrating your own API, put your API call in `projectsContext.tsx`. Make sure the return object follows the [ProjectDataType](#api), or else the project may fail to run
-   npm run dev
 
 ## API
 
