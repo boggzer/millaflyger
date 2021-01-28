@@ -7,7 +7,10 @@ const StyledContainer = styled.div`
     &.image-grid {
       display: flex;
       align-items: center;
-      padding: 5vmin;
+      padding: 7rem 5vmin;
+      @media screen and (min-width: 701px) {
+        padding: 5vmin;
+      }
     }
   }
 `;

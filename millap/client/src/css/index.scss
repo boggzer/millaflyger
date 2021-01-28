@@ -177,23 +177,35 @@ a:hover {
   text-decoration: none;
 }
 
-.title-text svg,
-.title-text {
+#title-text {
   position: fixed;
-  left: 0;
-  z-index: -2;
 }
+
 .svg-title-text {
   position: fixed;
   z-index: 5;
   transform: rotate(-90deg);
   transform-origin: left;
-  left: 7.3rem;
+  left: 9rem;
   height: 30rem;
   width: 60rem;
   z-index: 1;
-  top: 30%;
+  top: min(28rem, 30rem);
+  visibility: hidden;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 300ms ease 100ms;
   & g {
+  }
+}
+
+@media screen and (min-width: 702px) {
+  .svg-title-text {
+    opacity: 1;
+  }
+}
+@media screen and (min-width: 701px) {
+  .svg-title-text {
+    visibility: visible;
   }
 }

@@ -75,7 +75,7 @@ const StyledNavigation = styled.div.attrs(() => ({
   z-index: 3;
   @media screen and (min-width: 701px) {
     top: min(30%, 15rem);
-    width: 10rem;
+    width: 13rem;
     padding: 2rem;
     position: ${({ pathname }) => (pathname === '/' ? 'absolute' : 'relative')};
     height: fit-content;
@@ -92,7 +92,7 @@ const StyledNavigation = styled.div.attrs(() => ({
   }
   nav,
   .nav-modal {
-    width: 10rem;
+    width: 13rem;
     left: 0;
     z-index: 3;
     height: 100%;
