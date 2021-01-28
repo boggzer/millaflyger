@@ -8,8 +8,8 @@ const cspConfigPolicy = {
   'base-uri': "'self'",
   'object-src': "'none'",
   'script-src': ["'self'"],
-  'style-src': ["'unsafe-inline'"],
-  'style-src-elem': ["'unsafe-inline'"],
+  'style-src': ['*', "'unsafe-inline'"],
+  'style-src-elem': ['*', "'unsafe-inline'"],
   'img-src': ["'self'", 'https://firebasestorage.googleapis.com'],
   'connect-src': [
     "'self'",
