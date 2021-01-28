@@ -1,3 +1,23 @@
-# https://www.robotstxt.org/robotstxt.html
+User-agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+Allow: /
+
+User-agent: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)
+Allow: /
+
+User-agent: Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)
+Allow: /
+
+User-agent: DuckDuckBot/1.0; (+http://duckduckgo.com/duckduckbot.html)
+Allow: /
+
+User-agent: Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)
+Allow: /
+
+User-agent: facebot
+Allow: /
+
+User-agent: ia_archiver (+http://www.alexa.com/site/help/webmasters; crawler@alexa.com)
+Allow: /
+
 User-agent: *
-Disallow:
+Disallow: /
