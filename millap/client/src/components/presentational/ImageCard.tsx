@@ -135,7 +135,7 @@ const ImageCard = ({
                     />
                   )}
                 </React.Fragment>
-              ) : (
+              ) : typeof imageSource !== 'undefined' ? (
                 <StyledImage
                   alt={alt}
                   // ref={refChange}
@@ -145,9 +145,11 @@ const ImageCard = ({
                   title={title}
                   {...ImageProps}
                 />
+              ) : (
+                <></>
               ),
           )
-        ) : (
+        ) : typeof imageSource !== 'undefined' ? (
           <StyledImage
             alt={alt}
             // ref={refChange}
@@ -159,6 +161,8 @@ const ImageCard = ({
             // {...props}
             {...ImageProps}
           />
+        ) : (
+          <></>
         )}
       </picture>
     </StyledImageCardWrapper>
