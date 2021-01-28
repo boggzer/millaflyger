@@ -63,8 +63,8 @@ const Layout = (): React.ReactElement => {
     },
     {
       path: '/about',
-      name: 'Milla Flyger | About',
-      pageTitle: 'About',
+      name: 'About',
+      pageTitle: 'Milla Flyger | About',
       Component: About,
       exact: false,
     },

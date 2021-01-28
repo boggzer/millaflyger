@@ -46,7 +46,7 @@ const StyledMenuIcon = styled.div`
     color: unset;
     background: unset;
   }
-  position: absolute;
+  position: relative;
   height: calc(5rem + 1vw);
   width: calc(5rem + 1vw);
   z-index: 6;

@@ -1,6 +1,6 @@
 .overview-container {
   flex-wrap: wrap;
-  padding: 3rem;
+  padding: 0 3rem 3rem 3rem;
   margin: 0 auto;
   width: 100%;
   justify-content: center !important;
@@ -8,5 +8,11 @@
   box-sizing: border-box;
   & > * {
     flex: 1;
+  }
+}
+
+@media screen and (min-width: 701px) {
+  .overview-container {
+    padding: 3rem;
   }
 }

@@ -204,7 +204,7 @@ const Lightbox = ({
       opacity: 0,
       transform: 'translate3d(-50%,0,0)',
     },
-    config: config.slow,
+    config: config.gentle,
   });
 
   useEffect(() => {
