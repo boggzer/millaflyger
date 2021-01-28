@@ -57,6 +57,11 @@ const StyledMenuIcon = styled.div`
     height: inherit;
     width: inherit;
   }
+  #menuButton {
+    height: 100%;
+    width: 100%;
+    transform: translate3d(0px, 0px, 0px);
+  }
   @media screen and (min-width: 700px) {
     display: none;
   }
