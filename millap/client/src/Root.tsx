@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import './assets/fontface/librebaskerville/librebaskerville.css';
+import './assets/fontface/roboto/roboto.css';
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
 import './css/index.scss';

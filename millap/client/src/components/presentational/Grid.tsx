@@ -6,7 +6,7 @@ const ImageCard = lazy(() => import('./ImageCard'));
 import { ProjectDataType } from '../../utils/global';
 import { useMeasure } from 'react-use';
 import { useEffect } from 'react';
-import Lightbox, { LightboxProps } from './Lightbox';
+import Lightbox from './Lightbox';
 
 interface GridProps extends ProjectDataType {
   containerClasses?: string;

@@ -1,5 +1,10 @@
 import React, { Suspense, lazy, useContext } from 'react';
-import { BrowserRouter as Router, Route, matchPath } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  matchPath,
+  RouteComponentProps,
+} from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import slugify from 'slugify';
 
@@ -14,12 +19,14 @@ import Start from './pages/Start';
 
 import { ProjectDataType } from '../utils/global';
 import { ProjectsContext } from '../contexts/projectsContext';
+import { Location } from 'history';
 
 type RouteType = {
   path: string;
   name?: string;
   pageTitle: string;
   Component: any;
+  strict?: boolean;
   props?: Record<string, any>;
   exact?: boolean;
 };
@@ -106,10 +113,10 @@ const Layout = (): React.ReactElement => {
     );
   };
 
-  const filterRoutes = (location: any) =>
+  const filterRoutes = (location: Location<unknown>) =>
     routes.filter(
-      ({ path, strict, exact }: any) =>
-        !!matchPath(location.pathname, {
+      ({ path, strict, exact }) =>
+        !!matchPath(location.pathname as string, {
           path,
           strict,
           exact,
@@ -125,13 +132,13 @@ const Layout = (): React.ReactElement => {
               <Route key={path} exact path={path}>
                 {({ match }) => (
                   <WithRef show={match != null} {...rest}>
-                    <Component {...(rest as any)} {...props} />
+                    <Component {...(rest as Partial<RouteType>)} {...props} />
                   </WithRef>
                 )}
               </Route>
             ))}
             <Route
-              render={({ location }) => {
+              render={({ location }: RouteComponentProps) => {
                 if (!filterRoutes(location).length) {
                   setPageTitle('Milla Flyger | 404');
                   return <NotFound />;

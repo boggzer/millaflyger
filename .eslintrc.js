@@ -28,10 +28,14 @@ module.exports = {
 
   rules: {
     quotes: ['error', 'single'],
-    indent: ['warn', 2],
+    indent: 'off',
     'no-trailing-spaces': 'error',
     'no-console': 'warn',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': [
+      'warn',
+      { argsIgnorePattern: '^_', ignoreRestSiblings: true },
+    ],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
   settings: {
     react: {

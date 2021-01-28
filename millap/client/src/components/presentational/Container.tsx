@@ -18,7 +18,7 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 const Container = (
   { children, classes, ...props }: ContainerProps,
-  ref: MutableRefObject<any> | ((instance: any) => void) | null,
+  ref: MutableRefObject<any> | ((_instance: never) => void) | null,
 ): React.ReactElement => (
   <StyledContainer ref={ref} className={`container ${classes}`} {...props}>
     {children}
