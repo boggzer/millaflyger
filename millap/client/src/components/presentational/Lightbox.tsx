@@ -3,7 +3,7 @@ const ImageCard = lazy(() => import('../presentational/ImageCard'));
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
 import styled, { css } from 'styled-components';
-import { useUnmount } from 'react-use';
+import { useUnmount, usePrevious } from 'react-use';
 import usePortal from 'react-cool-portal';
 import { ProjectDataType } from '../../utils/global';
 import leftArrowIcon from '../../assets/icons/arrow_left.svg';
@@ -127,13 +127,19 @@ const StyledButton = styled.button<{
   }
 `;
 
-type LightboxReducerType = 'next' | 'previous' | 'close';
+type LightboxActionType = 'next' | 'previous';
+
+type LightboxReducerType = LightboxActionType | 'close';
+
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
 
 export interface LightboxProps {
   classes?: string;
   content: ProjectDataType;
   portalId?: string;
-  activeIndex?: number;
+  activeIndex: number;
   handleHide: () => void;
   setActive: (_index: number) => void;
   imageCount: number;
@@ -153,16 +159,36 @@ const Lightbox = ({
     containerId: portalId,
     internalShowHide: true,
   });
-  const [ref, setRef] = useState<HTMLElement>();
-  const refChange = useRefChange(setRef);
+
   const [fade, setFade] = useState<'in' | 'out'>('out');
+  const [ref, setRef] = useState<HTMLElement>();
+  const [direction, setDirection] = useState<LightboxActionType>('next');
+  const prevIndex = usePrevious(activeIndex);
+  const refChange = useRefChange(setRef);
+  const isShown = useMemo(() => activeIndex >= 0, [activeIndex]);
   let closeTimer: NodeJS.Timeout;
 
   useUnmount(() => {
     clearTimeout(closeTimer);
   });
 
+  useEffect(() => {
+    isShown ? show() : () => hide();
+    return hide;
+  }, [isShown, activeIndex]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (ref) {
+      timer = setTimeout(() => {
+        setFade('in');
+      }, 100);
+    }
+    return () => clearTimeout(timer);
+  }, [ref]);
+
   const reducer = ({ actionType }: { actionType: LightboxReducerType }) => {
+    actionType !== 'close' && setDirection(actionType);
     switch (actionType) {
       case 'close':
         setFade('out');
@@ -186,41 +212,29 @@ const Lightbox = ({
     }
   };
 
-  const isShown = useMemo(() => activeIndex >= 0, [activeIndex]);
+  const translations: Record<Readonly<LightboxActionType>, string[]> = {
+    next: ['50%', '0%', '-50%'],
+    previous: ['-50%', '0%', '50%'],
+  };
 
   const transitions = useTransition(activeIndex, (p) => p, {
     from: {
       opacity: 0,
       position: 'absolute',
-      transform: 'translate3d(50%,0,0)',
+      transform: `translate3d(${translations[direction]?.[0] || 0},0,0)`,
     },
     enter: {
       opacity: 1,
       position: 'relative',
-      transform: 'translate3d(0vw,0,0)',
+      transform: `translate3d(${translations[direction]?.[1] || 0},0,0)`,
     },
     leave: {
       position: 'absolute',
       opacity: 0,
-      transform: 'translate3d(-50%,0,0)',
+      transform: `translate3d(${translations[direction]?.[2] || 0},0,0)`,
     },
     config: config.gentle,
   });
-
-  useEffect(() => {
-    isShown ? show() : () => hide();
-    return hide;
-  }, [isShown, activeIndex]);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (ref) {
-      timer = setTimeout(() => {
-        setFade('in');
-      }, 100);
-    }
-    return () => clearTimeout(timer);
-  }, [ref]);
 
   return (
     <Portal>

@@ -125,9 +125,9 @@ const Layout = (): React.ReactElement => {
   return (
     <ErrorBoundary>
       <Router>
-        <Suspense fallback={<div>loading</div>}>
+        <Container classes='content'>
           <Navigation projects={full} />
-          <Container classes='content'>
+          <Suspense fallback={<div>loading</div>}>
             {routes.map(({ path, Component, props, ...rest }) => (
               <Route key={path} exact path={path}>
                 {({ match }) => (
@@ -145,8 +145,8 @@ const Layout = (): React.ReactElement => {
                 }
               }}
             />
-          </Container>
-        </Suspense>
+          </Suspense>
+        </Container>
       </Router>
     </ErrorBoundary>
   );
