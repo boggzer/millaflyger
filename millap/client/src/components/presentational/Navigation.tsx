@@ -54,7 +54,16 @@ const StyledMenuIcon = styled.div`
   button {
     border: unset;
     color: unset;
-    background: unset;
+    border-radius: 40%;
+    background-color: rgb(233, 231, 230);
+    outline: none;
+    transition: background-color 100ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 10ms;
+    &:hover {
+      background-color: rgb(223, 221, 220);
+    }
+    &:focus-visible {
+      outline: initial;
+    }
   }
   position: relative;
   height: calc(5rem + 1vw);
@@ -72,7 +81,7 @@ const StyledMenuIcon = styled.div`
     width: 100%;
     transform: translate3d(0px, 0px, 0px);
   }
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 701px) {
     display: none;
   }
 `;
@@ -80,7 +89,7 @@ const StyledMenuIcon = styled.div`
 const StyledNavigation = styled.div.attrs(() => ({
   role: 'navigation',
 }))<{ readonly pathname: string }>`
-  position: sticky;
+  position: fixed;
   top: unset;
   z-index: 3;
   @media screen and (min-width: 701px) {
@@ -96,7 +105,7 @@ const StyledNavigation = styled.div.attrs(() => ({
     .text {
       font-size: 2rem;
     }
-    @media screen and (min-width: 701px) {
+    @media screen and (min-width: 702px) {
       display: block;
     }
   }

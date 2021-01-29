@@ -6,6 +6,8 @@
   justify-content: center !important;
   overflow-x: hidden;
   box-sizing: border-box;
+  position: relative;
+  top: 7rem;
   & > * {
     flex: 1;
   }
@@ -14,5 +16,7 @@
 @media screen and (min-width: 701px) {
   .overview-container {
     padding: 3rem;
+    top: unset;
+    position: unset;
   }
 }
