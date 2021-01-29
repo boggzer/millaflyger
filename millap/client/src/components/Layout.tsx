@@ -20,6 +20,7 @@ const Start = lazy(() => import('./pages/Start'));
 import { ProjectDataType } from '../utils/global';
 import { ProjectsContext } from '../contexts/projectsContext';
 import { Location } from 'history';
+import Spinner from './presentational/Spinner';
 
 type RouteType = {
   path: string;
@@ -125,9 +126,9 @@ const Layout = (): React.ReactElement => {
   return (
     <ErrorBoundary>
       <Router>
-        <Container classes='content'>
+        <Suspense fallback={<Spinner />}>
           <Navigation projects={full} />
-          <Suspense fallback={<div>loading</div>}>
+          <Container classes='content'>
             {routes.map(({ path, Component, props, ...rest }) => (
               <Route key={path} exact path={path}>
                 {({ match }) => (
@@ -145,8 +146,8 @@ const Layout = (): React.ReactElement => {
                 }
               }}
             />
-          </Suspense>
-        </Container>
+          </Container>
+        </Suspense>
       </Router>
     </ErrorBoundary>
   );

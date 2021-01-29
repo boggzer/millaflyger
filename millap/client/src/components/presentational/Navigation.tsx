@@ -19,9 +19,7 @@ interface NavigationProps {
 const StyledNavigationModal = styled.div.attrs<{ show: boolean }>((props) => ({
   role: 'modal',
 }))<{ show: boolean }>`
-  display: ${({ show }) => (show ? 'flex' : 'none')};
   width: 100vw !important;
-  height: 100vh !important;
   box-sizing: border-box;
   position: relative;
   z-index: 3;
@@ -29,11 +27,23 @@ const StyledNavigationModal = styled.div.attrs<{ show: boolean }>((props) => ({
   align-items: center;
   background-color: rgba(250, 250, 245, 0.95);
   left: -999px;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  height: ${({ show }) => (show ? '100vh' : '0vh')} !important;
+  transition: height 150ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 50ms,
+    opacity 200ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 60ms;
+  will-change: height opacity;
   .text {
-    margin: 1rem !important;
+    padding: 1rem !important;
     z-index: 3;
     font-size: 5rem !important;
     transform: translateY(-4rem);
+  }
+  a {
+    border-bottom: unset;
+    &:hover {
+      text-decoration: underline !important;
+      color: rgb(43 43 43) !important;
+    }
   }
 `;
 
@@ -94,7 +104,9 @@ const StyledNavigation = styled.div.attrs(() => ({
   .nav-modal {
     width: 13rem;
     left: 0;
-    z-index: 3;
+    top: 0;
+    position: absolute !important;
+    z-index: 3 !important;
     height: 100%;
     .film-noise {
       border-radius: 0.3rem;
@@ -221,7 +233,7 @@ const Navigation = ({ classes }: NavigationProps): React.ReactElement | any => {
       )}
       {
         <StyledNavigationModal
-          className='nav-modal fl-col p-m'
+          className='nav-modal fl-col'
           show={showMenuModal}
         >
           {content.map(({ title, link }) => (

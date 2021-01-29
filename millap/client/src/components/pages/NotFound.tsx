@@ -39,7 +39,7 @@ const NotFound = ({ innerText = undefined }: NotFoundProps, ref: any) => {
     lottieRef.current && (lottieRef as LottieRef)?.current?.setSpeed(1.2);
     const timer = setTimeout(() => {
       setHasLoaded(true);
-    }, 300);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
