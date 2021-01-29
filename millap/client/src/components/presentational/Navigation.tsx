@@ -96,7 +96,7 @@ const StyledNavigation = styled.div.attrs(() => ({
     top: min(30%, 15rem);
     width: 13rem;
     padding: 2rem;
-    position: ${({ pathname }) => (pathname === '/' ? 'absolute' : 'relative')};
+    position: ${({ pathname }) => (pathname === '/' ? 'absolute' : 'sticky')};
     height: fit-content;
   }
   nav {
@@ -107,6 +107,8 @@ const StyledNavigation = styled.div.attrs(() => ({
     }
     @media screen and (min-width: 702px) {
       display: block;
+      position: fixed !important;
+      top: min(30%, 15rem) !important;
     }
   }
   nav,
@@ -114,7 +116,7 @@ const StyledNavigation = styled.div.attrs(() => ({
     width: 13rem;
     left: 0;
     top: 0;
-    position: absolute !important;
+    position: absolute;
     z-index: 3 !important;
     height: 100%;
     .film-noise {

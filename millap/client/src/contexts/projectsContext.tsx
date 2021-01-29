@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect, createContext } from 'react';
 import { API } from 'aws-amplify';
-import { ProjectDataType, ProjectsType } from '../utils/global';
+import { ProjectsType } from '../utils/global';
 
 type ProjectsContextType = {
   projects?: ProjectsType;
