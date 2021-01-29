@@ -6,6 +6,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/react-lottie": "^1.2.5",
+    "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-transition-group": "^4.4.0",
     "@types/styled-components": "^5.1.7",
@@ -27,11 +28,12 @@
     "styled-components": "^5.2.1",
     "svg-text-wrap": "0.0.1",
     "use-debounce": "^5.2.0",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build"
+    "build": "react-scripts build"
   },
   "browserslist": {
     "production": [
@@ -45,5 +47,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "csp-html-webpack-plugin": "^5.1.0",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.8"
+  }
 }

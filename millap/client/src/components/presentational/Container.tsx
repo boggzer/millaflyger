@@ -7,7 +7,10 @@ const StyledContainer = styled.div`
     &.image-grid {
       display: flex;
       align-items: center;
-      padding: 5vmin;
+      padding: 7rem 5vmin;
+      @media screen and (min-width: 701px) {
+        padding: 5vmin;
+      }
     }
   }
 `;
@@ -18,7 +21,7 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 const Container = (
   { children, classes, ...props }: ContainerProps,
-  ref: MutableRefObject<any> | ((instance: any) => void) | null,
+  ref: MutableRefObject<any> | ((_instance: never) => void) | null,
 ): React.ReactElement => (
   <StyledContainer ref={ref} className={`container ${classes}`} {...props}>
     {children}

@@ -2,14 +2,12 @@ import React, { useRef, useState, Suspense, lazy, forwardRef } from 'react';
 const ImageCard = lazy(() => import('../presentational/ImageCard'));
 const Text = lazy(() => import('../presentational/Text'));
 import { ProjectDataType } from '../../utils/global';
-import { useThrottledCallback } from 'use-debounce';
 import animationData from '../../assets/lottie/detvarengangmendetvaringet_noreverse.json';
 import Lottie, { LottieOptions, LottieRef } from 'lottie-react';
 import bg from '../../assets/images/kvinna-i-hav_bg@1500x997.jpg';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import Container from '../presentational/Container';
-import { useLocation } from 'react-router-dom';
+import rippedPaperBg from '../../assets/images/ripped_paper.webp';
 /**
  *   &::before {
     content: '';
@@ -37,7 +35,7 @@ const StyledBackground = styled.div<{
   background-size: cover;
   background-image: url('${bg}');
   position: relative;
-  background-position: center;
+  background-position: top;
   overflow: hidden !important;
   transition: transform 200ms ease-in 500ms;
   & > .container.start-text-wrapper {
@@ -70,6 +68,10 @@ const StyledBackground = styled.div<{
       width: fit-content;
       text-transform: lowercase;
       z-index: 2;
+      & h4 {
+        font-weight: normal !important;
+        letter-spacing: 0.08rem;
+      }
       &.h1 {
         @supports not (mix-blend-mode: difference) {
           background: rgb(0, 0, 0);
@@ -103,16 +105,27 @@ const StyledBackground = styled.div<{
   & > .start-lottie {
     position: absolute;
     min-width: 40rem;
-    max-width: 70rem;
+    max-width: 60rem;
     height: fit-content;
     max-height: 17rem;
     right: 0;
     z-index: 2;
     width: 60vw;
+    opacity: 0;
+
+    transition: opacity 200ms cubic-bezier(0.67, 0.91, 0.64, 0.68);
+    @media screen and (min-width: 701px) {
+      opacity: 1;
+    }
     svg {
       z-index: 2;
       height: 100%;
       width: auto;
+      top: -2rem;
+      transform: translate3d(0px, 0px, 0px) rotate(354deg) translateY(-2rem) !important;
+      path {
+        transform: rotate(5deg) !important;
+      }
     }
   }
   @media screen and (max-width: 950px) {
@@ -176,7 +189,9 @@ const Start = (props: StartProps, forwardedRef: any): React.ReactElement => {
       className='start container fl-row w-full h-full'
     >
       <Container classes='start-text-wrapper align-center p-xl'>
-        <Text type='h4'>Portfolio</Text>
+        <Text font='sans' type='h4'>
+          A photographer&apos;s portfolio
+        </Text>
         <Text type='h1'>Milla Flyger</Text>
       </Container>
       <Suspense fallback={<div>Loading</div>}>

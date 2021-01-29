@@ -1,12 +1,12 @@
 /* eslint-disable react/no-find-dom-node */
-import React, { useMemo, useState, lazy, memo } from 'react';
+import React, { useMemo, useState, lazy, memo, Suspense } from 'react';
 import Container from './Container';
 import '../../css/Grid.scss';
 const ImageCard = lazy(() => import('./ImageCard'));
 import { ProjectDataType } from '../../utils/global';
 import { useMeasure } from 'react-use';
 import { useEffect } from 'react';
-import Lightbox, { LightboxProps } from './Lightbox';
+import Lightbox from './Lightbox';
 
 interface GridProps extends ProjectDataType {
   containerClasses?: string;
@@ -60,36 +60,39 @@ const Grid = ({
           {...props}
         />
       )}
-      {images &&
-        Object.keys(images).map((p: string, i: number) =>
-          withLightbox ? (
-            <ImageCard
-              data-index={`${i}`}
-              key={i}
-              onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                setActiveIndex(
-                  parseInt(e?.currentTarget?.dataset?.['index'] || '-1'),
-                )
-              }
-              imageSource={{
-                source: images[i]?.source[0],
-                order: images[i]?.order || 0,
-              }}
-              alt={images[i]?.alt}
-              {...defaultProps}
-            />
-          ) : (
-            <ImageCard
-              key={i}
-              imageSource={{
-                source: images[i]?.source[0],
-                order: images[i]?.order || 0,
-              }}
-              alt={images[i]?.alt}
-              {...defaultProps}
-            />
-          ),
-        )}
+      <Suspense fallback={<div>...</div>}>
+        {images &&
+          Object.keys(images).map((p: string, i: number) =>
+            withLightbox ? (
+              <ImageCard
+                data-index={`${i}`}
+                key={i}
+                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                  e.preventDefault();
+                  setActiveIndex(
+                    parseInt(e?.currentTarget?.dataset?.['index'] || '-1'),
+                  );
+                }}
+                imageSource={{
+                  source: images[i]?.source[0],
+                  order: images[i]?.order || 0,
+                }}
+                alt={images[i]?.alt}
+                {...defaultProps}
+              />
+            ) : (
+              <ImageCard
+                key={i}
+                imageSource={{
+                  source: images[i]?.source[0],
+                  order: images[i]?.order || 0,
+                }}
+                alt={images[i]?.alt}
+                {...defaultProps}
+              />
+            ),
+          )}
+      </Suspense>
     </Container>
   );
 };

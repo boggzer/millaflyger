@@ -1,7 +1,6 @@
 @font-face {
   font-family: 'Libre Baskerville';
-  src: url('librebaskerville-bold-webfont.woff2') format('woff2'),
-    url('librebaskerville-bold-webfont.woff') format('woff'),
+  src: url('librebaskerville-bold-webfont.woff') format('woff'),
     url('librebaskerville-bold-webfont.ttf') format('truetype'),
     url('librebaskerville-bold-webfont.svg#libre_baskervillebold') format('svg');
   font-weight: bold;
@@ -10,8 +9,7 @@
 
 @font-face {
   font-family: 'Libre Baskerville';
-  src: url('librebaskerville-italic-webfont.woff2') format('woff2'),
-    url('librebaskerville-italic-webfont.woff') format('woff'),
+  src: url('librebaskerville-italic-webfont.woff') format('woff'),
     url('librebaskerville-italic-webfont.ttf') format('truetype'),
     url('librebaskerville-italic-webfont.svg#libre_baskervilleitalic')
       format('svg');
@@ -21,8 +19,7 @@
 
 @font-face {
   font-family: 'Libre Baskerville';
-  src: url('librebaskerville-regular-webfont.woff2') format('woff2'),
-    url('librebaskerville-regular-webfont.woff') format('woff'),
+  src: url('librebaskerville-regular-webfont.woff') format('woff'),
     url('librebaskerville-regular-webfont.ttf') format('truetype'),
     url('librebaskerville-regular-webfont.svg#libre_baskervilleregular')
       format('svg');

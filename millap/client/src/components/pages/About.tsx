@@ -25,7 +25,7 @@ const StyledAboutWrapper = styled.div`
     box-sizing: border-box;
   }
   .text {
-    &.h2 {
+    &.h1 {
       text-transform: lowercase;
       transform: translateX(-5%);
       align-items: center;
@@ -79,7 +79,7 @@ const About = (): React.ReactElement => {
 
   return (
     <StyledAboutWrapper className='about-wrapper w-full h-fit flow-hide fl-row align-start wrap p-m'>
-      <Text tabIndex={0} textClasses='p-m' type='h2'>
+      <Text tabIndex={0} textClasses='p-m' type='h1'>
         About
       </Text>
       <Container classes='fl-row w-full wrap p-s'>

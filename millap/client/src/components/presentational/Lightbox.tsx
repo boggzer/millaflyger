@@ -1,15 +1,25 @@
-import React, { useEffect, useMemo, lazy } from 'react';
+import React, { useEffect, useMemo, lazy, useState } from 'react';
 const ImageCard = lazy(() => import('../presentational/ImageCard'));
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
 import styled, { css } from 'styled-components';
+import { useUnmount, usePrevious } from 'react-use';
 import usePortal from 'react-cool-portal';
 import { ProjectDataType } from '../../utils/global';
 import leftArrowIcon from '../../assets/icons/arrow_left.svg';
 import rightArrowIcon from '../../assets/icons/arrow_right.svg';
 import closeIcon from '../../assets/icons/close.svg';
+import useRefChange from '../../hooks/useRefChange';
+import { useTransition, config } from 'react-spring';
 
 const StyledLightbox = styled.div`
+  // opacity: 0;
+  &.out {
+    opacity: 0;
+  }
+  &.in {
+    opacity: 1;
+  }
   position: absolute;
   top: 0;
   left: 0;
@@ -18,14 +28,17 @@ const StyledLightbox = styled.div`
   z-index: 20;
   overflow: hidden;
   padding: 5rem;
-  background: rgba(10, 10, 0, 0.8);
+  background: rgba(10, 10, 0, 0.85);
   box-sizing: border-box;
-  .container > div:first-of-type {
+  .container > .container {
     height: 100%;
     min-height: 150px;
     max-width: 1200px;
-    width: auto;
+    // width: auto;
     min-width: 300px;
+    column-gap: 1rem;
+    top: -1.2rem;
+    position: relative;
   }
   & > div:first-of-type {
     height: 100%;
@@ -55,11 +68,19 @@ const StyledLightbox = styled.div`
       width: 100%;
     }
     & > div:last-of-type {
+      user-select: none;
+      transition: color 200ms cubic-bezier(0.67, 0.91, 0.64, 0.68);
       height: fit-content;
       width: fit-content;
-      flex-basis: 10px;
-      position: absolute;
-      height: ;
+      position: relative;
+      padding: 0.5rem 0.8rem;
+      border-radius: 0.2rem;
+      flex: 0 0 1rem;
+      background: rgba(10, 10, 0, 0.8);
+      color: rgba(233, 231, 230, 0.3);
+      &:hover {
+        color: rgba(233, 231, 230, 0.9);
+      }
     }
   }
 `;
@@ -68,65 +89,59 @@ const StyledButton = styled.button<{
   readonly icon: string;
   readonly iconType: LightboxReducerType;
 }>`
-  padding: unset;
+  padding: 1rem;
+  margin: 1rem;
   box-sizing: border-box;
   flex: 0 0 auto;
-  height: ${({ iconType }) => (iconType === 'close' ? 2 : 2)}rem;
-  width: ${({ iconType }) => (iconType === 'close' ? 2 : 2)}rem;
+  height: 4rem;
+  width: 4rem;
   background: rgba(255, 255, 255, 0);
-  background-size: ${({ iconType }) =>
-    iconType === 'close' ? 'contain' : '2rem 3rem'};
+  background-size: 90%;
   background-position: center;
   background-repeat: no-repeat;
   background-image: ${(props) => `url('${props.icon}')`};
-  box-sizing: content-box;
   color: rgb(240, 240, 220);
   border: unset;
-  border-radius: 1rem;
+  transition: background-color 300ms cubic-bezier(0.67, 0.91, 0.64, 0.68);
+  border-radius: 50%;
   ${({ iconType }) =>
     iconType === 'close' &&
     css`
       align-self: flex-end;
       margin: unset;
       position: relative;
-      top: -3rem;
-      right: -3rem;
+      top: -3.5rem;
+      right: -3.5rem;
     `}
   &:hover {
-    &::after {
-      content: '';
-      width: 4rem;
-      height: 4rem;
-      transform: ${({ iconType }) =>
-        `translate(${iconType === 'close' ? '-1rem, -1rem' : '-2rem, -2rem'})`};
-      position: absolute;
-      display: inline-block;
-      border-radius: 50%;
-      z-index: -1;
-      background: rgba(0, 0, 0, 0.4);
-      box-shadow: 0;
-    }
+    background-color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
   }
   &:focus {
-    &::after {
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 0 0.05rem rgba(255, 255, 255, 0.3);
-    }
-    outline: unset;
+    border: 0.05rem solid rgba(255, 255, 255, 0.3);
+    outline: none;
+  }
+  &:focus-visible {
+    border: none;
+    outline: 0.25rem solid rgb(51, 147, 255);
   }
 `;
 
-type LightboxReducerType = 'next' | 'previous' | 'close';
+type LightboxActionType = 'next' | 'previous';
+
+type LightboxReducerType = LightboxActionType | 'close';
+
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
 
 export interface LightboxProps {
   classes?: string;
   content: ProjectDataType;
   portalId?: string;
-  activeIndex?: number;
+  activeIndex: number;
   handleHide: () => void;
-  setActive?: any;
+  setActive: (_index: number) => void;
   imageCount: number;
 }
 
@@ -145,10 +160,41 @@ const Lightbox = ({
     internalShowHide: true,
   });
 
+  const [fade, setFade] = useState<'in' | 'out'>('out');
+  const [ref, setRef] = useState<HTMLElement>();
+  const [direction, setDirection] = useState<LightboxActionType>('next');
+  const prevIndex = usePrevious(activeIndex);
+  const refChange = useRefChange(setRef);
+  const isShown = useMemo(() => activeIndex >= 0, [activeIndex]);
+  let closeTimer: NodeJS.Timeout;
+
+  useUnmount(() => {
+    clearTimeout(closeTimer);
+  });
+
+  useEffect(() => {
+    isShown ? show() : () => hide();
+    return hide;
+  }, [isShown, activeIndex]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (ref) {
+      timer = setTimeout(() => {
+        setFade('in');
+      }, 100);
+    }
+    return () => clearTimeout(timer);
+  }, [ref]);
+
   const reducer = ({ actionType }: { actionType: LightboxReducerType }) => {
+    actionType !== 'close' && setDirection(actionType);
     switch (actionType) {
       case 'close':
-        handleHide();
+        setFade('out');
+        closeTimer = setTimeout(() => {
+          handleHide();
+        }, 300);
         break;
       case 'next':
         activeIndex === content.images.length - 1
@@ -166,16 +212,33 @@ const Lightbox = ({
     }
   };
 
-  const isShown = useMemo(() => activeIndex >= 0, [activeIndex]);
+  const translations: Record<Readonly<LightboxActionType>, string[]> = {
+    next: ['50%', '0%', '-50%'],
+    previous: ['-50%', '0%', '50%'],
+  };
 
-  useEffect(() => {
-    isShown ? show() : () => hide();
-    return hide;
-  }, [isShown, activeIndex]);
+  const transitions = useTransition(activeIndex, (p) => p, {
+    from: {
+      opacity: 0,
+      position: 'absolute',
+      transform: `translate3d(${translations[direction]?.[0] || 0},0,0)`,
+    },
+    enter: {
+      opacity: 1,
+      position: 'relative',
+      transform: `translate3d(${translations[direction]?.[1] || 0},0,0)`,
+    },
+    leave: {
+      position: 'absolute',
+      opacity: 0,
+      transform: `translate3d(${translations[direction]?.[2] || 0},0,0)`,
+    },
+    config: config.gentle,
+  });
 
   return (
     <Portal>
-      <StyledLightbox className={classes}>
+      <StyledLightbox ref={refChange} className={`${classes} ${fade}`}>
         <Container classes='lightbox-buttons fl-col'>
           <StyledButton
             aria-label='Close'
@@ -193,13 +256,24 @@ const Lightbox = ({
                 icon={leftArrowIcon}
               />
             )}
-            <ImageCard
-              imageSource={
-                content.images[activeIndex]?.source[0]?.['XL' || 'L' || 'M']
-              }
-            />
+            {transitions.map(({ item, props, key }) => (
+              <ImageCard
+                containerClasses='lightbox-image-card'
+                key={key}
+                ContainerProps={{
+                  ...props,
+                  height: '100%',
+                  width: '100%',
+                  // flex: '0 0 auto',
+                }}
+                imageSource={
+                  content.images[item]?.source[0]?.['XL' || 'L' || 'M']
+                }
+              />
+            ))}
             {imageCount > 1 && (
               <StyledButton
+                tabIndex={0}
                 aria-label='Next'
                 onClick={() => reducer({ actionType: 'next' })}
                 iconType='next'
@@ -207,7 +281,9 @@ const Lightbox = ({
               />
             )}
           </Container>
-          <Text>{`${activeIndex + 1}/${content.images.length}`}</Text>
+          <Text font='sans'>{`${activeIndex + 1}/${
+            content.images.length
+          }`}</Text>
         </Container>
       </StyledLightbox>
     </Portal>

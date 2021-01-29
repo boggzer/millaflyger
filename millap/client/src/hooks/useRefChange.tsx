@@ -1,10 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { RefObject, useCallback } from 'react';
 
 type RefNode = HTMLElement | HTMLImageElement | HTMLDivElement | undefined;
 
-type HookReturn = (refNode: RefNode) => void;
+export type HookReturn =
+  | ((_instance: never | null) => void)
+  | RefObject<keyof RefNode>
+  | null
+  | undefined;
 
-type HookProps = React.Dispatch<React.SetStateAction<RefNode>>;
+type HookProps = {
+  (_value: React.SetStateAction<HTMLElement | undefined>): void;
+  (_value: React.SetStateAction<HTMLElement | undefined>): void;
+  (_arg0: never): void;
+};
 
 const useRefChange = (setRef: HookProps): HookReturn => {
   const onRefChange = useCallback((refNode) => {

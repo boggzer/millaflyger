@@ -59,6 +59,9 @@ const StyledGridImage = styled.div<{ readonly style?: Record<string, any> }>`
     width: 100%;
     margin: unset !important;
   }
+  .h6 {
+    font-size: 1.1rem;
+  }
   a {
     overflow: hidden;
     height: inherit;
@@ -165,7 +168,7 @@ const ResponsiveGrid = ({
                   to={`/${id}`}
                   title={(image as any)?.['title']}
                 >
-                  <h6 className='h6'>{(props as any)?.title}</h6>
+                  <p className='h6'>{(props as any)?.title}</p>
                 </ConditionalLink>
                 <StyledLinkHover className='responsive-image-hover' />{' '}
               </Text>

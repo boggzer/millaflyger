@@ -19,9 +19,7 @@ interface NavigationProps {
 const StyledNavigationModal = styled.div.attrs<{ show: boolean }>((props) => ({
   role: 'modal',
 }))<{ show: boolean }>`
-  display: ${({ show }) => (show ? 'flex' : 'none')};
   width: 100vw !important;
-  height: 100vh !important;
   box-sizing: border-box;
   position: relative;
   z-index: 3;
@@ -29,11 +27,23 @@ const StyledNavigationModal = styled.div.attrs<{ show: boolean }>((props) => ({
   align-items: center;
   background-color: rgba(250, 250, 245, 0.95);
   left: -999px;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  height: ${({ show }) => (show ? '100vh' : '0vh')} !important;
+  transition: height 150ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 50ms,
+    opacity 200ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 60ms;
+  will-change: height opacity;
   .text {
-    margin: 1rem !important;
+    padding: 1rem !important;
     z-index: 3;
     font-size: 5rem !important;
     transform: translateY(-4rem);
+  }
+  a {
+    border-bottom: unset;
+    &:hover {
+      text-decoration: underline !important;
+      color: rgb(43 43 43) !important;
+    }
   }
 `;
 
@@ -44,9 +54,18 @@ const StyledMenuIcon = styled.div`
   button {
     border: unset;
     color: unset;
-    background: unset;
+    border-radius: 40%;
+    background-color: rgb(233, 231, 230);
+    outline: none;
+    transition: background-color 100ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 10ms;
+    &:hover {
+      background-color: rgb(223, 221, 220);
+    }
+    &:focus-visible {
+      outline: initial;
+    }
   }
-  position: absolute;
+  position: relative;
   height: calc(5rem + 1vw);
   width: calc(5rem + 1vw);
   z-index: 6;
@@ -57,7 +76,12 @@ const StyledMenuIcon = styled.div`
     height: inherit;
     width: inherit;
   }
-  @media screen and (min-width: 700px) {
+  #menuButton {
+    height: 100%;
+    width: 100%;
+    transform: translate3d(0px, 0px, 0px);
+  }
+  @media screen and (min-width: 701px) {
     display: none;
   }
 `;
@@ -65,12 +89,12 @@ const StyledMenuIcon = styled.div`
 const StyledNavigation = styled.div.attrs(() => ({
   role: 'navigation',
 }))<{ readonly pathname: string }>`
-  position: sticky;
+  position: fixed;
   top: unset;
   z-index: 3;
   @media screen and (min-width: 701px) {
     top: min(30%, 15rem);
-    width: 10rem;
+    width: 13rem;
     padding: 2rem;
     position: ${({ pathname }) => (pathname === '/' ? 'absolute' : 'relative')};
     height: fit-content;
@@ -81,15 +105,17 @@ const StyledNavigation = styled.div.attrs(() => ({
     .text {
       font-size: 2rem;
     }
-    @media screen and (min-width: 701px) {
+    @media screen and (min-width: 702px) {
       display: block;
     }
   }
   nav,
   .nav-modal {
-    width: 10rem;
+    width: 13rem;
     left: 0;
-    z-index: 3;
+    top: 0;
+    position: absolute !important;
+    z-index: 3 !important;
     height: 100%;
     .film-noise {
       border-radius: 0.3rem;
@@ -216,7 +242,7 @@ const Navigation = ({ classes }: NavigationProps): React.ReactElement | any => {
       )}
       {
         <StyledNavigationModal
-          className='nav-modal fl-col p-m'
+          className='nav-modal fl-col'
           show={showMenuModal}
         >
           {content.map(({ title, link }) => (

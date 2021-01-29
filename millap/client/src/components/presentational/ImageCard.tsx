@@ -1,29 +1,26 @@
 /* eslint-disable no-unused-vars */
-import React, { ImgHTMLAttributes, useState, memo } from 'react';
+import React, { ImgHTMLAttributes, memo } from 'react';
 import { ImageSize, ImageSizes } from '../../utils/constants';
 import { keys, isObject } from 'lodash';
-import useRefChange from '../../hooks/useRefChange';
+import { animated } from 'react-spring';
 export interface ImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  ContainerProps?: React.HTMLProps<HTMLDivElement>;
+  ContainerProps?: Record<string, any>;
   containerClasses?: string;
   classes?: string;
   imageSource:
     | { source: Record<keyof ImageSizes, string>; order?: number }
     | string;
   ImageProps?: ImgHTMLAttributes<HTMLImageElement>;
-  // onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   size?: ImageSize;
   order?: number;
-  outerRef?:
-    | RefObject<HTMLDivElement | HTMLElement>
-    | HTMLElement
-    | HTMLDivElement;
+  outerRef?: RefObject<HTMLDivElement> | ((_instance: HTMLDivElement) => void);
   alt?: string;
+  withAnimation?: boolean;
 }
 import styled from 'styled-components';
 import { RefObject } from 'react';
 
-const StyledImageCardWrapper = styled.div<any>`
+const StyledImageCardWrapper = styled(animated.div)`
   &.project-image-card {
     width: fit-content;
     max-width: 1200px;
@@ -50,8 +47,8 @@ const StyledImageCardWrapper = styled.div<any>`
 `;
 
 const cache: {
-  _cache: { [k: string]: Promise<any> | boolean };
-  read: (src: string) => string | undefined | Promise<any> | boolean;
+  _cache: { [k: string]: Promise<void> | boolean };
+  read: (src: string) => string | undefined | Promise<void> | boolean;
   clear: (src: string) => void;
 } = {
   _cache: {},
@@ -69,7 +66,7 @@ const cache: {
         };
         img.src = src;
         setTimeout(() => resolve({}), 7000);
-      }).then((img) => {
+      }).then((_img) => {
         this._cache[src] = true;
       });
     }
@@ -81,7 +78,7 @@ const cache: {
   clear: (src) => delete this._cache[src],
 };
 
-const StyledImage = styled.img`
+const StyledImage = styled(animated.img)`
   box-shadow: 0 2rem 4rem -5rem rgb(0 0 0);
 `;
 
@@ -105,8 +102,6 @@ const ImageCard = ({
     L: '(min-width: 700px) and (max-width: 999px)',
     XL: '(min-width: 1000px)',
   };
-  // const [ref, setRef] = useState<Element>();
-  // const refChange = useRefChange(setRef);
 
   cache.read(
     typeof imageSource === 'string'
@@ -118,6 +113,7 @@ const ImageCard = ({
     <StyledImageCardWrapper
       className={containerClasses}
       ref={outerRef}
+      style={{ ...style, ...ContainerProps }}
       {...props}
     >
       {children}
@@ -136,35 +132,35 @@ const ImageCard = ({
                     />
                   )}
                 </React.Fragment>
-              ) : (
+              ) : typeof imageSource !== 'undefined' ? (
                 <StyledImage
                   alt={alt}
-                  // ref={refChange}
                   key={key}
                   className={`${classes} image`}
                   src={imageSource.source.XL}
                   title={title}
                   {...ImageProps}
                 />
+              ) : (
+                <></>
               ),
           )
-        ) : (
+        ) : typeof imageSource !== 'undefined' ? (
           <StyledImage
             alt={alt}
-            // ref={refChange}
             className={`${classes} image`}
             src={imageSource}
             width={size}
             title={title}
             style={style}
-            // {...props}
             {...ImageProps}
           />
+        ) : (
+          <></>
         )}
       </picture>
     </StyledImageCardWrapper>
   );
-  // {/* </Suspense> */}
 };
 
 export default memo(ImageCard);

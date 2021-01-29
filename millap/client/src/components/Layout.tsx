@@ -1,5 +1,10 @@
 import React, { Suspense, lazy, useContext } from 'react';
-import { BrowserRouter as Router, Route, matchPath } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  matchPath,
+  RouteComponentProps,
+} from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import slugify from 'slugify';
 
@@ -10,16 +15,19 @@ import About from './pages/About';
 import Container from './presentational/Container';
 import ErrorBoundary from '../utils/ErrorBoundary';
 import Navigation from './presentational/Navigation';
-import Start from './pages/Start';
+const Start = lazy(() => import('./pages/Start'));
 
 import { ProjectDataType } from '../utils/global';
 import { ProjectsContext } from '../contexts/projectsContext';
+import { Location } from 'history';
+import Spinner from './presentational/Spinner';
 
 type RouteType = {
   path: string;
   name?: string;
   pageTitle: string;
   Component: any;
+  strict?: boolean;
   props?: Record<string, any>;
   exact?: boolean;
 };
@@ -56,8 +64,8 @@ const Layout = (): React.ReactElement => {
     },
     {
       path: '/about',
-      name: 'Milla Flyger | About',
-      pageTitle: 'About',
+      name: 'About',
+      pageTitle: 'Milla Flyger | About',
       Component: About,
       exact: false,
     },
@@ -106,10 +114,10 @@ const Layout = (): React.ReactElement => {
     );
   };
 
-  const filterRoutes = (location: any) =>
+  const filterRoutes = (location: Location<unknown>) =>
     routes.filter(
-      ({ path, strict, exact }: any) =>
-        !!matchPath(location.pathname, {
+      ({ path, strict, exact }) =>
+        !!matchPath(location.pathname as string, {
           path,
           strict,
           exact,
@@ -118,20 +126,20 @@ const Layout = (): React.ReactElement => {
   return (
     <ErrorBoundary>
       <Router>
-        <Suspense fallback={<div>loading</div>}>
+        <Suspense fallback={<Spinner />}>
           <Navigation projects={full} />
           <Container classes='content'>
             {routes.map(({ path, Component, props, ...rest }) => (
               <Route key={path} exact path={path}>
                 {({ match }) => (
                   <WithRef show={match != null} {...rest}>
-                    <Component {...(rest as any)} {...props} />
+                    <Component {...(rest as Partial<RouteType>)} {...props} />
                   </WithRef>
                 )}
               </Route>
             ))}
             <Route
-              render={({ location }) => {
+              render={({ location }: RouteComponentProps) => {
                 if (!filterRoutes(location).length) {
                   setPageTitle('Milla Flyger | 404');
                   return <NotFound />;

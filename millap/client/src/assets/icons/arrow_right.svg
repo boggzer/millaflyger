@@ -1,2 +1,5 @@
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-<path stroke='rgb(233, 231, 230)' stroke-width='0.08rem' stroke-linejoin='round' fill="rgb(233, 231, 230)" d="M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+<g>
+  <path d="M 287.359 209.687 L 415.663 337.993 L 415.853 337.803 L 415.853 289.405 L 287.361 160.911 L 158.865 289.405 L 158.865 337.803 L 159.055 337.993 L 287.359 209.687 Z" style="fill: rgb(233, 231, 230);" transform="matrix(0, 1, -1, 0, 536.810997, -37.90699)"></path>
+</g>
+</svg>
