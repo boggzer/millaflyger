@@ -1,0 +1,18 @@
+*[_type in ["post","cateogry","title","sanity.imageAsset"]]{
+  _id,
+  _type,
+  metadata,
+  title,
+  name,
+  image,
+  body[] {
+    children[] {
+      text
+    }
+  },
+  slug {
+  	current
+	},
+  metaDescription,
+  publishedAt
+}
