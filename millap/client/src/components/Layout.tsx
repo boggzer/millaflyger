@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import slugify from 'slugify';
+import client from '../client';
 
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Overview = lazy(() => import('./pages/portfolio/Overview'));
@@ -30,6 +31,18 @@ type RouteType = {
   strict?: boolean;
   props?: Record<string, any>;
   exact?: boolean;
+};
+
+const d = () => {
+  const query = '*[_type == "image"]';
+
+  client.fetch(query).then((bikes) => {
+    console.log('Bikes with more than one seat:');
+    console.log(bikes, client);
+    bikes.forEach((bike: any) => {
+      console.log(`${bike.name} (${bike.seats} seats)`);
+    });
+  });
 };
 
 const Layout = (): React.ReactElement => {
