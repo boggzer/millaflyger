@@ -1,74 +1,88 @@
 export default {
-  name: 'project',
-  title: 'Project',
-  type: 'document',
-  fields: [
-    {
-      name: 'title',
-      title: 'Project title',
-      type: 'string',
-    },
-    {
-      name: 'slug',
-      title: 'Slug',
-      description:
-        'Finish writing the project title and then click "generate".',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    },
-    {
-      name: 'images',
-      type: 'array',
-      title: 'Images',
-      of: [
+    name: 'project',
+    title: 'Project',
+    type: 'document',
+    fields: [{
+            name: 'title',
+            title: 'Project title',
+            type: 'string',
+            validation: Rule => Rule.required().min(1),
+            initialValue: 'Title'
+        },
         {
-          title: 'Image row',
-          type: 'object',
-          fields: [
-            {
-              name: 'imageRow',
-              title: 'Image row',
-              type: 'array',
-              of: [
-                {
-                  type: 'image',
-                },
-              ],
-              options: {
-                layout: 'grid',
-              },
+            name: 'slug',
+            title: 'Slug',
+            description: 'Finish writing the project title and then click \'generate\'.',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 96,
             },
-          ],
         },
-      ],
-      preview: {
+        {
+            name: 'images',
+            type: 'array',
+            description: '* Required',
+            title: 'Images',
+            validation: Rule =>
+                Rule.custom(blocks => blocks.length ? true : 'Image is required.'),
+            of: [{
+                title: 'Image row',
+                type: 'object',
+                fields: [{
+                    name: 'imageRow',
+                    title: 'Image row',
+                    type: 'array',
+                    of: [{
+                        name: 'Image',
+                        type: 'object',
+                        fields: [{
+                                name: 'alt',
+                                type: 'string',
+                                title: 'Alternative text',
+                                description: 'Write a sentence of what the image depicts. This is important for SEO and accessibility.',
+                                validation: Rule => [
+                                    Rule.max(100),
+                                    Rule.min(10).warning('Please include a thorough description.')
+                                ]
+                            },
+                            {
+                                name: 'file',
+                                type: 'image',
+                                title: 'Image file',
+                                accept: 'image/*',
+                                description: '* Required',
+                                validation: Rule => Rule.custom(file =>
+                                    typeof file === 'undefined' ? 'Image file is required' : true
+                                )
+                            }
+                        ]
+                    }],
+                    options: {
+                        layout: 'grid',
+                    },
+                }, ],
+            }, ],
+            preview: {
+                select: {
+                    media: 'image.0',
+                    title: 'hej',
+                },
+            },
+        },
+        {
+            name: 'tags',
+            title: 'Tags',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'tag' } }],
+            options: {
+                layout: 'tags',
+            },
+        },
+    ],
+    preview: {
         select: {
-          media: 'image.0',
-          title: 'hej',
-        },
-      },
+            title: 'title',
+        }
     },
-    {
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'tag' } }],
-      options: {
-        layout: 'tags',
-      },
-    },
-    {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
-    },
-  ],
-  preview: {
-    select: {
-      title: 'title',
-    },
-  },
 };
