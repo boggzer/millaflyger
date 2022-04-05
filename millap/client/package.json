@@ -14,7 +14,7 @@
     "aws-amplify": "^3.3.14",
     "aws-amplify-react": "^4.2.18",
     "lottie-react": "^2.1.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^17.0.1",
     "react-cool-portal": "^1.0.26",
     "react-dom": "^17.0.1",
