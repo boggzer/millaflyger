@@ -1,27 +1,37 @@
-import React, { Suspense, lazy, useContext } from 'react';
 import {
-  BrowserRouter as Router,
+  Container,
+  ErrorBoundary,
+  Footer,
+  GlobalStyle,
+  Home,
+  Main,
+  Navigation,
+  Text,
+} from '.';
+import {
+  IndexRouteProps,
+  LayoutRouteProps,
+  Outlet,
+  PathRouteProps,
   Route,
-  matchPath,
-  RouteComponentProps,
+  BrowserRouter as Router,
+  Routes,
+  useMatch,
+  useRoutes,
 } from 'react-router-dom';
+import React, { Suspense } from 'react';
+
 import { CSSTransition } from 'react-transition-group';
+import History from 'history';
+import { ProjectType } from '../types';
+import type { RouteObject } from 'react-router-dom';
+import { Theme } from '../contexts';
 import slugify from 'slugify';
-import client from '../client';
+import { useGetData } from '../hooks';
 
-const NotFound = lazy(() => import('./pages/NotFound'));
-const Overview = lazy(() => import('./pages/portfolio/Overview'));
-const Project = lazy(() => import('./presentational/Project'));
-import About from './pages/About';
-import Container from './presentational/Container';
-import ErrorBoundary from '../utils/ErrorBoundary';
-import Navigation from './presentational/Navigation';
-const Start = lazy(() => import('./pages/Start'));
-
-import { ProjectDataType } from '../utils/global';
-import { ProjectsContext } from '../contexts/projectsContext';
-import { Location } from 'history';
-import Spinner from './presentational/Spinner';
+const Project = React.lazy(() => import('./presentational/Project'));
+const About = React.lazy(() => import('./pages/About'));
+const Overview = React.lazy(() => import('./pages/portfolio/Overview'));
 
 type RouteType = {
   path: string;
@@ -31,84 +41,54 @@ type RouteType = {
   strict?: boolean;
   props?: Record<string, any>;
   exact?: boolean;
+  lazy?: boolean;
 };
 
-const d = () => {
-  const query = '*[_type == "image"]';
-
-  client.fetch(query).then((bikes) => {
-    console.log('Bikes with more than one seat:');
-    console.log(bikes, client);
-    bikes.forEach((bike: any) => {
-      console.log(`${bike.name} (${bike.seats} seats)`);
-    });
-  });
+const setPageTitle = (pageTitle: string) => {
+  document.title = pageTitle;
+  return null;
 };
 
-const Layout = (): React.ReactElement => {
-  const { projects } = useContext(ProjectsContext);
-  const { full, singles } = React.useMemo(
-    () => ({ full: projects?.full || [], singles: projects?.singles || [] }),
-    [projects],
-  );
+const Layout: React.FunctionComponent<{ children?: React.ReactNode }> = ({ children }) => {
+  const { data, loading } = useGetData();
 
-  const setPageTitle = (pageTitle: string) => {
-    document.title = pageTitle;
-    return null;
-  };
+  const dynamicRoutes: (PathRouteProps | LayoutRouteProps | IndexRouteProps)[] =
+    (data &&
+      data.map((project: ProjectType, index: number) => ({
+        path: `/${project.slug?.current}`,
+        element: <Project data={data[index]} />,
+      }))) ||
+    [];
 
-  const relPaths = full.map((p: ProjectDataType, i: number) => ({
-    path: `/${slugify(p?.title, { lower: true })}`,
-    key: document.location.href,
-    name: p?.title,
-    pageTitle: `Milla Flyger | ${p?.title}`,
-    Component: Project,
-    props: { content: full[i] },
-  }));
-
-  const routes: RouteType[] = [
+  const routes: (PathRouteProps | LayoutRouteProps | IndexRouteProps)[] = [
     {
-      path: '/',
-      name: 'Start',
-      pageTitle: 'Milla Flyger | Portfolio',
-      Component: Start,
-      props: { projects: full },
-      exact: true,
+      index: true,
+      element: <Home projects={data || []} />,
     },
     {
       path: '/about',
-      name: 'About',
-      pageTitle: 'Milla Flyger | About',
-      Component: About,
-      exact: false,
+      element: <About />,
     },
     {
       path: '/all',
-      name: 'Projects',
-      pageTitle: 'Milla Flyger | All projects',
-      Component: Overview,
-      exact: false,
-      props: {
-        data: singles,
-      },
+      element: <Overview data={data} loading={loading} path='/all' />,
     },
-    ...relPaths,
+    ...dynamicRoutes,
   ];
 
   const WithRef = ({
-    show,
     children,
     pageTitle,
-    ...props
+    props,
+    show,
   }: Omit<RouteType, 'path' | 'Component'> & {
     show: boolean;
     children: React.ReactNode;
   }) => {
-    const nodeRef = React.useRef();
+    const nodeRef = React.useRef(null);
     show && setPageTitle(pageTitle);
     return (
       <CSSTransition
-        className='tr-w'
         in={show}
         nodeRef={nodeRef}
         timeout={500}
@@ -126,8 +106,8 @@ const Layout = (): React.ReactElement => {
       </CSSTransition>
     );
   };
-
-  const filterRoutes = (location: Location<unknown>) =>
+  /*
+  const filterRoutes = (location: { pathname: string; }) =>
     routes.filter(
       ({ path, strict, exact }) =>
         !!matchPath(location.pathname as string, {
@@ -136,33 +116,41 @@ const Layout = (): React.ReactElement => {
           exact,
         }),
     );
+*/
+  const currentComponent = (
+    { Component, lazy, props, ...rest }: RouteType,
+    matches: any | boolean | null,
+  ): React.ReactNode | null => {
+    if (matches !== null) {
+      if (lazy) {
+        return (
+          <WithRef show={matches != null} {...rest}>
+            <Suspense fallback={<div>loading</div>}>
+              <Component {...(rest as Partial<RouteType>)} {...props} />
+            </Suspense>
+          </WithRef>
+        );
+      } else {
+        return (
+          <WithRef show={matches != null} {...rest}>
+            <Component {...(rest as Partial<RouteType>)} {...props} />
+          </WithRef>
+        );
+      }
+    } else {
+      return <></>;
+    }
+  };
+console.log(children)
   return (
-    <ErrorBoundary>
-      <Router>
-        <Suspense fallback={<Spinner />}>
-          <Navigation projects={full} />
-          <Container classes='content'>
-            {routes.map(({ path, Component, props, ...rest }) => (
-              <Route key={path} exact path={path}>
-                {({ match }) => (
-                  <WithRef show={match != null} {...rest}>
-                    <Component {...(rest as Partial<RouteType>)} {...props} />
-                  </WithRef>
-                )}
-              </Route>
-            ))}
-            <Route
-              render={({ location }: RouteComponentProps) => {
-                if (!filterRoutes(location).length) {
-                  setPageTitle('Milla Flyger | 404');
-                  return <NotFound />;
-                }
-              }}
-            />
-          </Container>
-        </Suspense>
-      </Router>
-    </ErrorBoundary>
+    <Theme>
+      <GlobalStyle />
+      <Navigation />
+      <Main>
+        <Outlet />
+      </Main>
+      <Footer />
+    </Theme>
   );
 };
 

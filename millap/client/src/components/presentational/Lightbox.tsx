@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, lazy, useState } from 'react';
-const ImageCard = lazy(() => import('../presentational/ImageCard'));
+const Image = lazy(() => import('./Image'));
 import Container from '../presentational/Container';
 import Text from '../presentational/Text';
 import styled, { css } from 'styled-components';
@@ -235,7 +235,7 @@ const Lightbox = ({
     },
     config: config.gentle,
   });
-
+  console.log(content);
   return (
     <Portal>
       <StyledLightbox ref={refChange} className={`${classes} ${fade}`}>
@@ -257,18 +257,16 @@ const Lightbox = ({
               />
             )}
             {transitions.map(({ item, props, key }) => (
-              <ImageCard
-                containerClasses='lightbox-image-card'
+              <Image
+                //containerClasses='lightbox-image-card'
                 key={key}
-                ContainerProps={{
-                  ...props,
-                  height: '100%',
-                  width: '100%',
-                  // flex: '0 0 auto',
-                }}
-                imageSource={
-                  content.images[item]?.source[0]?.['XL' || 'L' || 'M']
-                }
+                // ContainerProps={{
+                //   ...props,
+                //   height: '100%',
+                //   width: '100%',
+                //   // flex: '0 0 auto',
+                // }}
+                //imageSource={{ source: content.images[item]?.['imageRow'][0]['file'], order: 1 }}
               />
             ))}
             {imageCount > 1 && (
@@ -281,7 +279,7 @@ const Lightbox = ({
               />
             )}
           </Container>
-          <Text font='sans'>{`${activeIndex + 1}/${
+          <Text>{`${activeIndex + 1}/${
             content.images.length
           }`}</Text>
         </Container>

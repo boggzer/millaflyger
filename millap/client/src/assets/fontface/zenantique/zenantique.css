@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Zen Antique';
+  src: url('./zenantique-regular.woff2') format('woff2'), url('./zenantique-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  /* autoprefixer: ignore next */
+  font-display: swap;
+}

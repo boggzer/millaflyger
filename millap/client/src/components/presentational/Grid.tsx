@@ -1,100 +1,79 @@
-/* eslint-disable react/no-find-dom-node */
-import React, { useMemo, useState, lazy, memo, Suspense } from 'react';
-import Container from './Container';
-import '../../css/Grid.scss';
-const ImageCard = lazy(() => import('./ImageCard'));
-import { ProjectDataType } from '../../utils/global';
-import { useMeasure } from 'react-use';
-import { useEffect } from 'react';
-import Lightbox from './Lightbox';
+import React, { useTransition } from 'react';
 
-interface GridProps extends ProjectDataType {
+import styled from 'styled-components';
+
+interface GridProps extends React.HTMLProps<HTMLDivElement> {
   containerClasses?: string;
-  imageCardClasses?: string;
-  innerContainerClasses?: string;
-  withLightbox?: boolean;
+  columns?: Record<'desktop' | 'mobile', number>;
+  flex?: boolean;
+  gap?: boolean;
 }
 
-const Grid = ({
-  withLightbox = false,
-  containerClasses,
-  imageCardClasses,
-  innerContainerClasses,
-  images,
-  ...props
-}: GridProps): React.ReactElement => {
-  const [ref, { width, height }] = useMeasure();
-  const hasDimensions = useMemo(() => (width && height) !== 0, [width, height]);
-  const [activeIndex, setActiveIndex] = useState(-1);
+const StyledGrid = styled.div<Pick<GridProps, 'columns' | 'flex' | 'gap'>>`
+  ${({ theme, flex, columns, gap }) =>
+    flex
+      ? `
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      `
+      : `
+        display: grid;
+        grid-template-columns: repeat(
+          ${columns && columns.mobile},
+          1fr
+        );
+        grid-template-rows: repeat(auto-fit, 1%);
 
-  const [opacity, setVisibility] = useState<number>(0);
+        @media screen and ${theme.utils.mq.min.laptop} {
+          grid-template-columns: repeat(
+            ${columns && columns.desktop},
+            1fr
+          );
+        }
+      `}
+  ${({ gap, theme }) =>
+    gap &&
+    `
+        margin: 0 0 0 -${theme.main.gap.mobile};
 
-  useEffect(() => {
-    hasDimensions && setVisibility(1);
-  }, [hasDimensions]);
+        > * {
+          padding-left: ${theme.main.gap.mobile};
+          margin-bottom: ${theme.main.gap.mobile};
+        }
+        @media screen and ${theme.utils.mq.min.laptop} {
+         margin: 0 0 0 -${theme.main.gap.desktop};
+          > * {
+            padding-left: ${theme.main.gap.desktop};
+            margin-bottom: ${theme.main.gap.desktop};
+          }
+        }
+        `}
+`;
 
-  const defaultProps = {
-    ContainerProps: {
-      style: {
-        margin: 0,
-      },
-      className: `${imageCardClasses}`,
-    },
-    containerClasses: containerClasses,
-    classes: `image-grid image ${innerContainerClasses}`,
-  };
-
+const Grid: React.FunctionComponent<GridProps> = ({
+  children,
+  flex = false,
+  columns,
+  gap = false,
+}): React.ReactElement => {
+  const childrenWithProps = React.useMemo(
+    () =>
+      flex &&
+      React.Children.map(
+        children,
+        (child) =>
+          React.isValidElement(child) &&
+          React.cloneElement(child as React.ReactElement, {
+            className: 'grid__cell',
+          }),
+      ),
+    [React.Children],
+  );
   return (
-    <Container
-      ref={ref}
-      classes={'image-grid inner-container'}
-      style={{ opacity }}
-    >
-      {images && withLightbox && (
-        <Lightbox
-          handleHide={() => setActiveIndex(-1)}
-          content={{ images, ...props }}
-          setActive={(index: number) => setActiveIndex(index)}
-          activeIndex={activeIndex}
-          imageCount={images.length}
-          {...props}
-        />
-      )}
-      <Suspense fallback={<div>...</div>}>
-        {images &&
-          Object.keys(images).map((p: string, i: number) =>
-            withLightbox ? (
-              <ImageCard
-                data-index={`${i}`}
-                key={i}
-                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-                  e.preventDefault();
-                  setActiveIndex(
-                    parseInt(e?.currentTarget?.dataset?.['index'] || '-1'),
-                  );
-                }}
-                imageSource={{
-                  source: images[i]?.source[0],
-                  order: images[i]?.order || 0,
-                }}
-                alt={images[i]?.alt}
-                {...defaultProps}
-              />
-            ) : (
-              <ImageCard
-                key={i}
-                imageSource={{
-                  source: images[i]?.source[0],
-                  order: images[i]?.order || 0,
-                }}
-                alt={images[i]?.alt}
-                {...defaultProps}
-              />
-            ),
-          )}
-      </Suspense>
-    </Container>
+    <StyledGrid columns={columns} flex={flex} gap={gap}>
+      {children}
+    </StyledGrid>
   );
 };
-
-export default memo(Grid);
+export default Grid;

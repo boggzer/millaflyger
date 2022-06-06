@@ -1,276 +1,179 @@
-import React, { useState, memo, useRef } from 'react';
-// import slugify from 'slugify';
-import { Link, useLocation } from 'react-router-dom';
-import FilmNoise from '../effects/FilmNoise';
-import { ProjectDataType } from '../../utils/global';
-import Text from '../presentational/Text';
+import { Container } from '../';
+import PageLink from './PageLink';
+import React from 'react';
+import Text from './Text';
+import border from '../../assets/graphics/doodle_border.svg';
+import closeIcon from '../../assets/graphics/close-button.svg';
+import menuIcon from '../../assets/graphics/menu-button-2.svg';
 import styled from 'styled-components';
-import menuIcon from '../../assets/lottie/menu.json';
-import Lottie, { LottieOptions, LottieRef } from 'lottie-react';
-import { useWindowSize } from 'react-use';
-import { useEffect } from 'react';
 
-interface NavigationProps {
-  classes?: string;
-  projects?: ProjectDataType[];
-  horizontal?: boolean;
-}
-
-const StyledNavigationModal = styled.div.attrs<{ show: boolean }>((props) => ({
-  role: 'modal',
-}))<{ show: boolean }>`
-  width: 100vw !important;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 3;
-  justify-content: center;
+const StyledNavigation = styled.nav<{ show: boolean }>`
+  z-index: 1;
+  position: fixed;
+  background: ${({ theme }) => theme.main.background};
+  display: grid;
+  grid-template-columns: 45px 1fr 45px;
   align-items: center;
-  background-color: rgba(250, 250, 245, 0.95);
-  left: -999px;
-  opacity: ${({ show }) => (show ? 1 : 0)};
-  height: ${({ show }) => (show ? '100vh' : '0vh')} !important;
-  transition: height 150ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 50ms,
-    opacity 200ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 60ms;
-  will-change: height opacity;
-  .text {
-    padding: 1rem !important;
-    z-index: 3;
-    font-size: 5rem !important;
-    transform: translateY(-4rem);
+  padding: ${({ theme }) => `calc(${theme.main.pageMargin.mobile} / 2) ${theme.main.pageMargin.mobile}`};
+  height: 45px;
+
+  ${({ theme }) => `
+    @media ${theme.utils.mq.min.laptop} {
+      margin: 0 ${theme.main.pageMargin.desktop};
+    }
+  `}
+
+  @media screen and ${({ theme }) => theme.utils.mq.max.tablet} {
+    position: sticky;
+    top: -0.1px;
   }
-  a {
-    border-bottom: unset;
-    &:hover {
-      text-decoration: underline !important;
-      color: rgb(43 43 43) !important;
+
+  @media screen and ${({ theme }) => theme.utils.mq.max.laptop} {
+    .overlay {
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      transition: opacity 150ms cubic-bezier(0.44, 0.96, 0.72, 0.91) 0ms, visibility 0ms linear ${({ show }) => (show ? 0 : 150)}ms;
+      background: #000;
+      position: fixed;
+      ${({ show }) =>
+        `opacity: ${show ? 0.66 : 0};
+        visibility: ${show ? 'visible' : 'hidden'};`}
     }
   }
 `;
 
-const StyledMenuIcon = styled.div`
-  & > *:hover {
-    cursor: pointer;
+const StyledLogo = styled(PageLink)`
+  font-size: ${({ theme }) => theme.main.text.sizes.mobile.h4}px;
+  font-family: ${({ theme }) => theme.main.text.family.heading};
+  text-align: center;
+  text-transform: lowercase;
+  line-height: 45px;
+  height: 100%;
+`;
+
+const StyledMenuButton = styled.button.attrs((props) => ({
+  'aria-label': props['aria-label'],
+  'aria-controls': props['aria-controls'],
+}))<{ right?: number }>`
+  height: 45px;
+  width: 45px;
+  z-index: 2;
+  ${({ right }) => typeof right === 'number' && `right: ${right}${right === 0 ? '' : 'px'};`}
+
+  @media screen and ${({ theme }) => theme.utils.mq.min.laptop} {
+    display: none;
   }
-  button {
-    border: unset;
-    color: unset;
-    border-radius: 40%;
-    background-color: rgb(233, 231, 230);
-    outline: none;
-    transition: background-color 100ms cubic-bezier(0.67, 0.91, 0.64, 0.68) 10ms;
-    &:hover {
-      background-color: rgb(223, 221, 220);
-    }
-    &:focus-visible {
-      outline: initial;
+`;
+
+const StyledMenu = styled.ul`
+  padding: 0;
+  margin: 0;
+
+  li {
+    height: 45px;
+    font-size: ${({ theme }) => theme.main.text.sizes.desktop.h3}px;
+  }
+
+  @media screen and ${({ theme }) => theme.utils.mq.max.laptop} {
+    font-family: var(--heading-font-family);
+    text-transform: lowercase;
+    list-style-type: none;
+
+    li {
+      height: 45px;
+      font-size: ${({ theme }) => theme.main.text.sizes.mobile.h3}px;
     }
   }
-  position: relative;
-  height: calc(5rem + 1vw);
-  width: calc(5rem + 1vw);
-  z-index: 6;
+`;
+
+const StyledMobileMenu = styled.div<{ show: boolean }>`
+  position: fixed;
+  box-sizing: border-box;
   top: 0;
   left: 0;
-  display: block;
-  & > * {
-    height: inherit;
-    width: inherit;
-  }
-  #menuButton {
+  width: 100%;
+  background: var(--main-background);
+  padding: 2rem 2.5rem 2.5rem;
+  transform: translateY(${({ show }) => (show ? 0 : '-15px')});
+  transition: transform 150ms ease 0ms, opacity 150ms cubic-bezier(0.44, 0.96, 0.72, 0.91) 0ms, visibility 0ms linear ${({ show }) => (show ? 0 : 150)}ms;
+  ${({ show }) =>
+    `opacity: ${show ? 1 : 0};
+        visibility: ${show ? 'visible' : 'hidden'};`}
+
+  &::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
-    transform: translate3d(0px, 0px, 0px);
+    transform: translate(-1rem, 1.5rem);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(${border});
   }
-  @media screen and (min-width: 701px) {
+`;
+
+const StyledMenuIcon = styled.img`
+  height: 100%;
+  width: 100%;
+  padding: 11px;
+  opacity: 0.8;
+  @media screen and ${({ theme }) => theme.utils.mq.min.tablet} {
     display: none;
   }
 `;
 
-const StyledNavigation = styled.div.attrs(() => ({
-  role: 'navigation',
-}))<{ readonly pathname: string }>`
-  position: fixed;
-  top: unset;
-  z-index: 3;
-  @media screen and (min-width: 701px) {
-    top: min(30%, 15rem);
-    width: 13rem;
-    padding: 2rem;
-    position: ${({ pathname }) => (pathname === '/' ? 'absolute' : 'sticky')};
-    height: fit-content;
-  }
-  nav {
-    position: fixed;
-    display: none;
-    .text {
-      font-size: 2rem;
-    }
-    @media screen and (min-width: 702px) {
-      display: block;
-      position: fixed !important;
-      top: min(30%, 15rem) !important;
-    }
-  }
-  nav,
-  .nav-modal {
-    width: 13rem;
-    left: 0;
-    top: 0;
-    position: absolute;
-    z-index: 3 !important;
-    height: 100%;
-    .film-noise {
-      border-radius: 0.3rem;
-      height: 3rem;
-    }
-    .text {
-      text-transform: lowercase;
-      font-weight: bold !important;
-      border: none !important;
-      overflow: hidden;
-      z-index: 3;
-      &:hover {
-        // box-shadow: inset 0px -2px 0 -1px rgba(20, 20, 20, 0.5);
-      }
-    }
-    .inner-film-noise {
-      transform: translateY(-1rem);
-      z-index: -1;
-    }
-  }
-`;
+const Navigation = () => {
+  const [showMenu, setShowMenu] = React.useState(false);
 
-const Navigation = ({ classes }: NavigationProps): React.ReactElement | any => {
-  const iconRef: LottieRef = useRef<any>();
-  const { width } = useWindowSize();
-  const { pathname } = useLocation();
-  const [showFilmNoise, setShowFilmNoise] = useState('');
-  const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
+  React.useEffect(() => {
+    return setShowMenu(false);
+  }, []);
 
-  useEffect(() => {
-    width > 700 && setShowMenuModal(false);
-  }, [width]);
-
-  const handleClick = () => {
-    if (!showMenuModal) {
-      setShowMenuModal(true);
-      iconRef?.current?.playSegments([0, 25], true);
-      return;
-    }
-    setShowMenuModal(false);
-    iconRef?.current?.playSegments([40, 75], false);
-  };
-
-  const animationOptions: LottieOptions = {
-    start: 0,
-    lottieRef: iconRef,
-    loop: false,
-    autoplay: false,
-    renderer: 'svg',
-    animationData: menuIcon,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid meet',
-    },
-    onDOMLoaded: () => {
-      (iconRef as LottieRef)?.current?.setSpeed(4);
-      (iconRef as LottieRef)?.current?.stop();
-    },
-    onClick: handleClick,
-  };
-  /*
-  const getProjectLinks = useMemo(
-    () =>
-      (projects as any).map(({ title }: ProjectDataType) => ({
-        title,
-        link: slugify(title, { lower: true }),
-        classes: 'sublink',
-      })),
-    [projects],
-  );
-  */
-  const content = [
-    { title: 'Home', link: '/' },
-    { title: 'About', link: '/about' },
-    { title: 'Projects', link: '/all' },
+  const links = [
+    { title: 'Home', href: '/' },
+    { title: 'About', href: '/about' },
+    { title: 'Projects', href: '/all' },
     // ...getProjectLinks,
   ];
 
+  const handleClick = () => {
+    setShowMenu((prev) => !prev);
+  };
+
   return (
-    <StyledNavigation role='navigation' pathname={pathname} className={classes}>
-      {width > 700 ? (
-        <nav className='fl-col p-m fixed'>
-          {content.map(({ title, link }) => (
-            <FilmNoise
-              key={`nav-link-${title}-${link}`}
-              show={showFilmNoise === title}
-              ContainerProps={{
-                id: title,
-              }}
-              opacity={0.4}
-              outerClasses='film-noise'
-              innerClasses='inner-film-noise'
-            >
-              <Text
-                aria-labelledby={title}
-                key={`nav-${link}`}
-                containerClasses='w-fit'
-                onlyContainer
-              >
-                <Link
-                  to={link}
-                  id={title}
-                  onMouseEnter={({ target }) =>
-                    setShowFilmNoise((target as Element)?.id)
-                  }
-                  onMouseLeave={() => setShowFilmNoise('')}
-                  style={{
-                    display: 'absolute',
-                    zIndex: 5,
-                    width: '100%',
-                  }}
-                >
-                  {title}
-                </Link>
-              </Text>
-            </FilmNoise>
-          ))}
-        </nav>
-      ) : (
-        <StyledMenuIcon aria-labelledby='menuButton' className='p-s'>
-          <button id='menuButton' aria-label='Menu'>
-            <Lottie aria-hidden='true' {...animationOptions} />
-          </button>
-        </StyledMenuIcon>
+    <StyledNavigation show={showMenu}>
+      {!showMenu && (
+        <StyledMenuButton aria-label='Open menu' aria-controls='main-navigation' onClick={handleClick}>
+          <StyledMenuIcon src={menuIcon} />
+        </StyledMenuButton>
       )}
-      {
-        <StyledNavigationModal
-          className='nav-modal fl-col'
-          show={showMenuModal}
-        >
-          {content.map(({ title, link }) => (
-            <Text key={`nav-${link}`} containerClasses='w-fit' onlyContainer>
-              <Link
-                onClick={handleClick}
-                to={link}
-                id={title}
-                onMouseEnter={({ target }) =>
-                  setShowFilmNoise((target as Element)?.id)
-                }
-                onMouseLeave={() => setShowFilmNoise('')}
-                style={{
-                  display: 'absolute',
-                  zIndex: 5,
-                  width: '100%',
-                }}
-              >
-                {title}
-              </Link>
-            </Text>
-          ))}
-        </StyledNavigationModal>
-      }
+      <div className='overlay' role='presentation' onClick={handleClick}>
+        &nbsp;
+      </div>
+      <StyledLogo to={'/'}>Milla Flyger</StyledLogo>
+      {showMenu && (
+        <StyledMobileMenu show={showMenu}>
+          <StyledMenu id='main-navigation'>
+            {links.map((link) => (
+              <li key={link.title}>
+                <Text textType='a' href={link.href}>
+                  {link.title}
+                </Text>
+              </li>
+            ))}
+          </StyledMenu>
+          <StyledMenuButton aria-label='Close menu' aria-controls='main-navigation' onClick={handleClick} right={-5}>
+            <StyledMenuIcon src={closeIcon} />
+          </StyledMenuButton>
+        </StyledMobileMenu>
+      )}
     </StyledNavigation>
   );
 };
 
-export default memo(Navigation);
+export default Navigation;

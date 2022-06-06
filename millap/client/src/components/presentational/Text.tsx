@@ -1,117 +1,111 @@
-import React, {
-  forwardRef,
-  CSSProperties,
-  HTMLAttributes,
-  MutableRefObject,
-  DetailedHTMLProps,
-} from 'react';
-import { ratio } from '../../utils/constants';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const StyledTextContainer = styled.div`
-  h1 {
-    font-size: 4rem;
-  }
-  h2 {
-    font-size: 3rem;
-  }
-  h4 {
-    font-size: 1.7rem;
-  }
-  h6 {
-    font-size: 1.5rem;
-  }
-  p {
-    font-size: 1.2rem;
-  }
-  &.bold {
-    font-weight: bold;
-  }
+import { Link } from 'react-router-dom';
+import React from 'react';
+
+type HtmlTagName = 'a' | 'h6' | 'h5' | 'h4' | 'h3' | 'h2' | 'h1' | 'p';
+
+type HtmlElementType<T extends HtmlTagName> = T extends 'a'
+  ? HTMLAnchorElement
+  : HTMLParagraphElement | HTMLHeadingElement;
+interface TextProps<T extends HtmlTagName>
+  extends React.HTMLProps<HtmlElementType<T>> {
+  textType?: T;
+  bold?: boolean;
+  lowercase?: boolean;
+  font?: 'text' | 'heading';
+  withContainer?: boolean;
+}
+
+const StyledTextContainer = styled.div<
+  Pick<TextProps<HtmlTagName>, 'lowercase' | 'bold' | 'font' | 'textType'>
+>`
+  ${({ font, textType }) =>
+    typeof font === 'string' &&
+    typeof textType === 'string' &&
+    css`
+        font-family: var(--${font}-font-family);
+    `}
+  ${({ lowercase }) =>
+    lowercase &&
+    css`
+      text-transform: lowercase;
+    `}
+  ${({ bold }) =>
+    bold &&
+    css`
+      font-weight: bold;
+    `}
   a {
     border-bottom: 1px solid black;
   }
-  &.sans {
-    font-family: 'Roboto', Helvetica !important;
-  }
 `;
 
-interface TextProps
-  extends DetailedHTMLProps<
-    HTMLAttributes<HTMLDivElement | HTMLAnchorElement>,
-    HTMLDivElement | HTMLAnchorElement
-  > {
-  ariaId?: string;
-  containerClasses?: string;
-  font?: 'sans' | 'serif';
-  textClasses?: string;
-  type?: 'link' | 'h6' | 'h4' | 'h2' | 'h1' | 'p';
-  children?: React.ReactNode;
-  onlyContainer?: boolean;
-  ref?: any;
-  bold?: boolean;
-  innerRef?: any;
-  href?: string;
-}
-
-const Text = (
+const Text = <T extends HtmlTagName>(
   {
-    ariaId,
-    containerClasses,
-    font = 'serif',
-    textClasses,
     bold = false,
-    onlyContainer = false,
-    type = 'p',
+    lowercase = false,
+    textType = 'p' as T,
     children,
-    innerRef,
-    href,
+    withContainer = false,
+    font,
     ...props
-  }: TextProps,
-  ref: MutableRefObject<any> | ((instance: any) => void) | null,
+  }: React.PropsWithChildren<TextProps<T>>,
+  // TODO: Solve ref type compatibe with dynamic component tag name.
+  ref: any,
 ): React.ReactElement => {
-  const containerStyle: CSSProperties = { margin: ratio.TWO };
-  const textStyle: CSSProperties = { margin: ratio.ONE };
-
-  const defaultProps = {
-    ref: innerRef,
-    className: textClasses,
-    style: { ...textStyle },
-    id: ariaId,
-  };
-
+  const TagName = textType as HtmlTagName;
+  const Component = ({
+    children,
+    type,
+    ...rest
+  }: any): React.ReactElement<typeof TagName> => (
+    <TagName {...rest}>{children}</TagName>
+  );
   return (
     <>
-      {type === 'link' ? (
-        <a
-          className={`text link ${textClasses}`}
-          id={ariaId}
-          ref={ref}
-          rel='noopener noreferrer'
-          href={href}
+      {textType === 'a' && props.href && props.href.length > 0 ? (
+        props.href.indexOf('/') === 0 ? (
+          <Component
+            className='text link'
+            ref={ref}
+            rel='noopener noreferrer'
+            {...props}
+          >
+            {children}
+          </Component>
+        ) : (
+          <Link className='text link' rel='noopener noreferrer' to={props.href}>
+            {children}
+          </Link>
+        )
+      ) : withContainer ? (
+        <StyledTextContainer
+          className='text'
+          lowercase={lowercase}
+          bold={bold}
+          font={font}
+          textType={textType}
         >
-          {children}
-        </a>
+          <Component ref={ref} {...props}>
+            {children}
+          </Component>
+        </StyledTextContainer>
       ) : (
         <StyledTextContainer
+          className={`text ${props.className || ''}`}
+          lowercase={lowercase}
+          bold={bold}
+          font={font}
+          textType={textType}
           ref={ref}
-          className={`text ${type} ${containerClasses} ${font}${
-            bold ? ' bold' : ''
-          }`}
-          style={{ ...containerStyle }}
-          {...props}
+          as={textType as HtmlTagName}
         >
-          {onlyContainer && children}
-          {type === 'h1' && <h1 {...defaultProps}>{children}</h1>}
-          {type === 'h2' && <h2 {...defaultProps}>{children}</h2>}
-          {type === 'h4' && <h4 {...defaultProps}>{children}</h4>}
-          {type === 'h6' && <h6 {...defaultProps}>{children}</h6>}
-          {type === 'p' && onlyContainer === false && (
-            <p {...defaultProps}>{children}</p>
-          )}
+            {children}
         </StyledTextContainer>
       )}
     </>
   );
 };
 
-export default forwardRef(Text);
+export default React.forwardRef(Text);

@@ -1,11 +1,16 @@
+import { ErrorBoundary } from './utils';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Root from './Root';
+import { createRoot } from 'react-dom/client';
+
 /// <reference path="./utils/global.d.ts"/>
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root') as HTMLElement);
+
+root.render(
   <React.StrictMode>
-    <Root />
+    <ErrorBoundary>
+        <Root />
+    </ErrorBoundary>
   </React.StrictMode>,
-  document.getElementById('root'),
 );

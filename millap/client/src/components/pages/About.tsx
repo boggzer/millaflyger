@@ -1,9 +1,10 @@
-import React, { useState, lazy } from 'react';
+import React, { lazy, useState } from 'react';
+
 import Container from '../presentational/Container';
+import FilmNoise from '../effects/FilmNoise';
 import Text from '../presentational/Text';
-const FilmNoise = lazy(() => import('../effects/FilmNoise'));
-import useRefChange from '../../hooks/useRefChange';
 import styled from 'styled-components';
+import useRefChange from '../../hooks/useRefChange';
 
 const StyledAboutWrapper = styled.div`
   box-sizing: border-box;
@@ -79,12 +80,12 @@ const About = (): React.ReactElement => {
 
   return (
     <StyledAboutWrapper className='about-wrapper w-full h-fit flow-hide fl-row align-start wrap p-m'>
-      <Text tabIndex={0} textClasses='p-m' type='h1'>
+      <Text tabIndex={0} textType='h1'>
         About
       </Text>
       <Container classes='fl-row w-full wrap p-s'>
         <Container classes='p-s'>
-          <Text bold type='h6'>
+          <Text bold textType='h6'>
             Exhibitions
           </Text>
           <Container classes='text-wrapper'>
@@ -115,7 +116,7 @@ const About = (): React.ReactElement => {
           </Container>
         </Container>
         <Container classes='p-s'>
-          <Text bold type='h6'>
+          <Text bold textType='h6'>
             Education
           </Text>
           <Container classes='text-wrapper'>
@@ -133,7 +134,7 @@ const About = (): React.ReactElement => {
       </Container>
       <Container classes='fl-row w-full wrap p-s'>
         <Container classes='p-s'>
-          <Text bold type='h6'>
+          <Text bold textType='h6'>
             About
           </Text>
           <Container classes='text-wrapper'>
@@ -144,32 +145,27 @@ const About = (): React.ReactElement => {
           </Container>
         </Container>
         <Container classes='p-s'>
-          <Text bold type='h6'>
+          <Text bold textType='h6'>
             Contact
           </Text>
           <Container classes='text-wrapper'>
-            <Text
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={() => setShowFilmNoise(false)}
-              containerClasses='email-container fl-row w-fit h-fit'
-              onlyContainer
+            <FilmNoise
+              elRef={ref}
+              withPortal
+              outerClasses='film-noise'
+              show={showFilmNoise}
+              innerClasses='inner-film-noise flow-hide'
             >
-              <FilmNoise
-                elRef={ref}
-                withPortal
-                outerClasses='film-noise'
-                show={showFilmNoise}
-                innerClasses='inner-film-noise flow-hide'
+              <Text
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={() => setShowFilmNoise(false)}
+                ref={refChange}
+                textType='a'
+                href='mailto:millaflyger.jpg@gmail.com'
               >
-                <Text
-                  ref={refChange}
-                  type='link'
-                  href='mailto:millaflyger.jpg@gmail.com'
-                >
-                  millaflyger.jpg@gmail.com
-                </Text>
-              </FilmNoise>
-            </Text>
+                millaflyger.jpg@gmail.com
+              </Text>
+            </FilmNoise>
           </Container>
         </Container>
       </Container>

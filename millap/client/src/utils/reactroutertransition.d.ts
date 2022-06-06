@@ -1,3 +1,5 @@
+declare module 'svg-text-wrap';
+
 declare module 'react-router-transition' {
   import { RouteProps } from 'react-router';
 

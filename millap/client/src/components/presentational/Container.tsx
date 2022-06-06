@@ -1,31 +1,37 @@
-import React, { forwardRef, HTMLAttributes, MutableRefObject } from 'react';
+import React, { PropsWithoutRef } from 'react';
+
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
-  & > .container {
-    flex-direction: column;
-    &.image-grid {
-      display: flex;
-      align-items: center;
-      padding: 7rem 5vmin;
-      @media screen and (min-width: 701px) {
-        padding: 5vmin;
-      }
-    }
+  margin-left: ${({ theme }) => theme.main.pageMargin.mobile};
+  margin-right: ${({ theme }) => theme.main.pageMargin.mobile};
+
+  @media screen and ${({ theme }) => theme.utils.mq.min.laptop} {
+    margin-left: ${({ theme }) => theme.main.pageMargin.desktop};
+    margin-right: ${({ theme }) => theme.main.pageMargin.desktop};
   }
 `;
-interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
+interface ContainerProps
+  extends PropsWithoutRef<
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    >
+  > {
   classes?: string;
 }
 
-const Container = (
-  { children, classes, ...props }: ContainerProps,
-  ref: MutableRefObject<any> | ((_instance: never) => void) | null,
-): React.ReactElement => (
-  <StyledContainer ref={ref} className={`container ${classes}`} {...props}>
+const Container: React.ForwardRefRenderFunction<
+  HTMLDivElement,
+  ContainerProps
+> = ({ children, classes, className, ...props }, ref): React.ReactElement => (
+  <StyledContainer
+    className={`container${className ? ` ${className}` : ''}`}
+    ref={ref}
+    {...props}
+  >
     {children}
   </StyledContainer>
 );
 
-export default forwardRef(Container);
+export default React.forwardRef(Container);

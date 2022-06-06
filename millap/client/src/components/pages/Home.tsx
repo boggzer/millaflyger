@@ -1,13 +1,20 @@
-import React, { useRef, useState, Suspense, lazy, forwardRef } from 'react';
-const ImageCard = lazy(() => import('../presentational/ImageCard'));
-const Text = lazy(() => import('../presentational/Text'));
-import { ProjectDataType } from '../../utils/global';
-import animationData from '../../assets/lottie/detvarengangmendetvaringet_noreverse.json';
 import Lottie, { LottieOptions, LottieRef } from 'lottie-react';
-import bg from '../../assets/images/kvinna-i-hav_bg@1500x997.jpg';
-import styled from 'styled-components';
+import React, { Suspense, forwardRef, lazy, useRef, useState } from 'react';
+
 import Container from '../presentational/Container';
+import Image from '../presentational/Image';
+import { Project } from '../../types/sanitySchema';
+import { ProjectDataType } from '../../utils/global';
+import Text from '../presentational/Text';
+import animationData from '../../assets/lottie/detvarengangmendetvaringet_noreverse.json';
+import bg from '../../assets/images/kvinna-i-hav_bg@1500x997.jpg';
+import placeholder from '../../assets/graphics/placeholder.svg';
 import rippedPaperBg from '../../assets/images/ripped_paper.webp';
+import styled from 'styled-components';
+import useActivePath from '../../hooks/useActivePath';
+
+const ImageCard = lazy(() => import('../presentational/Image'));
+
 /**
  *   &::before {
     content: '';
@@ -27,7 +34,7 @@ import rippedPaperBg from '../../assets/images/ripped_paper.webp';
   }
  */
 
-const StyledBackground = styled.div<{
+const _StyledBackground = styled.div<{
   readonly x?: number;
   readonly y?: number;
 }>`
@@ -148,13 +155,36 @@ const StyledBackground = styled.div<{
   }
 `;
 
+const StyledContainer = styled(Container)`
+  width: fit-content;
+  margin-left: auto;
+  margin-right: ${({ theme }) => theme.main.pageMargin};
+
+  & :first-child {
+    margin-bottom: 0;
+  }
+
+  & :last-child {
+    margin-top: 0;
+  }
+`;
+
+const StyledImage = styled(Image)`
+  width: 100%;
+`;
+
+const StyledText = styled(Text)`
+  font-size: ${({ theme }) => theme.main.baseTextSize}px;
+`;
+
 interface StartProps {
-  projects: ProjectDataType[];
+  projects: Project[];
 }
 
-const Start = (props: StartProps, forwardedRef: any): React.ReactElement => {
+const Home: React.ForwardRefRenderFunction<HTMLDivElement, StartProps> = (props, forwardedRef: any): React.ReactElement => {
   const lottieRef = useRef<any>();
   const ref = useRef(null);
+  const active = useActivePath('/');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   /*
   const {
@@ -173,6 +203,7 @@ const Start = (props: StartProps, forwardedRef: any): React.ReactElement => {
     };
   }, []);
 */
+  console.log(active);
   const animationProps: LottieOptions = {
     animationData,
     autoplay: true,
@@ -184,25 +215,23 @@ const Start = (props: StartProps, forwardedRef: any): React.ReactElement => {
   };
 
   return (
-    <StyledBackground
-      ref={forwardedRef}
-      className='start container fl-row w-full h-full'
-    >
-      <Container classes='start-text-wrapper align-center p-xl'>
-        <Text font='sans' type='h4'>
-          A photographer&apos;s portfolio
+    <>
+      <StyledContainer ref={forwardedRef}>
+        <Text textType='h1' lowercase>
+          Milla Flyger
         </Text>
-        <Text type='h1'>Milla Flyger</Text>
-      </Container>
-      <Suspense fallback={<div>Loading</div>}>
-        <Lottie
-          className='start-lottie'
-          lottieRef={lottieRef}
-          {...animationProps}
-        />
-      </Suspense>
-    </StyledBackground>
+        <StyledText textType='h2' font='text'>
+          A photographer&apos;s portfolio
+        </StyledText>
+      </StyledContainer>
+      <StyledImage src={placeholder} />
+      {/* <Lottie
+        className='start-lottie'
+        lottieRef={lottieRef}
+        {...animationProps}
+      /> */}
+    </>
   );
 };
 
-export default forwardRef(Start);
+export default forwardRef(Home);

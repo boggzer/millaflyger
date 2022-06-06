@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import usePortal from 'react-cool-portal';
+
 import styled from 'styled-components';
+import textWrap from 'svg-text-wrap';
+import usePortal from 'react-cool-portal';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import textWrap from 'svg-text-wrap';
+
 
 type withPortalProps = {
   withPortal: true;
@@ -94,7 +97,7 @@ const WrappedSvgText = ({
         <g>
           <text fontSize='2rem' x='200' y='60' alignmentBaseline='baseline'>
             {
-              (text.map((line: string, i: number, arr: string[]) => (
+              text.map((line: string, i: number, arr: string[]) => (
                 <tspan
                   y={`${5}rem`}
                   alignmentBaseline='central'
@@ -106,7 +109,7 @@ const WrappedSvgText = ({
                 >
                   {line}
                 </tspan>
-              )) as unknown) as SVGTSpanElement
+              ))
             }
           </text>
         </g>

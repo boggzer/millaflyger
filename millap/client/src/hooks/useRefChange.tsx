@@ -15,7 +15,7 @@ type HookProps = {
 };
 
 const useRefChange = (setRef: HookProps): HookReturn => {
-  const onRefChange = useCallback((refNode) => {
+  const onRefChange = useCallback((refNode: any) => {
     setRef(refNode);
   }, []);
   return onRefChange;

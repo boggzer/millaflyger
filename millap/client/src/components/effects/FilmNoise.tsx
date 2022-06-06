@@ -1,5 +1,4 @@
 import React, { CSSProperties, HTMLAttributes, useMemo } from 'react';
-import '../../css/FilmNoise.scss';
 
 interface FilmNoiseProps extends HTMLAttributes<HTMLDivElement> {
   absolute?: boolean;

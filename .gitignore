@@ -6,20 +6,24 @@ npm-debug.log*
 # VS code settings
 .vscode
 
-# Amplify configs
-millap/client/amplify/backend
-team-provider-info.json
+# Amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
+amplify/logs
 amplify/mock-data
 amplify/backend/amplify-meta.json
 amplify/backend/awscloudformation
+amplify/backend/.temp
+build/
+dist/
+node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+.secret-*
 
 # Dependencies
 node_modules
@@ -27,21 +31,12 @@ node_modules
 # Eslint cache
 .eslintcache
 
-# dotenv environment variables file
+# Environment variables
 .env
-.env.test
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-docs
 
 # production
 build
 dist
-
-#amplify
 
 # Mac OS file
 .DS_Store
