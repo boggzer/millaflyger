@@ -2,3 +2,4 @@ millap/build
 millap/public
 **/node_modules/**/*
 .eslintrc.js
+.scss

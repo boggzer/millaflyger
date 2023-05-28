@@ -40,3 +40,6 @@ dist
 
 # Mac OS file
 .DS_Store
+
+# Old project files
+src/OLD-src
