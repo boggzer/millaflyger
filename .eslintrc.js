@@ -27,15 +27,17 @@ module.exports = {
   ],
 
   rules: {
+    'no-unused-vars': 'off',
     quotes: ['error', 'single'],
     indent: 'off',
-    'no-trailing-spaces': 'error',
+    'no-trailing-spaces': 'warn',
     'no-console': 'warn',
     'no-unused-vars': [
-      'warn',
+      'off',
       { argsIgnorePattern: '^_', ignoreRestSiblings: true },
     ],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'react/prop-types': 'off',
   },
   settings: {
     react: {

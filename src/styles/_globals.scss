@@ -1,0 +1,77 @@
+@import './_helpers.scss';
+
+html {
+  background: $grey;
+  color: $darkgrey;
+  font-family: $sans-serif;
+  font-size: $default-font-size;
+  height: 100%;
+}
+
+body,
+a,
+button {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+a {
+  color: $darkgrey;
+}
+
+button {
+  background: unset;
+  border: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: $h1-size-mobile;
+
+  @include media('tablet-and-up') {
+    font-size: $h1-size-desktop;
+  }
+}
+
+h2 {
+  font-size: $h2-size-mobile;
+
+  @include media('tablet-and-up') {
+    font-size: $h2-size-desktop;
+  }
+}
+
+h3 {
+  font-size: $h3-size-mobile;
+
+  @include media('tablet-and-up') {
+    font-size: $h3-size-desktop;
+  }
+}
+
+h4 {
+  font-size: $h4-size-mobile;
+
+  @include media('tablet-and-up') {
+    font-size: $h4-size-desktop;
+  }
+}
+
+h5,
+h6 {
+  font-size: $h5-size-mobile;
+
+  @include media('tablet-and-up') {
+    font-size: $h5-size-desktop;
+  }
+}

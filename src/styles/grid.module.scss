@@ -1,0 +1,12 @@
+@import './_helpers.scss';
+
+.container {
+  display: grid;
+  grid-template-columns: var(--columns);
+  width: var(--width);
+  column-gap: 1rem;
+
+  @include media('tablet-and-up') {
+    grid-template-columns: var(--columns-tablet-and-up);
+  }
+}
