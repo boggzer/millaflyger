@@ -1,0 +1,42 @@
+// Colors
+$darkgrey: #1b1818;
+$grey: #dfdfdf;
+$red: #f00e0e;
+
+// Fonts
+$serif: var(--serif);
+$sans-serif: var(--sans-serif);
+
+$default-font-size: 16px;
+
+$h1-size-desktop: 3.052rem;
+$h2-size-desktop: 2.441rem;
+$h3-size-desktop: 1.953rem;
+$h4-size-desktop: 1.563rem;
+$h5-size-desktop: 1.25rem;
+
+$h1-size-mobile: 1.802rem;
+$h2-size-mobile: 1.602rem;
+$h3-size-mobile: 1.424rem;
+$h4-size-mobile: 1.266rem;
+$h5-size-mobile: 1.125rem;
+
+// Spacing
+$spacing-desktop: 1.875rem;
+$spacing-mobile: 1.75rem;
+
+// Breakpoints
+$devices: (
+  mobile: 560px,
+  tablet: 768px,
+  laptop: 1200px,
+);
+
+$breakpoints: (
+  mobile-only: '(max-width: #{map-get($devices, 'mobile')})',
+  mobile-and-up: '(min-width: #{map-get($devices, 'mobile') + 1px})',
+  tablet-only: '(max-width: #{map-get($devices, 'tablet')})',
+  tablet-and-up: '(min-width: #{map-get($devices, 'tablet') + 1px})',
+  laptop-only: '(max-width: #{map-get($devices, 'laptop')})',
+  laptop-and-up: '(min-width: #{map-get($devices, ' laptop ') + 1px})'
+);

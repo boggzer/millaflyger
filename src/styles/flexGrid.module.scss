@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: var(--negative-gap, 0);
+
+  > * {
+    box-sizing: border-box;
+    padding-right: var(--gap);
+  }
+}

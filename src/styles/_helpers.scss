@@ -1,0 +1,31 @@
+@import './_variables.scss';
+
+@mixin media($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media only screen and #{map-get($breakpoints, $breakpoint)} {
+      @content;
+    }
+  }
+}
+
+@mixin fade-hidden($duration, $timing, $rest: null, $delay: 0ms) {
+  $transition: visibility #{0ms + $delay} #{$timing} #{$duration},
+    opacity #{$duration} #{$timing} #{$delay};
+  visibility: hidden;
+  opacity: 0;
+  @if $rest {
+    $transition: #{$transition}, #{$rest};
+  }
+  transition: $transition;
+}
+
+@mixin fade-visible($duration, $timing, $rest: null, $delay: 0ms) {
+  $transition: visibility 0ms #{$timing} #{$delay},
+    opacity #{$duration} #{$timing} #{$delay};
+  visibility: visible;
+  opacity: 1;
+  @if $rest {
+    $transition: #{$transition}, #{$rest};
+  }
+  transition: $transition;
+}

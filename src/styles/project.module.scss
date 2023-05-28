@@ -1,0 +1,9 @@
+@import '_helpers.scss';
+
+.container {
+  text-align: right;
+
+  @include media('tablet-and-up') {
+    text-align: initial;
+  }
+}

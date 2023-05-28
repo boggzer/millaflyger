@@ -1,0 +1,40 @@
+@import './_helpers.scss';
+
+.container {
+  width: 100%;
+  margin: unset;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  grid-area: var(--grid-area);
+  position: relative;
+  background: var(--color-placeholder, transparent);
+
+  @include media('tablet-and-up') {
+    grid-area: var(--grid-area-tablet-and-up);
+  }
+}
+
+.lazy.container {
+  background-size: 100%;
+}
+
+.lazy.content {
+  opacity: 0;
+  transition: opacity 200ms cubic-bezier(0.67, 0.91, 0.64, 0.68);
+}
+
+.content {
+  width: inherit;
+  height: 100%;
+  object-fit: contain;
+
+  @supports (aspect-ratio: 1) {
+    object-fit: cover;
+    aspect-ratio: var(--aspect-ratio);
+    display: block;
+  }
+}
+
+.lazy.loaded {
+  opacity: 1;
+}

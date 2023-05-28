@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo&family=Zen+Antique&display=swap');
+
+.theme {
+  --base-font-size: 16px;
+  --base-font-weight: 400;
+  --heading-font-weight: 400;
+
+  --h1-size-desktop: 3.052rem;
+  --h2-size-desktop: 2.441rem;
+  --h3-size-desktop: 1.953rem;
+  --h4-size-desktop: 1.563rem;
+  --h5-size-desktop: 1.25rem;
+
+  line-height: 1.5;
+}
+
+h1.heading {
+  font-size: var(--h1-size-desktop);
+}
+
+h2.heading {
+  font-size: var(--h2-size-desktop);
+}
+
+h3.heading {
+  font-size: var(--h3-size-desktop);
+}
+
+h4.heading {
+  font-size: var(--h4-size-desktop);
+}
+
+h5.heading {
+  font-size: var(--h5-size-desktop);
+}
+
+.heading,
+.heading span {
+  font-family: 'Zen Antique', serif;
+  font-weight: var(--heading-font-weight);
+  margin: 0;
+}
+
+.normal,
+.normal span {
+  font-family: 'Chivo', sans-serif;
+  font-weight: var(--base-font-weight);
+  font-size: var(--base-font-size);
+}
+
+.heading strong,
+.heading strong span,
+.normal strong,
+.normal strong span {
+  font-weight: bold;
+}

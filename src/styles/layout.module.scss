@@ -1,0 +1,17 @@
+@import './helpers.scss';
+
+.container {
+  margin: auto;
+  padding: $spacing-mobile;
+  width: 1250px;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  @include media('tablet-and-up') {
+    padding: $spacing-desktop;
+  }
+}
+
+.inner-container {
+  display: flex;
+}

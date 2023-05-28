@@ -1,52 +1,53 @@
 {
-    "name": "milla-flyger-portfolio",
-    "version": "1.0.0",
-    "description": "",
-    "engines": {
-        "node": "12.18.4"
-    },
-    "main": "millap/client/src/index",
-    "scripts": {
-        "dev": "cd millap/client && npm start",
-        "dev:rebuild": "npm run rebuild && npm start",
-        "cms": "cd millap/client/millapsanity && sanity start",
-        "install:client": "cd millap/client && npm i",
-        "install:main": "cd millap && npm i",
-        "install-deps": "npm i && run-s install:**",
-        "update:client": "cd millap/client && npm update",
-        "update:main": "cd millap && npm update",
-        "update-deps": "npm update && run-s update:**",
-        "rebuild": "cd millap/client && npm rebuild node-sass"
-    },
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.33.0",
-        "@typescript-eslint/parser": "^4.33.0",
-        "dotenv": "^8.6.0",
-        "eslint": "^7.32.0",
-        "eslint-config-prettier": "^6.15.0",
-        "eslint-plugin-import": "2.18.2",
-        "eslint-plugin-jsx-a11y": "6.2.3",
-        "eslint-plugin-prettier": "^3.4.1",
-        "eslint-plugin-react": "^7.29.4",
-        "eslint-plugin-react-hooks": "^4.4.0",
-        "eslint-plugin-standard": "^4.0.1",
-        "lint-staged": "^10.5.4",
-        "npm-run-all": "^4.1.5",
-        "prettier": "^2.6.2"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/boggzer/milla.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/boggzer/milla/issues"
-    },
-    "homepage": "https://github.com/boggzer/milla#readme",
-    "dependencies": {
-        "@sanity/cli": "^2.29.5",
-        "typescript": "^4.6.3"
-    }
+  "name": "milla-flyger-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "16.13.0"
+  },
+  "main": "src/src/index",
+  "scripts": {
+    "dev": "cd src && yarn start",
+    "dev:rebuild": "yarn rebuild && yarn start",
+    "cms": "cd src/studio && yarn dev",
+    "install-deps": "yarn install && cd src && yarn install",
+    "studio": "cd src/studio && yarn dev",
+    "update-deps": "yarn upgrade && cd src && yarn upgrade"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "dotenv": "^8.6.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boggzer/milla.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boggzer/milla/issues"
+  },
+  "homepage": "https://github.com/boggzer/milla#readme",
+  "dependencies": {
+    "@portabletext/react": "^3.0.0",
+    "@sanity/cli": "^3.11.3",
+    "@sanity/image-url": "^1.0.2",
+    "next": "^13.4.4",
+    "next-sanity": "^4.3.3",
+    "react-dom": "^18.2.0",
+    "typescript": "^4.6.3"
+  }
 }
