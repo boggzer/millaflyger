@@ -43,3 +43,7 @@ dist
 
 # Old project files
 src/OLD-src
+
+# next
+.next/
+.swc/
