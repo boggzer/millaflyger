@@ -1,14 +1,9 @@
 const path = require('path');
 
+
 module.exports = {
   env: {
     PUBLIC_URL: '',
-  },
-  experimental: {
-    craCompat: true,
-    fontLoaders: [
-      { loader: '@next/font/google', options: { subsets: ['latin'] } },
-    ],
   },
   // Remove this to leverage Next.js' static image handling
   // read more here: https://nextjs.org/docs/api-reference/next/image
