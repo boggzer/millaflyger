@@ -1,15 +1,16 @@
 import '@styles/_globals';
 
-import { Chivo, Zen_Antique } from '@next/font/google';
+import { Chivo, Zen_Antique } from 'next/font/google';
 
 import { Layout } from '@components';
 import React from 'react';
 
-const chivo = Chivo({ display: 'fallback' });
+const chivo = Chivo({ display: 'fallback', subsets: ['latin'] });
 
 const zenAntique = Zen_Antique({
   weight: '400',
   display: 'fallback',
+  subsets: ['latin']
 });
 
 interface Props {
