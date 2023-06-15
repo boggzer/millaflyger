@@ -8,7 +8,7 @@
   "main": "src/src/index",
   "scripts": {
     "dev": "cd src && yarn start",
-    "build": "next build && next export",
+    "build": "next build",
     "dev:rebuild": "yarn rebuild && yarn start",
     "cms": "cd src/studio && yarn dev",
     "install-deps": "concurrently \"yarn install:root\" \"yarn install:src\" \"yarn install:studio\"",

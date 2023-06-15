@@ -31,7 +31,7 @@
   "scripts": {
     "start": "next dev",
     "start-production": "next start",
-    "build": "next build && next export"
+    "build": "next build"
   },
   "browserslist": {
     "production": [
