@@ -6,8 +6,11 @@ module.exports = {
   },
   // Remove this to leverage Next.js' static image handling
   // read more here: https://nextjs.org/docs/api-reference/next/image
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
     disableStaticImages: true,
+    unoptimized: true,
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
