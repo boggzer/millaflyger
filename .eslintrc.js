@@ -40,7 +40,8 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/prop-types': 'off',
     '@typescript-eslint/no-empty-interface': ['off'],
-    'react/no-unknown-property': ['off']
+    'react/no-unknown-property': ['off'],
+    '@typescript-eslint/explicit-module-boundary-types': ['off']
   },
   settings: {
     react: {
