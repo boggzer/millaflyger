@@ -5,13 +5,9 @@
   margin: unset;
   overflow: hidden;
   margin-bottom: 1rem;
-  grid-area: var(--grid-area);
   position: relative;
   background: var(--color-placeholder, transparent);
-
-  @include media('tablet-and-up') {
-    grid-area: var(--grid-area-tablet-and-up);
-  }
+  grid-row-end: var(--grid-row-end);
 }
 
 .lazy.container {
