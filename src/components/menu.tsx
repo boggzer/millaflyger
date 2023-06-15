@@ -1,4 +1,4 @@
-import { AriaAttributes, useCallback, useEffect } from 'react';
+import React, { AriaAttributes, useCallback, useEffect } from 'react';
 import { Button, Icon } from '@components';
 import { COMPONENT_ID, PAGE_PATHS, isCurrentPage } from '@utils';
 import { IconType, Link } from '@components';

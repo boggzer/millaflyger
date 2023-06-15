@@ -1,57 +1,73 @@
+import React from 'react';
 import { CSSProperties } from 'styled-components';
 import Grid from '../components/grid';
 import { ProjectImageLink } from '@components';
 import { PageProps } from '../types';
 import { client } from '../lib/sanity.client';
 import { getProjects } from '../lib/queries';
-import { useImageGrid } from 'src/hooks';
+import { useImageGrid } from 'hooks';
 
 type QueryData = {
   slug: string;
   title: string;
   image: {
+    aspectRatio: number;
+    palette: {
+      lightMuted: {
+        background: string;
+      }
+    }
     url: string;
     lqip: string;
   };
 };
 
-export default function Overview({ data, status }: PageProps<QueryData[]>) {
-  const images = useImageGrid({
-    columns: [
-      { id: 'mobile', value: 2 },
-      { id: 'desktop', value: 3 },
-    ],
-    data,
-  });
+const calculateGridStyles = (data, columns: { id: string | number; value: number; }[]) => {
+  return (data ?? []).reduce((acc, curr, index) =>
+    [...acc, columns.reduce((styles, col) => {
+      const column = (index % col.value) + 1;
+      const gridRowStart = index < col.value ? 1 : (acc?.[index - col.value][col.id].gridRowEnd || 1);
+      const gridRowEnd = ~~((1 - curr.image.aspectRatio) * 100) + gridRowStart;
 
-  const getStyles = (cell): CSSProperties =>
-    ({
-      '--aspect-ratio': cell.aspectRatio.toFixed(2),
-      '--grid-area': [
-        cell.mobile.gridRowStart,
-        cell.mobile.gridColumnStart,
-        cell.mobile.gridRowEnd,
-        cell.mobile.gridColumnEnd,
-      ].join(' / '),
-      '--grid-area-tablet-and-up': [
-        cell.desktop.gridRowStart,
-        cell.desktop.gridColumnStart,
-        cell.desktop.gridRowEnd,
-        cell.desktop.gridColumnEnd,
-      ].join(' / '),
-      '--color-placeholder': cell?.palette?.lightMuted?.background,
-    } as CSSProperties);
+      return {
+        ...styles, [col.id]: {
+          gridColumnStart: column,
+          gridColumnEnd: column,
+          gridRowStart,
+          gridRowEnd,
+        },
+        ...curr
+      }
+    }, {})]
+    , []);
+}
+
+export default function Overview({ data, status }: PageProps<QueryData[]>) {
+  /*   const images = useImageGrid({
+      columns: [
+        { id: 'mobile', value: 2 },
+        { id: 'desktop', value: 3 },
+      ],
+      data,
+    }); */
+
+  const imgs = useImageGrid<QueryData>({
+    data
+  })
 
   return Array.isArray(data) ? (
     <Grid>
-      {images.map(({ slug, title, image, desktop, mobile }) => (
-        <ProjectImageLink
-          source={image.url}
-          style={getStyles({ ...image, desktop, mobile })}
-          title={title}
-          href={`/projects/${slug}`}
-        />
-      ))}
+      {imgs.map(({ slug, title, image, ...rest }) => {
+        return (
+          <ProjectImageLink
+            key={slug}
+            source={image.url}
+            style={{ '--grid-row-end': `span ${rest.mobile.gridRowEnd}`} as CSSProperties}
+            title={title}
+            href={`/projects/${slug}`}
+          />
+        )
+      })}
     </Grid>
   ) : (
     <div>No documents found</div>

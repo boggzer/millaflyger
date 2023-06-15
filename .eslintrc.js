@@ -24,11 +24,12 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:@next/next/recommended'
   ],
 
   rules: {
     'no-unused-vars': 'off',
-    quotes: ['error', 'single'],
+    quotes: ['warn', 'single', { "allowTemplateLiterals": true }],
     indent: 'off',
     'no-trailing-spaces': 'warn',
     'no-console': 'warn',
@@ -38,10 +39,12 @@ module.exports = {
     ],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/prop-types': 'off',
+    '@typescript-eslint/no-empty-interface': ['off'],
+    'react/no-unknown-property': ['off']
   },
   settings: {
     react: {
-      version: 'latest',
+      version: 'detect',
     },
   },
 };

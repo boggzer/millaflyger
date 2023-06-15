@@ -1,5 +1,5 @@
 import { Button, Icon, IconType, Link, Menu } from '@components';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { CSSProperties } from 'styled-components';
 import { WithRouterProps } from 'next/dist/client/with-router';
@@ -46,7 +46,7 @@ function Header({ router }: Props) {
             milla flyger
           </h5>
           <p className={styles.subtitle} style={getTitleContainerStyles()}>
-            A photographer's portfolio
+            A photographer&apos;s portfolio
           </p>
         </Link>
       </div>

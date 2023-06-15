@@ -15,6 +15,7 @@
     "update-deps": "yarn upgrade && cd src && yarn upgrade"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.4.5",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "dotenv": "^8.6.0",

@@ -1,3 +1,4 @@
+import React from 'react';
 import { TextType } from '@types';
 import { PropsWithChildren } from 'react';
 
@@ -13,8 +14,8 @@ interface Props extends PropsWithChildren {
 }
 
 export default function Text({
-  type = TextType.SPAN,
   children,
+  type = TextType.SPAN,
   ...rest
 }: Props) {
   const TextElement = textElements[type];

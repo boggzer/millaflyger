@@ -26,12 +26,13 @@ export default function ProjectPage({ data }: Props) {
   return (
     <div>
       <Text type={TextType.H1} className={styles.container}>
-        {data.title}
+        {data?.title}
       </Text>
       <FlexGrid gap='0.5rem'>
-        {data?.rows?.map(({ images }) =>
+        {data?.rows?.map(({ images }, index) =>
           images.map((image) => (
             <FlexGridImage
+              key={`${index}_${data?.slug}`}
               flexBasis={`${(100 / images.length).toFixed(2)}%`}
               source={image.url}
               style={

@@ -1,6 +1,6 @@
 import NextLink, { LinkProps } from 'next/link';
 
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import styles from '@styles/link.module.scss';
 
 interface Props extends PropsWithChildren, LinkProps {}

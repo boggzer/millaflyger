@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import React, { ComponentProps } from 'react';
 import Image from './image';
 import { PortableText } from '@portabletext/react';
 

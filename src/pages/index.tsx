@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 import { PageProps } from '@types';
 import { PortableContent } from '@components';
 import { client } from '../lib/sanity.client';

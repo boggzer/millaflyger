@@ -1,3 +1,5 @@
+import React from 'react';
+
 export enum IconType {
   MENU,
   CLOSE,

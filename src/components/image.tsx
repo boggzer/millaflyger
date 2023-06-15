@@ -1,4 +1,4 @@
-import {
+import React, {
   ComponentProps,
   PropsWithChildren,
   HTMLProps,
@@ -16,25 +16,25 @@ import { mergeClasses } from '@utils';
 interface Props
   extends Omit<HTMLProps<HTMLImageElement>, 'src'>,
     PropsWithChildren {
-  source: SanityImageSource;
-  lqip?: string;
   aspectRatio?: string;
-  width?: number;
   height?: number;
   lazy?: boolean;
   link?: ComponentProps<typeof Link>['href'];
+  lqip?: string;
+  source: SanityImageSource;
+  width?: number;
 }
 
 export default function Image({
-  source,
-  lqip,
   aspectRatio,
-  width,
+  children,
+  className,
   height,
   lazy = false,
+  lqip,
+  source,
   style,
-  className,
-  children,
+  width,
   ...rest
 }: Props) {
   const [loaded, setLoaded] = useState(false);
