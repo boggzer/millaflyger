@@ -16,7 +16,7 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "./_variables.scss";`,
   },
-  distDir: 'build',
+  output: 'export',
   webpack(config) {
     config.resolve = {
       ...config.resolve,
