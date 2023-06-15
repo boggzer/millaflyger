@@ -1,6 +1,5 @@
 const path = require('path');
 
-
 module.exports = {
   env: {
     PUBLIC_URL: '',
@@ -14,6 +13,7 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "./_variables.scss";`,
   },
+  distDir: 'build',
   webpack(config) {
     config.resolve = {
       ...config.resolve,
