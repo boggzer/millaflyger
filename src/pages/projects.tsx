@@ -76,7 +76,6 @@ export default function Overview({ data, status }: PageProps<QueryData[]>) {
 
 export async function getStaticProps(): Promise<{
   props: PageProps<QueryData[]>;
-  revalidate?: number;
 }> {
   try {
     const data = await client.fetch(getProjects);
@@ -85,8 +84,7 @@ export async function getStaticProps(): Promise<{
       props: {
         data,
         status: 200,
-      },
-      revalidate: 0
+      }
     };
   } catch (err) {
     return {

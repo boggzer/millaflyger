@@ -18,7 +18,6 @@ export default function IndexPage({
 
 export async function getStaticProps(): Promise<{
   props: PageProps<{ content?: any[] }>;
-  revalidate?: number;
 }> {
   try {
     const data = await client.fetch(getIndexPage);
@@ -27,8 +26,7 @@ export async function getStaticProps(): Promise<{
       props: {
         data,
         status: 200,
-      },
-      revalidate: 0
+      }
     };
   } catch (err) {
     return {
