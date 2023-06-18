@@ -122,8 +122,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         switch (type) {
             case 'project':
-                await res.revalidate(`/projects/${slug}`)
-                await res.revalidate(`/projects`)
+                await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
+                await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects`)
 
                 return res.json({ message: `Revalidated '${type}' with slug '${slug}'` })
         }
