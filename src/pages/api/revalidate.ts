@@ -10,8 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     try {
-        await res.revalidate('/projects')
-        await res.revalidate(`/projects/${JSON.parse(body)?.slug}`)
+        await res.revalidate('/projects/')
+        await res.revalidate(`/projects/${JSON.parse(body)?.slug}/`)
 
         return res.json({ revalidated: true })
 
