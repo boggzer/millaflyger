@@ -80,41 +80,56 @@ async function revalidatePaths(paths: string[]) {
     }
 } */
 
-import { isValidRequest } from '@sanity/webhook'
+import { isValidRequest, isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  message: string
+    message: string
 }
 
-const secret = process.env.SANITY_WEBHOOK_SECRET
+const secret = process.env.SANITY_WEBHOOK_SECRET || '123TEST' // temporary during dev
+
+async function readBody(readable) {
+    const chunks = []
+    for await (const chunk of readable) {
+      chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+    }
+    return Buffer.concat(chunks).toString('utf8')
+  }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  if (req.method !== 'POST') {
-    console.error('Must be a POST request')
-    return res.status(405).json({ message: 'Must be a POST request' })
-  }
-
-  if (!isValidRequest(req, secret)) {
-    res.status(401).json({ message: 'Invalid signature' })
-    return
-  }
-
-  try {
-    const {
-      body: { type, slug },
-    } = req
-
-    switch (type) {
-      case 'project':
-        await res.revalidate(`/projects/${slug}`)
-        await res.revalidate(`/projects`)
-
-        return res.json({ message: `Revalidated '${type}' with slug '${slug}'` })
+    if (req.method !== 'POST') {
+        console.error('Must be a POST request')
+        return res.status(405).json({ message: 'Must be a POST request' })
     }
 
-    return res.json({ message: 'No managed type' })
-  } catch (err) {
-    return res.status(500).send({ message: 'Error revalidating' })
-  }
+    const signature = req.headers[SIGNATURE_HEADER_NAME].toString()
+    const body = await readBody(req) // Read the body into a string
+    if (!isValidSignature(body, signature, secret)) {
+        // temporary during dev
+        return res.status(400).json({ message: `Invalid signature - ${secret}, ${body}, ${signature}` })
+    }
+
+    if (!isValidRequest(req, secret)) {
+    res.status(401).json({ message: 'Invalid signature' })
+        return
+    }
+
+    try {
+        const {
+            body: { type, slug },
+        } = req
+
+        switch (type) {
+            case 'project':
+                await res.revalidate(`/projects/${slug}`)
+                await res.revalidate(`/projects`)
+
+                return res.json({ message: `Revalidated '${type}' with slug '${slug}'` })
+        }
+
+        return res.json({ message: 'No managed type' })
+    } catch (err) {
+        return res.status(500).send({ message: 'Error revalidating' })
+    }
 }
