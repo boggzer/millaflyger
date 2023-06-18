@@ -92,7 +92,7 @@ const secret = process.env.SANITY_WEBHOOK_SECRET
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method !== 'POST') {
     console.error('Must be a POST request')
-    return res.status(401).json({ message: 'Must be a POST request' })
+    return res.status(405).json({ message: 'Must be a POST request' })
   }
 
   if (!isValidRequest(req, secret)) {
