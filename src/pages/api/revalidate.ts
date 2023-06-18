@@ -1,86 +1,4 @@
-/* import { NextApiRequest, NextApiResponse } from 'next';
-
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    if (req.query.secret !== process.env.NEXT_PUBLIC_API_ROUTE_TOKEN) {
-        return res.status(401).json({ message: 'Invalid token' });
-    }
-
-    try {
-        const paths = (req.query.paths as string).split(',');
-
-        for (let i = 0; i < paths.length; i++) {
-            await res.revalidate(paths[i]);
-        }
-
-        return res.json({ revalidated: true });
-    } catch (err) {
-        return res.status(500).send('Error revalidating');
-    }
-} */
-
-/* export function createImprovedPublishAction(originalPublishAction) {
-    const PublishAndRevalidate = (props) => {
-        const originalResult = originalPublishAction(props)
-
-        const [status, setStatus] = useState('pending');
-
-        const label = useMemo(() => {
-            switch (status) {
-                case 'success':
-                    return 'Updated';
-                case 'error':
-                    return 'Something went wrong';
-                default:
-                    return 'Update post';
-            }
-        }, [status]);
-
-
-        return {
-            ...originalResult,
-            onHandle: async () => {
-                // Add our custom functionality
-         /*        console.log('Hello world!')
-                if (props.type === 'project') {
-                    try {
-                        await revalidatePaths([`/projects/${props.draft.slug.current}`, '/projects']);
-
-                        setStatus('success');
-                    } catch (err) {
-                        setStatus('error');
-                    } finally {
-                        // Signal that the action is completed
-                        props.onComplete();
-                    }
-                } 
-                // then delegate to original handler
-                originalResult.onHandle()
-            },
-        }
-    }
-    return PublishAndRevalidate
-} 
-
-async function revalidatePaths(paths: string[]) {
-    try {
-        const endpoint = new URL('https://www.millaflyger.com/api/projects');
-
-        endpoint.searchParams.append('paths', paths.join(','));
-        endpoint.searchParams.append('secret', import.meta.env.SANITY_STUDIO_API_ROUTE_TOKEN);
-
-        return fetch(endpoint.href);
-    } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err);
-
-        return null;
-    }
-} */
-
-import { isValidRequest, isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
+import { parseBody } from 'next-sanity/webhook'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
@@ -89,46 +7,28 @@ type Data = {
 
 const secret = process.env.SANITY_WEBHOOK_SECRET || '123TEST' // temporary during dev
 
-async function readBody(readable) {
-    const chunks = []
-    for await (const chunk of readable) {
-      chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
-    }
-    return Buffer.concat(chunks).toString('utf8')
-  }
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     if (req.method !== 'POST') {
         console.error('Must be a POST request')
         return res.status(405).json({ message: 'Must be a POST request' })
     }
 
-    const signature = req.headers[SIGNATURE_HEADER_NAME].toString()
-    const body = await readBody(req) // Read the body into a string
-    if (!isValidSignature(body, signature, secret)) {
-        // temporary during dev
-        return res.status(400).json({ message: `Invalid signature - ${secret}, ${body}, ${signature}` })
-    }
+    const { isValidSignature, body } = await parseBody(req, secret);
 
-    if (!isValidRequest(req, secret)) {
-    res.status(401).json({ message: 'Invalid signature' })
-        return
+    if (!isValidSignature) {
+        const message = 'Invalid signature';
+        console.warn(message);
+        return res.status(401).json({ message });
     }
 
     try {
-        const {
-            body: { type, slug },
-        } = req
+        const { type, slug } = body;
 
-        switch (type) {
-            case 'project':
-                await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
-                await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects`)
+        await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
+        await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects`)
 
-                return res.json({ message: `Revalidated '${type}' with slug '${slug}'` })
-        }
+        return res.json({ message: `Revalidated '${type}' with slug '${slug}'` })
 
-        return res.json({ message: 'No managed type' })
     } catch (err) {
         return res.status(500).send({ message: 'Error revalidating' })
     }
