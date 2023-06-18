@@ -2,7 +2,8 @@ import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-    message: string
+    message: string;
+    success?: boolean;
 }
 
 const secret = process.env.SANITY_WEBHOOK_SECRET || '123TEST' // temporary during dev
@@ -10,7 +11,7 @@ const secret = process.env.SANITY_WEBHOOK_SECRET || '123TEST' // temporary durin
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     const signature = req.headers[SIGNATURE_HEADER_NAME]
     const body = await readBody(req) // Read the body into a string
-    if (!isValidSignature(body, signature, secret)) {
+    if (!isValidSignature(body, signature as any, secret)) {
         res.status(401).json({ success: false, message: 'Invalid signature' })
         return
     }
