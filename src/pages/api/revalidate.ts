@@ -1,14 +1,9 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
-    message: string;
-    success?: boolean;
-}
+const secret = process.env.SANITY_WEBHOOK_SECRET;
 
-const secret = process.env.SANITY_WEBHOOK_SECRET || '123TEST' // temporary during dev
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Record<string, unknown>>) {
     const signature = req.headers[SIGNATURE_HEADER_NAME]
     const body = await readBody(req) // Read the body into a string
     if (!isValidSignature(body, signature as any, secret)) {
@@ -17,15 +12,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     try {
-        const { body: { type, slug } } = req;
+        const { body: { slug } } = req;
 
-        await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
+        //await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
         await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects`)
 
-        return res.json({ message: `Revalidated '${type}' with slug '${slug}'` })
+        return res.json({ revalidated: true })
 
     } catch (err) {
-        return res.status(500).send({ message: 'Error revalidating' })
+        return res.status(500).send({ message: 'Error revalidating', error: err, res: Object.keys(res).join(', ') })
     }
 }
 
