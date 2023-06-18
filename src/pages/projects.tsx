@@ -6,6 +6,7 @@ import { PageProps } from '../types';
 import { client } from '../lib/sanity.client';
 import { getProjects } from '../lib/queries';
 import { useImageGrid } from 'hooks';
+import { GetStaticPropsResult } from 'next';
 
 type QueryData = {
   slug: string;
@@ -62,7 +63,7 @@ export default function Overview({ data, status }: PageProps<QueryData[]>) {
           <ProjectImageLink
             key={slug}
             source={image.url}
-            style={{ '--grid-row-end': `span ${rest.mobile.gridRowEnd}`} as CSSProperties}
+            style={{ '--grid-row-end': `span ${rest.mobile.gridRowEnd}` } as CSSProperties}
             title={title}
             href={`/projects/${slug}`}
           />
@@ -74,9 +75,9 @@ export default function Overview({ data, status }: PageProps<QueryData[]>) {
   );
 }
 
-export async function getStaticProps(): Promise<{
-  props: PageProps<QueryData[]>;
-}> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<PageProps<QueryData[]>>
+> {
   try {
     const data = await client.fetch(getProjects);
 
@@ -84,7 +85,8 @@ export async function getStaticProps(): Promise<{
       props: {
         data,
         status: 200,
-      }
+      },
+      revalidate: 10
     };
   } catch (err) {
     return {

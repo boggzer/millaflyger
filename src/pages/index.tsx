@@ -3,6 +3,7 @@ import { PageProps } from '@types';
 import { PortableContent } from '@components';
 import { client } from '../lib/sanity.client';
 import { getIndexPage } from '../lib/queries';
+import { GetStaticPropsResult } from 'next'
 
 export default function IndexPage({
   data = { content: [] },
@@ -16,9 +17,9 @@ export default function IndexPage({
   );
 }
 
-export async function getStaticProps(): Promise<{
-  props: PageProps<{ content?: any[] }>;
-}> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<PageProps<{ content?: any[] }>>
+> {
   try {
     const data = await client.fetch(getIndexPage);
 
@@ -26,7 +27,8 @@ export async function getStaticProps(): Promise<{
       props: {
         data,
         status: 200,
-      }
+      },
+      revalidate: 10
     };
   } catch (err) {
     return {

@@ -4,8 +4,15 @@ import React, { CSSProperties } from 'react';
 import { client } from '../../lib/sanity.client';
 import { useRouter } from 'next/router';
 import { FlexGridImage, FlexGrid, Text } from '@components';
-import { TextType } from '@types';
+import { PageProps, TextType } from '@types';
 import styles from '@styles/project.module.scss';
+import { GetStaticPropsResult } from 'next';
+
+type QueryData = {
+  slug: string;
+  title: string;
+  rows: any[];
+};
 
 interface Props {
   data?: {
@@ -53,16 +60,29 @@ export async function getStaticProps({
   params,
 }: {
   params: { slug?: string };
-}) {
-  const data = await client.fetch(getProjectBySlug, {
-    slug: params.slug,
-  });
+}): Promise<
+  GetStaticPropsResult<PageProps<QueryData[]>>
+> {
+  try {
+    const data = await client.fetch(getProjectBySlug, {
+      slug: params.slug,
+    });
 
-  return {
-    props: {
-      data,
-    }
-  };
+    return {
+      props: {
+        data,
+        status: 200
+      },
+      revalidate: 10
+    };
+  } catch (err) {
+    return {
+      props: {
+        data: err,
+        status: 500,
+      },
+    };
+  }
 }
 
 export async function getStaticPaths() {
