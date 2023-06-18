@@ -86,7 +86,7 @@ export async function getStaticProps(): Promise<
         data,
         status: 200,
       },
-      revalidate: 10
+      revalidate: 60
     };
   } catch (err) {
     return {
