@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const { body: { slug } } = req;
         message.push(`Slug: ${slug}`)
         //await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
-        await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects`)
+        await res.revalidate(`/projects`)
 
         return res.json({ message })//json({ revalidated: true })
 
