@@ -6,6 +6,6 @@ const dataset =
 export const sanityConfig = {
   dataset,
   projectId,
-  useCdn: true,
+  useCdn: false,
   apiVersion: '2023-05-28',
 };
