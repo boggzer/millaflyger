@@ -6,21 +6,25 @@ const secret = process.env.SANITY_WEBHOOK_SECRET;
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Record<string, unknown>>) {
     const signature = req.headers[SIGNATURE_HEADER_NAME]
     const body = await readBody(req) // Read the body into a string
+
+    const message = [`Secret: ${secret}`, `Signature: ${signature}`, `Body: ${body}`]
     if (!isValidSignature(body, signature as any, secret)) {
-        res.status(401).json({ success: false, message: 'Invalid signature' })
-        return
+        //res.status(401).json({ success: false, message: `Invalid signature - ${secret}, ${body}, ${signature}`, })
+        //return
+        message.push('Invalid signature.')
     }
 
     try {
         const { body: { slug } } = req;
-
+        message.push(`Slug: ${slug}`)
         //await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects/${slug}`)
         await res.revalidate(`https://nextjs-ssr-test.d3v2rqv1ub3q0i.amplifyapp.com/projects`)
 
-        return res.json({ revalidated: true })
+        return res.json({ message })//json({ revalidated: true })
 
     } catch (err) {
-        return res.status(500).send({ message: 'Error revalidating', error: err, res: Object.keys(res).join(', ') })
+        message.push(`Error: ${err}`);
+        return res.status(500).send({ message });//send({ message: 'Error revalidating', error: err, res: Object.keys(res).join(', ') })
     }
 }
 
