@@ -15,7 +15,7 @@ export default {
     {
       name: 'slug',
       title: 'Slug',
-      description: "Finish writing the project title and then click 'generate'.",
+      description: `Finish writing the project title and then click 'generate'.`,
       type: 'slug',
       options: {
         source: 'title',
@@ -23,11 +23,24 @@ export default {
       },
     },
     {
+      name: 'coverImage',
+      type: 'image',
+      title: 'Cover image',
+      description:
+        '* Required. Cover image showed in the list of all projects at /projects.',
+      accept: 'image/*',
+      validation: (Rule) =>
+        Rule.custom((file) =>
+          typeof file === 'undefined' ? 'Image file is required' : true,
+        ),
+    },
+    {
       name: 'images',
       type: 'array',
       description: '* Required',
       title: 'Images',
-      validation: (Rule) => Rule.custom((blocks) => (blocks.length ? true : 'Image is required.')),
+      validation: (Rule) =>
+        Rule.custom((blocks) => (blocks.length ? true : 'Image is required.')),
       of: [
         {
           title: 'Image row',
@@ -46,8 +59,14 @@ export default {
                       name: 'alt',
                       type: 'string',
                       title: 'Alternative text',
-                      description: 'Write a sentence of what the image depicts. This is important for SEO and accessibility.',
-                      validation: (Rule) => [Rule.max(100), Rule.min(10).warning('Please include a thorough description.')],
+                      description:
+                        'Write a sentence of what the image depicts. This is important for SEO and accessibility.',
+                      validation: (Rule) => [
+                        Rule.max(100),
+                        Rule.min(10).warning(
+                          'Please include a thorough description.',
+                        ),
+                      ],
                     },
                     {
                       name: 'file',
@@ -55,7 +74,12 @@ export default {
                       title: 'Image file',
                       accept: 'image/*',
                       description: '* Required',
-                      validation: (Rule) => Rule.custom((file) => (typeof file === 'undefined' ? 'Image file is required' : true)),
+                      validation: (Rule) =>
+                        Rule.custom((file) =>
+                          typeof file === 'undefined'
+                            ? 'Image file is required'
+                            : true,
+                        ),
                     },
                   ],
                   preview: {

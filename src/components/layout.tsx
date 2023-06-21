@@ -1,19 +1,25 @@
-import Header from './header';
 import React from 'react';
 import styles from '@styles/layout.module.scss';
-import { withRouter } from 'next/router';
 import { NextComponentType } from 'next';
+import { withRouter } from 'next/router';
+import ExitPreviewButton from './ExitPreviewButton';
+import Header from './Header';
 
 interface Props
   extends React.PropsWithChildren,
-  React.HTMLAttributes<HTMLDivElement> { }
+    React.HTMLAttributes<HTMLDivElement> {
+  preview?: boolean;
+}
 
-function Layout({ children }: Props) {
+function Layout({ children, preview }: Props) {
   return (
-    <div className={styles.container}>
-      <Header />
-      <div className={styles.innerContainer}>{children}</div>
-    </div>
+    <>
+      {preview && <ExitPreviewButton />}
+      <div className={styles.container}>
+        <Header />
+        <div className={styles.innerContainer}>{children}</div>
+      </div>
+    </>
   );
 }
 

@@ -1,12 +1,11 @@
 import React from 'react';
 import { CSSProperties } from 'styled-components';
-import Grid from '../components/grid';
+import Grid from '../components/Grid';
 import { ProjectImageLink } from '@components';
 import { PageProps } from '../types';
-import { client } from '../lib/sanity.client';
-import { getProjects } from '../lib/queries';
 import { useImageGrid } from 'hooks';
 import { GetStaticPropsResult } from 'next';
+import { fetchProjects } from '@utils';
 
 type QueryData = {
   slug: string;
@@ -79,7 +78,7 @@ export async function getStaticProps(): Promise<
   GetStaticPropsResult<PageProps<QueryData[]>>
 > {
   try {
-    const data = await client.fetch(getProjects);
+    const data = await fetchProjects();
 
     return {
       props: {

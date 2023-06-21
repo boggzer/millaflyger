@@ -1,14 +1,16 @@
-export { default as Button } from './button';
-export { default as Grid } from './grid';
-export { default as FlexGrid } from './flexGrid';
-export { default as FlexGridImage } from './flexGridImage';
-export { default as Header } from './header';
-export { default as Icon, IconType } from './icon'
-export { default as Image } from './image';
-export { default as Layout } from './layout';
-export { default as Link } from './link'
-export { default as Menu } from './menu';
-export { default as PortableContent } from './portableContent';
-export { default as Text } from './text'
-export { default as ProjectImageLink } from './projectImageLink'
-
+export { default as Button } from './Button';
+export { default as ExitPreviewButton } from './ExitPreviewButton';
+export { default as FlexGrid } from './FlexGrid';
+export { default as FlexGridImage } from './FlexGridImage';
+export { default as Grid } from './Grid';
+export { default as Header } from './Header';
+export { default as Icon, IconType } from './Icon';
+export { default as Image } from './Image';
+export { default as Layout } from './Layout';
+export { default as Link } from './Link';
+export { default as Menu } from './Menu';
+export { default as PortableContent } from './PortableContent';
+export { default as PreviewProject } from './PreviewProject';
+export { default as ProjectImageLink } from './ProjectImageLink';
+export { default as Project } from './Project';
+export { default as Text } from './Text';

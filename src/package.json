@@ -25,6 +25,7 @@
     "react-spring": "^8.0.27",
     "react-transition-group": "^4.4.2",
     "react-use": "^15.3.8",
+    "sanity-plugin-iframe-pane": "^2.3.1",
     "styled-components": "^5.3.5",
     "svg-text-wrap": "0.0.1"
   },
@@ -55,6 +56,7 @@
     "customize-cra": "^1.0.0",
     "jsdom": "^20.0.3",
     "react-app-rewired": "^2.2.1",
+    "sanity": "^3.12.2",
     "sanity-codegen": "^0.9.8",
     "sass": "^1.57.1"
   }

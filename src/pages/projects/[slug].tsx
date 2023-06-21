@@ -1,12 +1,11 @@
-import { getProjectBySlug, getProjectSlugs } from '../../lib/queries';
-
-import React, { CSSProperties } from 'react';
-import { client } from '../../lib/sanity.client';
+import React, { lazy } from 'react';
 import { useRouter } from 'next/router';
-import { FlexGridImage, FlexGrid, Text } from '@components';
-import { PageProps, TextType } from '@types';
-import styles from '@styles/project.module.scss';
+import { Project } from '@components';
+import { PageProps } from '@types';
+import { fetchProject, fetchProjectSlugs } from '@utils';
 import { GetStaticPropsResult } from 'next';
+import { PreviewSuspense } from 'next-sanity/preview';
+const PreviewProject = lazy(() => import('../../components/PreviewProject'));
 
 type QueryData = {
   slug: string;
@@ -20,60 +19,58 @@ interface Props {
     slug: string;
     rows: { images: { url: string; metadata: any }[] }[];
   };
+  preview?: boolean;
 }
 
-export default function ProjectPage({ data }: Props) {
+export default function ProjectPage({ data, preview }: Props) {
   const router = useRouter();
   const slug = data?.slug;
+
+  if (preview && router.asPath) {
+    return (
+      <PreviewSuspense fallback={'loading'}>
+        <PreviewProject
+          params={{ slug: router.query.slug }}
+          url={{ path: router.asPath }}
+        />
+      </PreviewSuspense>
+    );
+  }
 
   if (!router.isFallback && !slug) {
     return <div>Error</div>;
   }
 
-  return (
-    <div>
-      <Text type={TextType.H1} className={styles.container}>
-        {data?.title}
-      </Text>
-      <FlexGrid gap='0.5rem'>
-        {data?.rows?.map(({ images }, index) =>
-          images.map((image) => (
-            <FlexGridImage
-              key={`${index}_${data?.slug}`}
-              flexBasis={`${(100 / images.length).toFixed(2)}%`}
-              source={image.url}
-              style={
-                {
-                  '--color-placeholder':
-                    image.metadata.palette.lightMuted.background,
-                } as CSSProperties
-              }
-            />
-          )),
-        )}
-      </FlexGrid>
-    </div>
-  );
+  return <Project data={data} />;
 }
 
 export async function getStaticProps({
   params,
+  preview,
 }: {
   params: { slug?: string };
+  preview?: boolean;
 }): Promise<
-  GetStaticPropsResult<PageProps<QueryData[]>>
+  GetStaticPropsResult<PageProps<QueryData[]> & { preview?: boolean }>
 > {
+  if (preview) {
+    return {
+      props: {
+        preview,
+        status: 200,
+      },
+    };
+  }
+
   try {
-    const data = await client.fetch(getProjectBySlug, {
-      slug: params.slug,
-    });
+    const data = await fetchProject(params.slug);
 
     return {
       props: {
         data,
-        status: 200
+        status: 200,
       },
-      revalidate: 60
+      revalidate: 60,
     };
   } catch (err) {
     return {
@@ -86,7 +83,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const paths = await client.fetch(getProjectSlugs);
+  const paths = await fetchProjectSlugs();
 
   return {
     paths: paths.map((slug: string) => ({ params: { slug } })),

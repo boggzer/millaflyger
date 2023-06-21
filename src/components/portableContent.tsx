@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import Image from './image';
+import Image from './Image';
 import { PortableText } from '@portabletext/react';
 
 interface Props extends ComponentProps<typeof PortableText> {}
