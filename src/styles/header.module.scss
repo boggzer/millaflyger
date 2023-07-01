@@ -16,20 +16,18 @@ $fixed-col-width: 1.875rem;
   height: $main-title-height;
   margin: var(--page-margin) var(--page-margin) 0;
   display: grid;
-  grid-template-columns: var(
-    --grid-columns
-  ); /* $fixed-col-width 1fr $fixed-col-width; */
+  grid-template-columns: var(--grid-columns);
   align-items: center;
   padding-bottom: var(--pad-bottom);
 
   @include media('tablet-and-up') {
     --page-margin: #{-$spacing-desktop};
+    --grid-columns: 1fr 1fr;
   }
 }
 
 .title-container {
   display: flex;
-  // justify-content: center;
   white-space: nowrap;
   align-items: center;
   justify-content: center;
@@ -91,4 +89,8 @@ $fixed-col-width: 1.875rem;
 .menu-button {
   height: 100%;
   width: $spacing-mobile * 2 + 1.5rem;
+  
+  @include media('tablet-and-up') {
+    display: none;
+  }
 }
