@@ -23,6 +23,6 @@
       "@hooks": ["src/hooks/index.ts"]
     }
   },
-  "exclude": ["node_modules", "styles", ".next"],
+  "exclude": ["node_modules", "styles", ".next", "build", "public"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
