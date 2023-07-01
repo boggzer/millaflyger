@@ -16,7 +16,8 @@
     "install:src": "cd src && yarn install --frozen-lockfile",
     "install:studio": "cd src/studio && yarn install --frozen-lockfile",
     "studio": "cd src/studio && yarn dev",
-    "update-deps": "yarn upgrade && cd src && yarn upgrade"
+    "update-deps": "yarn upgrade && cd src && yarn upgrade",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.5",
@@ -32,6 +33,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-standard": "^4.0.1",
+    "husky": ">=6",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2"
@@ -56,5 +58,17 @@
     "next-sanity": "^5.1.0",
     "react-dom": "^18.2.0",
     "typescript": "^4.6.3"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.ts": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.html": [
+      "eslint",
+      "prettier --write"
+    ],
+    "*.scss": "prettier --write"
   }
 }
