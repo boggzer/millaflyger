@@ -8,8 +8,12 @@ interface Props extends PropsWithChildren {
 export default function FlexGrid({ children, gap }: Props) {
   const style = {
     '--gap': gap,
-    '--negative-gap': `-${gap}`
+    '--negative-gap': `-${gap}`,
   } as CSSProperties;
 
-  return <div className={styles.container} style={style}>{children}</div>;
+  return (
+    <div className={styles.container} style={style}>
+      {children}
+    </div>
+  );
 }
