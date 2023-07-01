@@ -4,16 +4,29 @@ import {
   getProjectSlugs,
   getProjects,
 } from '../lib/queries';
-import { client } from '../lib/sanity.client';
+import { getClient } from '../lib/getClient';
 
-export const fetchIndexPage = async () => await client.fetch(getIndexPage);
+export const fetchIndexPage = async (previewToken?: string) =>
+  await getClient(previewToken).fetch(getIndexPage);
 
-export const fetchProjectSlugs = async () =>
-  await client.fetch(getProjectSlugs);
+export const fetchProjectSlugs = async (previewToken?: string) =>
+  await getClient(previewToken).fetch(getProjectSlugs);
 
-export const fetchProject = async (slug: string) =>
-  await client.fetch(getProjectBySlug, {
+export const fetchProject = async (slug: string, previewToken?: string) =>
+  await getClient(previewToken).fetch(getProjectBySlug, {
     slug,
   });
 
-export const fetchProjects = async () => await client.fetch(getProjects);
+export const fetchProjects = async (previewToken?: string) =>
+  await getClient(previewToken).fetch(getProjects);
+
+export const getPreview = (context) => {
+  const preview = context.draftMode || false;
+  const previewToken = preview ? process.env.SANITY_READ_TOKEN : ``;
+  if (preview && !previewToken) {
+    throw new Error(
+      `Preview mode is active, but SANITY_READ_TOKEN is not set in environment variables`,
+    );
+  }
+  return { preview, previewToken };
+};

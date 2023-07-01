@@ -4,7 +4,11 @@ import '@styles/_globals';
 import { AppProps } from 'next/app';
 import { Chivo, Zen_Antique } from 'next/font/google';
 
-const chivo = Chivo({ display: 'fallback', subsets: ['latin'] });
+const chivo = Chivo({
+  weight: ['200', '400'],
+  display: 'fallback',
+  subsets: ['latin'],
+});
 
 const zenAntique = Zen_Antique({
   weight: '400',

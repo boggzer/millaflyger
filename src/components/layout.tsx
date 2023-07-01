@@ -8,13 +8,14 @@ import Header from './Header';
 interface Props
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {
-  preview?: boolean;
+  isPreview?: boolean;
+  router?: Record<string, any>;
 }
 
-function Layout({ children, preview }: Props) {
+function Layout({ children, router }: Props) {
   return (
     <>
-      {preview && <ExitPreviewButton />}
+      {router.isPreview && <ExitPreviewButton />}
       <div className={styles.container}>
         <Header />
         <div className={styles.innerContainer}>{children}</div>

@@ -1,8 +1,5 @@
-import {
-  DeskToolOptions,
-  ListItemBuilder,
-  StructureBuilder,
-} from 'sanity/desk';
+import React from 'react';
+import { ListItemBuilder, StructureBuilder } from 'sanity/desk';
 
 import { Icon } from './utils/components';
 
@@ -34,7 +31,7 @@ export const structure = (S: StructureBuilder) =>
           if (['index', 'about'].includes(`${item.getId()}`)) {
             return acc;
           }
-          
+
           return [...acc, item.icon(() => <Icon type={`${item.getId()}`} />)];
         },
         [],

@@ -4,11 +4,11 @@ import { DefaultDocumentNodeResolver } from 'sanity/desk';
 
 function getPreviewUrl(doc: SanityDocument) {
   const host =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : process.env.SANITY_BASE_URL;
+    import.meta.env.VITE_USER_NODE_ENV === 'development'
+      ? 'http://localhost:3000/'
+      : import.meta.env.SANITY_STUDIO_BASE_URL;
   // TODO allow preview of other types like index page
-  return `${host}/api/preview?slug=/projects/${doc?.slug?.current ?? ''}`;
+  return `${host}api/preview?slug=${doc?.slug?.current ?? ''}`;
 }
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
@@ -22,7 +22,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
         S.view
           .component(Iframe)
           .options({
-            url: getPreviewUrl,
+            url: getPreviewUrl
           })
           .title('Preview'),
       ]);

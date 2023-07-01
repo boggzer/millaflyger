@@ -71,7 +71,7 @@ const useImageGrid = <T extends Record<string, any> = Record<string, any>>({
     ...columns.reduce((styles, col) => ({
         ...styles,
         [col.id]: {
-            gridRowEnd: ~~(((1 / obj.image.aspectRatio) * 10))
+            gridRowEnd: ~~(((1 / obj.image?.aspectRatio) * 10))
         }
     }), {})
 }))

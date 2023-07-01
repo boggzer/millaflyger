@@ -12,7 +12,7 @@ interface Props {
   router?: NextRouter;
 }
 
-export default function Menu({ isOpen, toggle, router, ...rest }: Props) {
+export default function Menu({ isOpen, toggle, router }: Props) {
   const links = [
     {
       path: PAGE_PATHS.INDEX,
@@ -55,8 +55,11 @@ export default function Menu({ isOpen, toggle, router, ...rest }: Props) {
     <>
       <div className={getWrapperClasses()}>
         <div role='navigation' className={styles['list-container']}>
-          {/* TODO: Add desktop nav inside here as well https://stackoverflow.com/a/15668258 */}
-          <nav id={COMPONENT_ID.NAV_MOBILE} aria-label='Main'>
+          <nav
+            id={COMPONENT_ID.NAV_MOBILE}
+            aria-label='Main'
+            className={styles['mobile-menu']}
+          >
             <ul className={styles.list}>
               {links.map((link) => (
                 <li key={`menu-item-${link.label}`}>
@@ -67,7 +70,26 @@ export default function Menu({ isOpen, toggle, router, ...rest }: Props) {
               ))}
             </ul>
           </nav>
-          <Button onClick={toggle} aria-controls={COMPONENT_ID.NAV_MOBILE}>
+          <nav
+            id={COMPONENT_ID.NAV_DESKTOP}
+            aria-label='Main'
+            className={styles['desktop-menu']}
+          >
+            <ul className=''>
+              {links.map((link) => (
+                <li key={`menu-item-${link.label}`}>
+                  <Link href={link.path} {...getAttrs(link)}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Button
+            onClick={toggle}
+            aria-controls={COMPONENT_ID.NAV_MOBILE}
+            className={styles['mobile-menu-trigger']}
+          >
             <Icon type={IconType.MENU} />
           </Button>
         </div>

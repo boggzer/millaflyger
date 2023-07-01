@@ -1,11 +1,12 @@
-import React, { lazy } from 'react';
+import React from 'react';
+import { GetStaticPaths, GetStaticPropsResult } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { Project } from '@components';
+import { Project, PreviewProject } from '@components';
 import { PageProps } from '@types';
-import { fetchProject, fetchProjectSlugs } from '@utils';
-import { GetStaticPropsResult } from 'next';
-import { PreviewSuspense } from 'next-sanity/preview';
-const PreviewProject = lazy(() => import('../../components/PreviewProject'));
+import { fetchProject, fetchProjectSlugs, getPreview } from '@utils';
+
+const PreviewProvider = dynamic(() => import('../../components/PreviewProvider'));
 
 type QueryData = {
   slug: string;
@@ -20,20 +21,21 @@ interface Props {
     rows: { images: { url: string; metadata: any }[] }[];
   };
   preview?: boolean;
+  previewToken?: string;
 }
 
-export default function ProjectPage({ data, preview }: Props) {
+export default function ProjectPage({ data, preview, previewToken }: Props) {
   const router = useRouter();
   const slug = data?.slug;
 
   if (preview && router.asPath) {
     return (
-      <PreviewSuspense fallback={'loading'}>
+      <PreviewProvider previewToken={previewToken}>
         <PreviewProject
+          data={data}
           params={{ slug: router.query.slug }}
-          url={{ path: router.asPath }}
         />
-      </PreviewSuspense>
+      </PreviewProvider>
     );
   }
 
@@ -46,28 +48,25 @@ export default function ProjectPage({ data, preview }: Props) {
 
 export async function getStaticProps({
   params,
-  preview,
+  ...context
 }: {
   params: { slug?: string };
   preview?: boolean;
 }): Promise<
-  GetStaticPropsResult<PageProps<QueryData[]> & { preview?: boolean }>
+  GetStaticPropsResult<
+    PageProps<QueryData[]> & { preview?: boolean; previewToken?: string }
+  >
 > {
-  if (preview) {
-    return {
-      props: {
-        preview,
-        status: 200,
-      },
-    };
-  }
+  const { preview, previewToken } = getPreview(context);
 
   try {
-    const data = await fetchProject(params.slug);
+    const data = await fetchProject(params.slug, previewToken);
 
     return {
       props: {
         data,
+        preview,
+        previewToken,
         status: 200,
       },
       revalidate: 60,
@@ -82,11 +81,11 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await fetchProjectSlugs();
 
   return {
-    paths: paths.map((slug: string) => ({ params: { slug } })),
+    paths,
     fallback: true,
   };
-}
+};

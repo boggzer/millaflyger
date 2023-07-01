@@ -2,8 +2,8 @@
 export const getProjects = `*[_type == 'project']{
   title,
   'slug': slug.current,
-  'image': images[0].imageRow[0]{
-    ...(file.asset->{
+  'image': coverImage{
+    ...(asset->{
       'url': @.url,
       'lqip': @.metadata.lqip,
       'aspectRatio': @.metadata.dimensions.aspectRatio,
@@ -11,6 +11,7 @@ export const getProjects = `*[_type == 'project']{
     })
   }
 }`;
+
 export const getProjectBySlug = `*[_type == 'project' && slug.current == $slug][0]{
   title,
   'slug': slug.current,
@@ -18,7 +19,10 @@ export const getProjectBySlug = `*[_type == 'project' && slug.current == $slug][
     'images': imageRow[].file.asset->
   }
 }`;
-export const getProjectSlugs = `*[_type == 'project' && defined(slug.current)][].slug.current`;
+
+export const getProjectSlugs = `*[_type == 'project' && defined(slug.current)][]{
+  "params": { "slug": slug.current }
+}`;
 
 // Index page
 export const getIndexPage = `*[_type == 'index'][0]`;

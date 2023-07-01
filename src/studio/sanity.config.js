@@ -3,7 +3,7 @@ import { deskTool } from 'sanity/desk';
 import schemas from './schemas/schema';
 import { structure } from './deskStructure';
 import { visionTool } from '@sanity/vision';
-import { defaultDocumentNode } from '../defaultDocumentNode';
+import { defaultDocumentNode } from './defaultDocumentNode';
 
 const projectId = import.meta.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = import.meta.env.NEXT_PUBLIC_SANITY_DATASET;
