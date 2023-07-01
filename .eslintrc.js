@@ -24,12 +24,12 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:@next/next/recommended'
+    'plugin:@next/next/recommended',
+    'prettier',
   ],
 
   rules: {
-    'no-unused-vars': 'off',
-    quotes: ['warn', 'single', { "allowTemplateLiterals": true }],
+    quotes: ['warn', 'single', { allowTemplateLiterals: true }],
     indent: 'off',
     'no-trailing-spaces': 'warn',
     'no-console': 'warn',
@@ -41,7 +41,7 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/no-empty-interface': ['off'],
     'react/no-unknown-property': ['off'],
-    '@typescript-eslint/explicit-module-boundary-types': ['off']
+    '@typescript-eslint/explicit-module-boundary-types': ['off'],
   },
   settings: {
     react: {

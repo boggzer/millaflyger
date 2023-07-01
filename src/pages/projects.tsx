@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSProperties } from 'styled-components';
 import { ProjectImageLink, Grid } from '@components';
 import { PageProps } from '../types';
-import { useImageGrid } from 'hooks';
+import { useImageGrid } from '@hooks';
 import { GetStaticPropsResult } from 'next';
 import { fetchProjects, getPreview } from '@utils';
 

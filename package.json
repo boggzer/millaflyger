@@ -17,7 +17,8 @@
     "install:studio": "cd src/studio && yarn install --frozen-lockfile",
     "studio": "cd src/studio && yarn dev",
     "update-deps": "yarn upgrade && cd src && yarn upgrade",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit-lint": "pretty-quick --staged && npx eslint --cache --fix && yarn tsc --noemit"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.5",
@@ -34,9 +35,10 @@
     "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-standard": "^4.0.1",
     "husky": ">=6",
-    "lint-staged": "^10.5.4",
+    "lint-staged": "^13.2.3",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "pretty-quick": "^3.1.3"
   },
   "repository": {
     "type": "git",
@@ -60,15 +62,7 @@
     "typescript": "^4.6.3"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.ts": [
-      "prettier --write",
-      "eslint"
-    ],
-    "*.html": [
-      "eslint",
-      "prettier --write"
-    ],
-    "*.scss": "prettier --write"
+    "*.tsx": "yarn pre-commit-lint",
+    "*.ts": "yarn pre-commit-lint"
   }
 }

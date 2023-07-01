@@ -62,3 +62,6 @@ src/studio/README.md
 
 # Vercel
 .vercel
+
+#Typescript
+*.tsbuildinfo

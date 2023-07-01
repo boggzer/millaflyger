@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -20,28 +16,13 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@components": [
-        "components/index.ts"
-      ],
-      "@styles/*": [
-        "styles/*.scss"
-      ],
-      "@types": [
-        "types/index.ts"
-      ],
-      "@utils": [
-        "utils/index.ts"
-      ]
+      "@components": ["src/components/index.ts"],
+      "@styles/*": ["src/styles/*.scss"],
+      "@types": ["src/types/index.ts"],
+      "@utils": ["src/utils/index.ts"],
+      "@hooks": ["src/hooks/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "styles",
-    ".next"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules", "styles", ".next"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
