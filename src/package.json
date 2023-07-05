@@ -16,6 +16,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "aws-amplify": "^4.3.20",
     "aws-amplify-react": "^5.1.9",
+    "framer-motion": "^10.12.18",
     "next": "^13.4.4",
     "next-sanity": "^5.1.0",
     "node-sass": "^8.0.0",
