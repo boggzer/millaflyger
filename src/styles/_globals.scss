@@ -1,11 +1,14 @@
 @import './_helpers.scss';
 
 html {
-  background: $grey;
   color: $darkgrey;
   font-family: $sans-serif;
   font-size: $default-font-size;
   height: 100%;
+}
+
+body {
+  overflow: auto;
 }
 
 body,
@@ -74,4 +77,14 @@ h6 {
   @include media('tablet-and-up') {
     font-size: $h5-size-desktop;
   }
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

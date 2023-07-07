@@ -1,17 +1,33 @@
 @import './helpers.scss';
-
+/* --color-bg: repeat 250px url('/assets/noise-bg.svg'), var(--grey);
+--cross-overlay: top / cover no-repeat url('/assets/cross.svg'); */
 .container {
-  margin: auto;
-  padding: $spacing-mobile;
-  width: 1250px;
-  max-width: 100%;
-  box-sizing: border-box;
+  --empty-svg: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+
+  height: 100vh;
+  overflow: auto;
+  background: var(--main-bg); /*  var(--overlay-bg, var(--empty-svg)), */
 
   @include media('tablet-and-up') {
-    padding: $spacing-desktop;
+    display: flex;
   }
 }
 
 .inner-container {
-  display: flex;
+  margin: auto;
+  padding: $spacing-mobile;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  @include media('tablet-only') {
+    width: 1250px;
+    margin-top: -1.75rem;
+  }
+
+  @include media('tablet-and-up') {
+    padding: $spacing-desktop;
+    width: 100%;
+    max-width: 1250px;
+    height: 100vh;
+  }
 }

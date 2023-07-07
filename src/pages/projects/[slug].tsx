@@ -1,12 +1,19 @@
-import React from 'react';
-import { GetStaticPaths, GetStaticPropsResult } from 'next';
+import React, { forwardRef } from 'react';
+import type { GetStaticPaths, GetStaticPropsResult } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { Project, PreviewProject } from '@components';
-import { PageProps } from '@types';
+import {
+  Project,
+  PreviewProject,
+  PageTransition,
+  type PageTransitionRef,
+} from '@components';
+import type { PageProps } from '@types';
 import { fetchProject, fetchProjectSlugs, getPreview } from '@utils';
 
-const PreviewProvider = dynamic(() => import('../../components/PreviewProvider'));
+const PreviewProvider = dynamic(
+  () => import('../../components/PreviewProvider'),
+);
 
 type QueryData = {
   slug: string;
@@ -24,17 +31,19 @@ interface Props {
   previewToken?: string;
 }
 
-export default function ProjectPage({ data, preview, previewToken }: Props) {
+const ProjectPage = (
+  { data, preview, previewToken }: Props,
+  ref: PageTransitionRef,
+) => {
   const router = useRouter();
   const slug = data?.slug;
 
   if (preview && router.asPath) {
     return (
       <PreviewProvider previewToken={previewToken}>
-        <PreviewProject
-          data={data}
-          params={{ slug: router.query.slug }}
-        />
+        <PageTransition ref={ref}>
+          <PreviewProject data={data} params={{ slug: router.query.slug }} />
+        </PageTransition>
       </PreviewProvider>
     );
   }
@@ -43,8 +52,12 @@ export default function ProjectPage({ data, preview, previewToken }: Props) {
     return <div>Error</div>;
   }
 
-  return <Project data={data} />;
-}
+  return (
+    <PageTransition ref={ref}>
+      <Project data={data} />
+    </PageTransition>
+  );
+};
 
 export async function getStaticProps({
   params,
@@ -89,3 +102,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: true,
   };
 };
+
+export default forwardRef(ProjectPage);

@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import styles from '@styles/layout.module.scss';
 import { NextComponentType } from 'next';
-import { withRouter } from 'next/router';
+import { NextRouter, withRouter } from 'next/router';
 import ExitPreviewButton from './ExitPreviewButton';
 import Header from './Header';
+import { PAGE_PATHS, isCurrentPage } from '@utils';
+import SkipButton from './SkipButton';
 
 interface Props
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {
-  isPreview?: boolean;
-  router?: Record<string, any>;
+  router?: NextRouter;
 }
 
-function Layout({ children, router }: Props) {
+function Layout({ children, router }: Props, ref) {
+  const isIndexPage = useMemo(
+    () => isCurrentPage('/', router),
+    [router?.pathname],
+  );
+
   return (
     <>
       {router.isPreview && <ExitPreviewButton />}
-      <div className={styles.container}>
+      {isIndexPage && <SkipButton href={PAGE_PATHS.PROJECTS} />}
+      <div ref={ref} className={styles.container}>
         <Header />
-        <div className={styles.innerContainer}>{children}</div>
+        <div className={styles['inner-container']}>{children}</div>
       </div>
     </>
   );
 }
 
-export default withRouter(Layout as NextComponentType<any, any, any>);
+export default withRouter(
+  forwardRef(Layout) as NextComponentType<any, any, any>,
+);

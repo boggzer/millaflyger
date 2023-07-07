@@ -1,9 +1,7 @@
 import React, { AriaAttributes, useCallback, useEffect } from 'react';
-import { Button, Icon } from '@components';
-import { COMPONENT_ID, PAGE_PATHS, isCurrentPage } from '@utils';
-import { IconType, Link } from '@components';
-
 import { NextRouter } from 'next/router';
+import { Button, Icon, IconType, Link } from '@components';
+import { COMPONENT_ID, PAGE_PATHS, isCurrentPage } from '@utils';
 import styles from '@styles/menu.module.scss';
 
 interface Props {
@@ -12,7 +10,7 @@ interface Props {
   router?: NextRouter;
 }
 
-export default function Menu({ isOpen, toggle, router }: Props) {
+export default function Menu({ isOpen, toggle, router, ...props }: Props) {
   const links = [
     {
       path: PAGE_PATHS.INDEX,
@@ -90,7 +88,7 @@ export default function Menu({ isOpen, toggle, router }: Props) {
             aria-controls={COMPONENT_ID.NAV_MOBILE}
             className={styles['mobile-menu-trigger']}
           >
-            <Icon type={IconType.MENU} />
+            <Icon type={IconType.CLOSE_CROSS} />
           </Button>
         </div>
         <div className={styles['click-area']} onClick={toggle}></div>

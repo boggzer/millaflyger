@@ -51,29 +51,40 @@ export default useImageGrid;
 */
 
 type ColumnDef = {
-    id: 'desktop' | 'mobile';
-    value: number;
-}
+  id: 'desktop' | 'mobile';
+  value: number;
+};
 
-type Result<T extends object = object> =
-    Record<ColumnDef['id'], { gridRowEnd: number; }> & T;
+type Result<T extends object = object> = Record<
+  ColumnDef['id'],
+  { gridRowEnd: number }
+> &
+  T;
 
 interface Props<T extends object> {
-    data: T[];
-    columns?: ColumnDef[];
+  data: T[];
+  columns?: ColumnDef[];
 }
 
 const useImageGrid = <T extends Record<string, any> = Record<string, any>>({
-    data,
-    columns = [{ id: 'mobile', value: 2 }, { id: 'desktop', value: 3 }]
-}: Props<T>): Result<T>[] => (data ?? []).map<Result<T>>((obj: Result<T>) => ({
+  data,
+  columns = [
+    { id: 'mobile', value: 2 },
+    { id: 'desktop', value: 3 },
+  ],
+}: Props<T>): Result<T>[] =>
+  (data ?? []).map<Result<T>>((obj: Result<T>) => ({
     ...obj,
-    ...columns.reduce((styles, col) => ({
+    ...columns.reduce(
+      (styles, col) => ({
         ...styles,
         [col.id]: {
-            gridRowEnd: ~~(((1 / obj.image?.aspectRatio) * 10))
-        }
-    }), {})
-}))
+          gridRowEnd: ~~((1 / obj.image?.aspectRatio) * 10),
+          aspectRatio: obj.image?.aspectRatio.toFixed(2),
+        },
+      }),
+      {},
+    ),
+  }));
 
 export default useImageGrid;

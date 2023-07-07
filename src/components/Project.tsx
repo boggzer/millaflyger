@@ -15,13 +15,16 @@ export default function Project({ data }) {
             <FlexGridImage
               key={`${index}_${data?.slug}`}
               flexBasis={`${(100 / images.length).toFixed(2)}%`}
-              source={image.url}
+              src={image.url}
               style={
                 {
                   '--color-placeholder':
                     image.metadata.palette.lightMuted.background,
+                  '--aspect-ratio':
+                    image.metadata.dimensions.aspectRatio.toFixed(2),
                 } as CSSProperties
               }
+              blurDataURL={image.metadata.lqip}
             />
           )),
         )}

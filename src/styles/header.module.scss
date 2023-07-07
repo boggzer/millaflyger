@@ -1,46 +1,42 @@
 @import './_helpers.scss';
 
-$main-title-height: 4.875rem;
+$main-title-height: 4.5rem;
 $fixed-col-width: 1.875rem;
 
 .container {
-  --header-height: #{$main-title-height};
-  --pad-bottom: var(--header-height);
-  --grid-columns: 1fr 2fr 1fr;
-  --page-margin: #{-$spacing-mobile};
-
   position: sticky;
   top: 0;
-  background: $grey;
   z-index: 1;
-  height: $main-title-height;
-  margin: var(--page-margin) var(--page-margin) 0;
-  display: grid;
-  grid-template-columns: var(--grid-columns);
-  align-items: center;
-  padding-bottom: var(--pad-bottom);
+
+  @include media('tablet-only') {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    height: $main-title-height;
+    background: var(--bg);
+  }
 
   @include media('tablet-and-up') {
-    --page-margin: #{-$spacing-desktop};
-    --grid-columns: 1fr 1fr;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
   }
 }
 
 .title-container {
-  display: flex;
+  transform: translate(var(--translate-x), var(--translate-y, 0));
+  transition: transform 250ms cubic-bezier(0.66, 0.29, 0.48, 0.78);
+  width: fit-content;
+  display: inline-flex;
   white-space: nowrap;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: inherit;
-  transform: translate(var(--translate-x, 0), var(--translate-y, 0));
-  transition: transform 250ms cubic-bezier(0.66, 0.29, 0.48, 0.78);
-}
+  margin: auto;
 
-@include media('mobile-only') {
-  .container {
-    --translate-x: #{$fixed-col-width * 1.5};
-    --translate-y: #{$main-title-height};
+  @include media('tablet-and-up') {
+    margin: $spacing-mobile 0 0 $spacing-mobile;
   }
 }
 
@@ -49,14 +45,42 @@ $fixed-col-width: 1.875rem;
   position: relative;
 }
 
+.is-index-page {
+  --translate-x: 10vw;
+  --translate-y: calc(50vh - 100%);
+  --size: unset;
+  position: absolute;
+  width: 100%;
+
+  @include media('tablet-only') {
+    --translate-x: -#{$fixed-col-width};
+  }
+
+  .title-container {
+    margin: 0;
+    mix-blend-mode: difference;
+
+    h5 {
+      text-shadow: -0.875rem 0.5rem 1rem #00ffda;
+      font-size: $h1-size-desktop;
+
+      @include media('tablet-only') {
+        font-size: $h1-size-mobile + 0.5rem;
+      }
+    }
+  }
+
+  .title {
+    @supports (mix-blend-mode: difference) {
+      color: #f2f2f2;
+    }
+  }
+}
+
 .title {
   margin: 0;
   width: fit-content;
   text-align: center;
-}
-
-.enlarge {
-  font-size: $h1-size-mobile;
 }
 
 .subtitle {
@@ -71,25 +95,32 @@ $fixed-col-width: 1.875rem;
     ease-in,
     'width 250ms ease-in, height 250ms ease-in'
   );
+
+  @supports (mix-blend-mode: difference) {
+    color: #969696;
+  }
 }
 
-@include media('mobile-only') {
-  .subtitle {
-    @include fade-visible(
-      150ms,
-      ease-in,
-      'width 250ms ease-in, height 250ms ease-in'
-    );
-    opacity: calc(var(--translate-x, 0) * 100);
-    height: var(--size, unset);
-    width: var(--size, unset);
-  }
+.subtitle {
+  @include fade-visible(
+    150ms,
+    ease-in,
+    'width 250ms ease-in, height 250ms ease-in'
+  );
+  opacity: calc(var(--translate-x, 0) * 100);
+  height: var(--size, unset);
+  width: var(--size, unset);
 }
 
 .menu-button {
   height: 100%;
-  width: $spacing-mobile * 2 + 1.5rem;
-  
+  width: $spacing-mobile * 2 + 1rem;
+
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
+
   @include media('tablet-and-up') {
     display: none;
   }

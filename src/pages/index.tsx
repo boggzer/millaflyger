@@ -1,16 +1,32 @@
-import React, { ComponentPropsWithoutRef } from 'react';
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
 import { GetStaticProps, GetStaticPropsResult } from 'next';
-import { PortableContent } from '@components';
+import {
+  PageTransition,
+  PageTransitionRef,
+  PortableContent,
+} from '@components';
 import { PageProps } from '@types';
 import { fetchIndexPage } from '@utils';
 
-export default function IndexPage({
-  data = { content: [] },
-}: PageProps<{
-  content?: ComponentPropsWithoutRef<typeof PortableContent>['value'];
-}>) {
+function IndexPage(
+  {
+    data = { content: [] },
+  }: PageProps<{
+    content?: ComponentPropsWithoutRef<typeof PortableContent>['value'];
+  }>,
+  ref: PageTransitionRef,
+) {
   return (
-    Array.isArray(data?.content) && <PortableContent value={data.content} />
+    Array.isArray(data?.content) && (
+      <PageTransition ref={ref}>
+        <style jsx global>{`
+          :root {
+            --overlay-bg: var(--cross-overlay);
+          }
+        `}</style>
+        <PortableContent value={data?.content} />
+      </PageTransition>
+    )
   );
 }
 
@@ -35,3 +51,5 @@ export const getStaticProps: GetStaticProps = async (): Promise<
     };
   }
 };
+
+export default forwardRef(IndexPage);

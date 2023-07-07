@@ -6,8 +6,7 @@ export const getProjects = `*[_type == 'project']{
     ...(asset->{
       'url': @.url,
       'lqip': @.metadata.lqip,
-      'aspectRatio': @.metadata.dimensions.aspectRatio,
-      'palette': @.metadata.palette
+      'aspectRatio': @.metadata.dimensions.aspectRatio
     })
   }
 }`;
@@ -21,7 +20,7 @@ export const getProjectBySlug = `*[_type == 'project' && slug.current == $slug][
 }`;
 
 export const getProjectSlugs = `*[_type == 'project' && defined(slug.current)][]{
-  "params": { "slug": slug.current }
+  'params': { 'slug': slug.current }
 }`;
 
 // Index page

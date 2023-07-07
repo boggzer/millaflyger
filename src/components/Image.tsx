@@ -1,80 +1,66 @@
-import React, {
-  ComponentProps,
-  PropsWithChildren,
-  HTMLProps,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+// Libs
+import React, { ComponentProps, PropsWithChildren } from 'react';
+import NextImage from 'next/image';
+import NextLink from 'next/link';
 
-import Link from 'next/link';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import styles from '../styles/image.module.scss';
-import { urlForImage } from '../lib/sanity';
+// Internal
+import styles from '@styles/image.module.scss';
 import { mergeClasses } from '@utils';
+import { imageBuilder } from '../lib/sanity';
+import { CSSProperties } from 'styled-components';
 
 interface Props
-  extends Omit<HTMLProps<HTMLImageElement>, 'src'>,
-    PropsWithChildren {
-  aspectRatio?: string;
+  extends PropsWithChildren,
+    Omit<ComponentProps<typeof NextImage>, 'alt'> {
+  aspectRatio?: string | number;
+  fullscreen?: boolean;
   height?: number;
   lazy?: boolean;
-  link?: ComponentProps<typeof Link>['href'];
-  lqip?: string;
-  source: SanityImageSource;
+  link?: ComponentProps<typeof NextLink>['href'];
+  src: any;
   width?: number;
+  alt?: string;
 }
 
 export default function Image({
-  aspectRatio,
   children,
   className,
+  fullscreen,
   height,
-  lazy = false,
-  lqip,
-  source,
-  style,
-  width,
+  src,
+  blurDataURL,
+  alt = '',
+  aspectRatio,
   ...rest
 }: Props) {
-  const [loaded, setLoaded] = useState(false);
-  const imgRef = useRef<HTMLImageElement>();
-  useEffect(() => {
-    if (imgRef.current?.complete && lazy) {
-      setLoaded(true);
-    }
-  }, []);
-
-  let url = urlForImage(source);
-
-  if (width) {
-    url = url.width(width);
-  }
-
-  if (height) {
-    url = url.height(height);
-  }
+  const loader = ({ width: srcWidth }) =>
+    imageBuilder
+      .image(src)
+      .width(srcWidth)
+      .height(Number(height || 256))
+      .auto('format')
+      .fit('clip')
+      .url() ?? '';
 
   return (
     <figure
       className={mergeClasses([
         styles.container,
-        lazy ? styles.lazy : null,
+        fullscreen ? styles.fullscreen : '',
         className,
       ])}
-      style={style}
+      style={
+        aspectRatio ? ({ '--aspect-ratio': aspectRatio } as CSSProperties) : {}
+      }
       {...rest}
     >
-      <img
-        className={mergeClasses([
-          styles.content,
-          lazy ? styles.lazy : null,
-          loaded ? styles.loaded : null,
-        ])}
-        src={url.url()}
-        ref={imgRef}
-        style={style}
-        //loading='lazy'
+      <NextImage
+        fill
+        loader={loader}
+        className={styles.content}
+        src={imageBuilder.image(src).url()?.toString() ?? ''}
+        alt={alt}
+        {...(blurDataURL && { placeholder: 'blur', blurDataURL })}
       />
       {children}
     </figure>

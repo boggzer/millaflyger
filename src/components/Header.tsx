@@ -1,51 +1,70 @@
-import { Button, Icon, IconType, Link, Menu } from '@components';
-import React, { useCallback, useState } from 'react';
-
+import React, { useMemo, useState } from 'react';
 import { CSSProperties } from 'styled-components';
-import { WithRouterProps } from 'next/dist/client/with-router';
-import { isCurrentPage, mergeClasses } from '@utils';
+import { NextRouter, withRouter } from 'next/router';
+import { Button, Icon, IconType, Link, Menu } from '@components';
+import { PAGE_PATHS, isCurrentPage, mergeClasses } from '@utils';
 import styles from '@styles/header.module.scss';
-import { withRouter } from 'next/router';
 
-interface Props
-  extends React.HTMLAttributes<HTMLHeadingElement>,
-    WithRouterProps {}
+interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
+  router?: NextRouter;
+}
 
 function Header({ router }: Props) {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-  const isIndexPage = isCurrentPage('/', router);
+  const isIndexPage = useMemo(
+    () => isCurrentPage('/', router),
+    [router?.pathname],
+  );
 
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
-  const getTitleContainerStyles = useCallback(() => {
+  const titleContainerAttrs = useMemo(() => {
+    const staticClasses = mergeClasses([
+      styles.container,
+      menuIsOpen ? styles['menu-open'] : '',
+    ]);
     if (!isIndexPage) {
       return {
-        '--translate-x': 0,
-        '--translate-y': 0,
-        '--pad-bottom': 0,
-        '--size': 0,
-      } as CSSProperties;
+        className: staticClasses,
+        style: {
+          '--translate-x': 0,
+          '--translate-y': 0,
+          '--size': 0,
+          '--bg': 'var(--main-bg)',
+        } as CSSProperties,
+      };
     }
+
+    return {
+      className: mergeClasses([staticClasses, styles['is-index-page']]),
+    };
   }, [isIndexPage]);
 
   return (
-    <header className={styles.container} style={getTitleContainerStyles()}>
+    <header
+      style={titleContainerAttrs?.style}
+      className={titleContainerAttrs.className}
+    >
+      <span className='visually-hidden'>
+        <Link href={isIndexPage ? PAGE_PATHS.PROJECTS : PAGE_PATHS.INDEX}>
+          <h5 className={mergeClasses([styles.title])}>milla flyger</h5>
+          <p className={styles.subtitle} style={titleContainerAttrs?.style}>
+            A photographer&apos;s portfolio
+          </p>
+        </Link>
+      </span>
       <Menu isOpen={menuIsOpen} toggle={toggleMenu} router={router} />
       <Button onClick={toggleMenu} className={styles['menu-button']}>
-        <Icon type={IconType.MENU} />
+        <Icon type={IconType.MENU} fill={isIndexPage ? 'white' : 'black'} />
       </Button>
-      <div className={styles['title-container']}>
-        <Link href='/'>
-          <h5
-            className={mergeClasses([
-              styles.title,
-              isIndexPage ? styles.enlarge : '',
-            ])}
-          >
-            milla flyger
-          </h5>
-          <p className={styles.subtitle} style={getTitleContainerStyles()}>
+      <div
+        className={mergeClasses([styles['title-container']])}
+        aria-hidden='true'
+      >
+        <Link href={isIndexPage ? PAGE_PATHS.PROJECTS : PAGE_PATHS.INDEX}>
+          <h5 className={mergeClasses([styles.title])}>milla flyger</h5>
+          <p className={styles.subtitle} style={titleContainerAttrs?.style}>
             A photographer&apos;s portfolio
           </p>
         </Link>

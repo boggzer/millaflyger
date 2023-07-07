@@ -1,10 +1,12 @@
 import React, { ComponentProps } from 'react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { Image } from '@components';
 import { mergeClasses } from '@utils';
 import styles from '@styles/projectImageLink.module.scss';
 
-interface Props extends ComponentProps<typeof Image> {}
+interface Props
+  extends ComponentProps<typeof Image>,
+    Pick<ComponentProps<typeof NextLink>, 'href'> {}
 
 export default function ProjectImageLink({
   href,
@@ -13,7 +15,7 @@ export default function ProjectImageLink({
   ...rest
 }: Props) {
   return (
-    <Link
+    <NextLink
       {...{
         href,
         className: mergeClasses([styles.container, rest?.className]),
@@ -25,6 +27,6 @@ export default function ProjectImageLink({
           <span className={styles.title}>{title}</span>
         </figcaption>
       </Image>
-    </Link>
+    </NextLink>
   );
 }

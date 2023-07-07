@@ -29,6 +29,8 @@ export default {
         },
         {
           type: 'image',
+          name: 'indexPageImage',
+          title: 'Image',
         },
       ],
     },
