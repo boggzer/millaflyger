@@ -1,8 +1,7 @@
-import React, { CSSProperties } from 'react';
-
+import React, { type CSSProperties, type PropsWithChildren } from 'react';
 import styles from '@styles/grid.module.scss';
 
-interface Props extends React.PropsWithChildren {
+interface Props extends PropsWithChildren {
   columns?: number;
   width?: string;
   desktopColumns?: number;

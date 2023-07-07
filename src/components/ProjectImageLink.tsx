@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react';
+import React, { type ComponentProps } from 'react';
 import NextLink from 'next/link';
 import { Image } from '@components';
 import { mergeClasses } from '@utils';

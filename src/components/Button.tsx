@@ -1,4 +1,8 @@
-import React, { AriaAttributes, HTMLProps, PropsWithChildren } from 'react';
+import React, {
+  type AriaAttributes,
+  type HTMLProps,
+  type PropsWithChildren,
+} from 'react';
 
 import styles from '@styles/button.module.scss';
 import { mergeClasses } from '@utils';

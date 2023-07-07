@@ -1,13 +1,12 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { type PropsWithChildren, useMemo } from 'react';
 import { LiveQueryProvider } from '@sanity/preview-kit';
 import { getClient } from '../lib/getClient';
 
-export default function PreviewProvider({
-  children,
-  previewToken,
-}: PropsWithChildren<{
+interface Props extends PropsWithChildren {
   previewToken: string;
-}>) {
+}
+
+export default function PreviewProvider({ children, previewToken }: Props) {
   const client = useMemo(() => getClient(previewToken), [previewToken]);
   return <LiveQueryProvider client={client}>{children}</LiveQueryProvider>;
 }

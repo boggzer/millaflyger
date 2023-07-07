@@ -1,7 +1,7 @@
 import React, { forwardRef, useMemo } from 'react';
 import styles from '@styles/layout.module.scss';
-import { NextComponentType } from 'next';
-import { NextRouter, withRouter } from 'next/router';
+import type { NextComponentType } from 'next';
+import { type NextRouter, withRouter } from 'next/router';
 import ExitPreviewButton from './ExitPreviewButton';
 import Header from './Header';
 import { PAGE_PATHS, isCurrentPage } from '@utils';

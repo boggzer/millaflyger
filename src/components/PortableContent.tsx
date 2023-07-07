@@ -1,4 +1,4 @@
-import React, { ComponentProps, HTMLProps } from 'react';
+import React, { type ComponentProps, type HTMLProps } from 'react';
 import Image from './Image';
 import { PortableText } from '@portabletext/react';
 

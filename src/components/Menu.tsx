@@ -1,5 +1,5 @@
-import React, { AriaAttributes, useCallback, useEffect } from 'react';
-import { NextRouter } from 'next/router';
+import React, { type AriaAttributes, useCallback, useEffect } from 'react';
+import type { NextRouter } from 'next/router';
 import { Button, Icon, IconType, Link } from '@components';
 import { COMPONENT_ID, PAGE_PATHS, isCurrentPage } from '@utils';
 import styles from '@styles/menu.module.scss';

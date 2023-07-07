@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import { Chivo, Zen_Antique } from 'next/font/google';
 import { AnimatePresence } from 'framer-motion';
 import { Layout, PageContentWrapper } from '@components';

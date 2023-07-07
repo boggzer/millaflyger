@@ -1,8 +1,7 @@
 import React, {
-  ComponentProps,
-  ForwardedRef,
-  PropsWithChildren,
-  Ref,
+  type ComponentProps,
+  type ForwardedRef,
+  type Ref,
   forwardRef,
 } from 'react';
 import { motion } from 'framer-motion';

@@ -6,13 +6,13 @@ export enum IconType {
   CLOSE_CROSS,
 }
 
-interface Props extends Omit<React.SVGProps<SVGSVGElement>, 'type'> {
+interface Props extends Omit<SVGProps<SVGSVGElement>, 'type'> {
   type: IconType;
 }
 
 const icons: Record<
   IconType,
-  (props: Omit<React.SVGProps<SVGSVGElement>, 'type'>) => JSX.Element
+  (props: Omit<SVGProps<SVGSVGElement>, 'type'>) => JSX.Element
 > = {
   [IconType.CLOSE]: (props) => (
     <svg
@@ -52,5 +52,7 @@ export default function Icon({
 }: Props) {
   const IconElement = icons[type];
 
-  return <IconElement {...{ height, width, viewBox, ...rest }} />;
+  return (
+    <IconElement height={height} width={width} viewBox={viewBox} {...rest} />
+  );
 }

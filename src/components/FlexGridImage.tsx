@@ -1,4 +1,4 @@
-import React, { ComponentProps, CSSProperties } from 'react';
+import React, { type ComponentProps, type CSSProperties } from 'react';
 import { Image } from '@components';
 import styles from '@styles/flexGridImage.module.scss';
 

@@ -1,13 +1,13 @@
 // Libs
-import React, { ComponentProps, PropsWithChildren } from 'react';
+import React, { type ComponentProps, type PropsWithChildren } from 'react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
+import type { CSSProperties } from 'styled-components';
 
 // Internal
-import styles from '@styles/image.module.scss';
 import { mergeClasses } from '@utils';
 import { imageBuilder } from '../lib/sanity';
-import { CSSProperties } from 'styled-components';
+import styles from '@styles/image.module.scss';
 
 interface Props
   extends PropsWithChildren,

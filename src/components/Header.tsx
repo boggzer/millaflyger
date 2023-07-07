@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { CSSProperties } from 'styled-components';
-import { NextRouter, withRouter } from 'next/router';
+import type { CSSProperties } from 'styled-components';
+import { type NextRouter, withRouter } from 'next/router';
 import { Button, Icon, IconType, Link, Menu } from '@components';
 import { PAGE_PATHS, isCurrentPage, mergeClasses } from '@utils';
 import styles from '@styles/header.module.scss';

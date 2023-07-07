@@ -1,11 +1,11 @@
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
-import { GetStaticProps, GetStaticPropsResult } from 'next';
+import React, { type ComponentPropsWithoutRef, forwardRef } from 'react';
+import type { GetStaticProps, GetStaticPropsResult } from 'next';
 import {
   PageTransition,
-  PageTransitionRef,
+  type PageTransitionRef,
   PortableContent,
 } from '@components';
-import { PageProps } from '@types';
+import type { PageProps } from '@types';
 import { fetchIndexPage } from '@utils';
 
 function IndexPage(
